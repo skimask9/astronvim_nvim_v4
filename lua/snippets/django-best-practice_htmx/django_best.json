@@ -1,0 +1,137 @@
+{
+  "functionBasedView_create": {
+    "prefix": "!basic_fbv_to_create",
+    "description": "basic fbv to create",
+    "body": [
+      "from django.template.response import TemplateResponse",
+      "from .forms import MyModelForm",
+      "def create_${function}(request):",
+      "    template = '${function}.html'",
+      "    context = {}",
+      "",
+      "    form = MyModelForm(request.POST or None)",
+      "    if request.method == 'POST':",
+      "        if form.is_valid():",
+      "            form.save()",
+      "",
+      "            return HttpResponseRedirect('/thanks')",
+      "",
+      "    context['form'] = form",
+      "    return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_list": {
+    "prefix": "!basic_fbv_list",
+    "description": "basic fbv list",
+    "body": [
+      "from django.template.response import TemplateResponse",
+      "from .models import MyModel",
+      "def list_${function}(request):",
+      "template = '${function}.html'",
+      "context = {}",
+      "context['dataset'] = MyModel.objects.all()",
+      "return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_detail": {
+    "prefix": "!basic_fbv_detail",
+    "description": "basic fbv detail",
+    "body": [
+      "from django.template.response import TemplateResponse",
+      "def detail_${function}(request, id):",
+      "    template = '${function}.html'",
+      "    context = {}",
+      "",
+      "    context['data'] = MyModel.objects.get(id=id)",
+      "",
+      "    return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_update": {
+    "prefix": "!basic_fbv_to_update",
+    "description": "Basic function-based view  to update",
+    "body": [
+      "from django.shortcuts import get_object_or_404, HttpResponseRedirect",
+      "from django.template.response import TemplateResponse",
+      "from .forms import MyModelForm",
+      "def ${function}_view(request, id):",
+      "    template = '${function}_view.html'",
+      "    context = {}",
+      "",
+      "    obj = get_object_or_404(MyModel, id=id)",
+      "    form = MyModelForm(request.POST or None, instance=obj)",
+      "",
+      "    if form.is_valid():",
+      "        form.save()",
+      "        return HttpResponseRedirect('/' + str(id))",
+      "",
+      "    context['form'] = form",
+      "",
+      "    return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_delete": {
+    "prefix": "!basic_fbv_to_delete",
+    "description": "Basic function-based view to delete",
+    "body": [
+      "from django.shortcuts import get_object_or_404, HttpResponseRedirect",
+      "from django.template.response import TemplateResponse",
+      "def ${function}_view(request, id):",
+      "    template = '${function}_view.html'",
+      "    context = {}",
+      "",
+      "    obj = get_object_or_404(MyModel, id=id)",
+      "",
+      "    if request.method == 'POST':",
+      "        obj.delete()",
+      "        return HttpResponseRedirect('/')",
+      "",
+      "    return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_htmx_example": {
+    "prefix": "!basic_fbv_htmx_example",
+    "description": "Basic function-based view for HTMX example",
+    "body": [
+      "from django.template.response import TemplateResponse",
+      "def ${function}_view(request, arg):",
+      "    template = 'partials/${function}.html'",
+      "    context = {}",
+      "",
+      "    context['key'] = 'value'",
+      "",
+      "    return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_htmx_example2": {
+    "prefix": "!basic_fbv_htmx_example2",
+    "description": "Function-based view with conditional template based on django-htmx",
+    "body": [
+      "from django.template.response import TemplateResponse",
+      "def ${function}_view(request, arg):",
+      "    \"\"\"if using django-htmx\"\"\"",
+      "    if request.htmx:",
+      "        template = 'partial/${function}.html'",
+      "    else:",
+      "        template = 'partial/${function}.html'",
+      "",
+      "    context = {}",
+      "    context[\"key\"] = \"value\"",
+      "",
+      "    return TemplateResponse(request, template, context)"
+    ]
+  },
+  "functionBasedView_paginated_list": {
+    "prefix": "!basic_fbv_paginated_list",
+    "description": "Basic function-based view for paginated list",
+    "body": [
+      "from django.core.paginator import Paginator",
+      "def paginated_list_view(request):",
+      "    contact_list = Contact.objects.all()",
+      "    paginator = Paginator(contact_list, 25)  # Show 25 contacts per page.",
+      "    page_number = request.GET.get('page')",
+      "    page_obj = paginator.get_page(page_number)",
+      "    return render(request, 'list.html', {'page_obj': page_obj})"
+    ]
+  }
+}

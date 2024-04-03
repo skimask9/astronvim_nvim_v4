@@ -1,0 +1,205 @@
+{
+  "name": "user-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cstrap/python-snippets.git"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "django-html",
+        "aliases": [
+          "Django Template"
+        ],
+        "extensions": [
+          ".html",
+          ".htm"
+        ],
+        "configuration": "./django-html.configuration.json"
+      },
+      {
+        "id": "html",
+        "extensions": [
+          ".html",
+          ".htm"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "html",
+        "scopeName": "text.html.django",
+        "path": "./django-html.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "python",
+        "path": "./viewsdrf/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./fastapi.json"
+      },
+      {
+        "language": "python",
+        "path": "./django-best-practice_htmx/django_best.json"
+      },
+      {
+        "language": "python",
+        "path": "./viewsdrf/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./serializers/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./serializers/fields.json"
+      },
+      {
+        "language": "python",
+        "path": "./serializers/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./viewsets/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./viewsets/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./viewsdrf/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./admin/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./django.json"
+      },
+      {
+        "language": "python",
+        "path": "./admin/options.json"
+      },
+      {
+        "language": "python",
+        "path": "./admin/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./admin/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./forms/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./forms/fields.json"
+      },
+      {
+        "language": "python",
+        "path": "./forms/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./forms/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./models/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./models/fields.json"
+      },
+      {
+        "language": "python",
+        "path": "./models/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./models/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/python.json"
+      },
+      {
+        "language": "python",
+        "path": "./views/classes.json"
+      },
+      {
+        "language": "python",
+        "path": "./views/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./views/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./templates/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./templates/imports.json"
+      },
+      {
+        "language": "html",
+        "path": "./templates/html.json"
+      },
+      {
+        "language": "django-html",
+        "path": "./templates/html.json"
+      },
+      {
+        "language": "python",
+        "path": "./urls/imports.json"
+      },
+      {
+        "language": "python",
+        "path": "./urls/methods.json"
+      },
+      {
+        "language": "python",
+        "path": "./urls/regexes.json"
+      },
+      {
+        "language": "python",
+        "path": "./base.json"
+      },
+      {
+        "language": "python",
+        "path": "./unittest.json"
+      },
+      {
+        "language": "python",
+        "path": "./comprehension.json"
+      },
+      {
+        "language": "python",
+        "path": "./debug.json"
+      },
+      {
+        "language": "python",
+        "path": "./tkinter.json"
+      },
+      {
+        "language": "html",
+        "path": "./html.json"
+      }
+    ]
+  }
+}

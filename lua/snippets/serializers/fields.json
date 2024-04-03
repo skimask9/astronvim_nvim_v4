@@ -1,0 +1,182 @@
+{
+    "sbool": {
+        "prefix": "sbool",
+        "body": "${1:FIELDNAME} = serializers.BooleanField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "snullbool": {
+        "prefix": "snullbool",
+        "body": "${1:FIELDNAME} = serializers.NullBooleanField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "schar": {
+        "prefix": "schar",
+        "body": "${1:FIELDNAME} = serializers.CharField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "semail": {
+        "prefix": "semail",
+        "body": "${1:FIELDNAME} = serializers.EmailField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sregex": {
+        "prefix": "sregex",
+        "body": "${1:FIELDNAME} = serializers.RegexField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sslug": {
+        "prefix": "sslug",
+        "body": "${1:FIELDNAME} = serializers.SlugField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "surl": {
+        "prefix": "surl",
+        "body": "${1:FIELDNAME} = serializers.URLField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "suuid": {
+        "prefix": "suuid",
+        "body": "${1:FIELDNAME} = serializers.UUIDField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sfilepath": {
+        "prefix": "sfilepath",
+        "body": "${1:FIELDNAME} = serializers.FilePathField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sip": {
+        "prefix": "sip",
+        "body": "${1:FIELDNAME} = serializers.IPAddressField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sint": {
+        "prefix": "sint",
+        "body": "${1:FIELDNAME} = serializers.IntegerField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sfloat": {
+        "prefix": "sfloat",
+        "body": "${1:FIELDNAME} = serializers.FloatField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sdecimal": {
+        "prefix": "sdecimal",
+        "body": "${1:FIELDNAME} = serializers.DecimalField(max_digits=$2, decimal_places=$3)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sdatetime": {
+        "prefix": "sdatetime",
+        "body": "${1:FIELDNAME} = serializers.DateTimeField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sdate": {
+        "prefix": "sdate",
+        "body": "${1:FIELDNAME} = serializers.DateField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "stime": {
+        "prefix": "stime",
+        "body": "${1:FIELDNAME} = serializers.TimeField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sduration": {
+        "prefix": "sduration",
+        "body": "${1:FIELDNAME} = serializers.DurationField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "schoice": {
+        "prefix": "schoice",
+        "body": "${1:FIELDNAME} = serializers.ChoiceField(choices=$2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "smultiplechoices": {
+        "prefix": "smultiplechoices",
+        "body": "${1:FIELDNAME} = serializers.MultipleChoiceField(choices=$2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sfile": {
+        "prefix": "sfile",
+        "body": "${1:FIELDNAME} = serializers.FileField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "simage": {
+        "prefix": "simage",
+        "body": "${1:FIELDNAME} = serializers.ImageField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "slist": {
+        "prefix": "slist",
+        "body": "${1:FIELDNAME} = serializers.ListField(child=serializers.$2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sdict": {
+        "prefix": "sdict",
+        "body": "${1:FIELDNAME} = serializers.DictField(child=serializers.$2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "shstore": {
+        "prefix": "shstore",
+        "body": "${1:FIELDNAME} = serializers.HStoreField(child=serializers.CharField($2))",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sjson": {
+        "prefix": "sjson",
+        "body": "${1:FIELDNAME} = serializers.JSONField($2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "sreadonly": {
+        "prefix": "sreadonly",
+        "body": "${1:FIELDNAME} = serializers.ReadOnlyField()",
+        "description": "",
+        "scope": "source.python"
+    },
+    "shidden": {
+        "prefix": "shidden",
+        "body": "${1:FIELDNAME} = serializers.HiddenField()",
+        "description": "",
+        "scope": "source.python"
+    },
+    "smodelfield": {
+        "prefix": "smodelfield",
+        "body": "${1:FIELDNAME} = serializers.ModelField(model_field=$2)",
+        "description": "",
+        "scope": "source.python"
+    },
+    "smethodfield": {
+        "prefix": "smethodfield",
+        "body": "${1:FIELDNAME} = serializers.SerializerMethodField()\r\n\ndef get_${1:FIELDNAME}(self, obj):\r\n    ",
+        "description": "",
+        "scope": "source.python"
+    },
+    "scustomfield": {
+        "prefix": "scustomfield",
+        "body": "class ${1:CLASSNAME}Field(serializers.Field):\r\n    def to_representation(self, value):\r\n        return $2\r\n\n    def to_internal_value(self, data):\r\n        return $3",
+        "description": "",
+        "scope": "source.python"
+    }
+}
