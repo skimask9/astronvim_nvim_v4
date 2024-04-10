@@ -7,6 +7,7 @@ local actived_venv = function()
     return " "
   end
 end
+
 -- local harpoonline = require "harpoonline"
 -- harpoonline.setup {
 --
@@ -36,8 +37,9 @@ return {
           -- left = { "", "" }, -- separator for the left side of the statusline
           left = { "", " " }, -- separator for the left side of the statusline
           right = { " ", "" }, -- separator for the right side of the statusline
-          tab = { "", "" },
-          -- tab = { "", "" },
+          left_for_scroll = { "", "" },
+          -- tab = { "", "" },
+          tab = { "", "" },
           breadcrumbs = "  ",
           path = "  ",
         },
@@ -49,10 +51,10 @@ return {
           hl.git_branch_fg = comment_fg
           -- hl.git_branch_bg = get_hlgroup("Visual").bg
           -- TO HIDE BACKGROUND OF GIT
-          -- hl.git_branch_bg = get_hlgroup("Normal").bg
+          hl.git_branch_bg = get_hlgroup("Normal").bg
           hl.lsp_fg = comment_fg
           -- TO HIDE BG OF LSP
-          -- hl.lsp_bg = get_hlgroup("Normal").bg
+          hl.lsp_bg = get_hlgroup("Normal").bg
           hl.git_added = get_hlgroup("String").fg
           -- hl.git_changed = get_hlgroup("E").fg
           hl.git_removed = get_hlgroup("Error").fg
@@ -63,7 +65,11 @@ return {
           hl.nav_icon_bg = get_hlgroup("String").fg
           hl.nav_fg = hl.nav_icon_bg
           hl.folder_icon_bg = get_hlgroup("Error").fg
-          -- hl.diagnostics_bg = get_hlgroup("Normal").bg
+          hl.diagnostics_bg = get_hlgroup("Normal").bg
+          hl.diag_ERROR = get_hlgroup("DiagnosticError").fg
+          hl.diag_WARN = get_hlgroup("DiagnosticWarn").fg
+          hl.diag_INFO = get_hlgroup("DiagnosticInfo").fg
+          hl.diag_HINT = get_hlgroup("DiagnosticHint").fg
 
           -- hl.diagnostics_bg = get_hlgroup("String").bg
           return hl
@@ -93,14 +99,18 @@ return {
         {
           provider = function()
             if Harpoonline.is_buffer_harpooned() then
-              return " " .. Harpoonline.format() .. " "
+              return "  " .. Harpoonline.format() .. " "
             else
               return " "
             end
           end,
           hl = function()
             -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
-            if Harpoonline.is_buffer_harpooned() then return { fg = "git_added" } end
+            if Harpoonline.is_buffer_harpooned() then
+              return {
+                fg = "git_changed",--[[  bg = "git_branch_bg"  ]]
+              }
+            end
           end,
         },
       }
@@ -118,72 +128,12 @@ return {
           },
         },
       }
-      --   condition = function()
-      --     local session = require("dap").session()
-      --     return session ~= nil
-      --   end,
-      --   provider = function() return "  " .. require("dap").status() end,
-      --   hl = "Debug",
-      -- }
-      -- status.component.venv = {
-      --   condition = function() return vim.bo.filetype == "python" end,
-      --   { provider = function() return " 🐍" .. actived_venv() end },
-      --   on_click = {
-      --     callback = function() vim.cmd.VenvSelect() end,
-      --     name = "heirline_statusline_venv_selector",
-      --   },
-      --   hl = {
-      --     fg = "git_branch_fg",
-      --     -- bg = "bg",
-      --   },
-      -- }
-
-      -- opts.tabline = { -- tabline
-      --   -- status.component.harpoon_index,
-      --   { -- file tree padding
-      --     condition = function(self)
-      --       self.winid = vim.api.nvim_tabpage_list_wins(0)[1]
-      --       return status.condition.buffer_matches(
-      --         { filetype = { "aerial", "dapui_.", "neo%-tree", "NvimTree" } },
-      --         vim.api.nvim_win_get_buf(self.winid)
-      --       )
-      --     end,
-      --     provider = function(self) return string.rep(" ", vim.api.nvim_win_get_width(self.winid) + 1) end,
-      --     hl = { bg = "tabline_bg" },
-      --   },
-      --   status.heirline.make_buflist(status.component.tabline_file_info()), -- component for each buffer tab
-      --   status.component.fill { hl = { bg = "tabline_bg" } }, -- fill the rest of the tabline with background color
-      --
-      --   { -- tab list
-      --     condition = function() return #vim.api.nvim_list_tabpages() >= 2 end, -- only show tabs if there are more than one
-      --     status.heirline.make_tablist { -- component for each tab
-      --       provider = status.provider.tabnr(),
-      --       hl = function(self) return status.hl.get_attributes(status.heirline.tab_type(self, "tab"), true) end,
-      --     },
-      --     { -- close button for current tab
-      --       provider = status.provider.close_button { kind = "TabClose", padding = { left = 1, right = 1 } },
-      --       hl = status.hl.get_attributes("tab_close", true),
-      --       on_click = {
-      --         callback = function() require("astronvim.utils.buffer").close_tab() end,
-      --         name = "heirline_tabline_close_tab_callback",
-      --       },
-      --     },
-      --   },
-      -- }
-      --
-      -- opts.statusline[1][3] = status.component.file_info {
-      --   filename = { modify = ":~:." }, -- relative path
-      -- }
-      --
-      -- opts.statusline[3][1] = nil -- disable file type section
 
       -- opts.winbar = nil
-      -- -- opts.winbar = {
-      -- --   status.component.harpoon_index,
-      -- -- }
-      -- opts.statusline[3] = status.component.file_info { filetype = false, filename = { modify = ":." } }
-      -- opts.tabline = nil -- disable tabline
-      -- opts.winbar = status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } }
+
+      -- }
+      -- opts.winboar = status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } }
+
       opts.winbar = {
         -- status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } },
         -- status.component.file_info { -- add file_info to breadcrumbs
@@ -200,24 +150,29 @@ return {
           prefix = true,
           padding = { left = 0 },
         },
+        -- status.component.virtual_env(),
         HarpoonComponent,
         VenvComponent,
       }
       opts.statusline = {
         -- default highlight for the entire statusline
-        hl = { fg = "fg", bg = "bg" },
+        hl = {
+          fg = "fg",--[[  bg = "bg"  ]]
+        },
         -- each element following is a component in astroui.status module
 
         -- add the vim mode component
+
         status.component.mode {
           -- enable mode text with padding as well as an icon before it
           mode_text = {
-            icon = { kind = "VimIcon", padding = { right = 1, left = 1 } },
+            icon = { kind = "VimIcon", padding = { right = 1, left = 0 } },
+            -- padding = { right = 0, left = 0 },
           },
           -- surround the component with a separators
           surround = {
             -- it's a left element, so use the left separator
-            separator = "left",
+            separator = "tab",
             -- set the color of the surrounding based on the current mode using astronvim.utils.status module
             color = function() return { main = status.hl.mode_bg(), right = "file_info_bg" } end,
           },
@@ -239,7 +194,7 @@ return {
           filename = {--[[  fallback = "Empty"  ]]
             modify = ":.",
           },
-          file_icon = { padding = { left = 0 } },
+          file_icon = { padding = { left = 1 } },
           -- disable some of the info
           filetype = false,
           file_read_only = false,
@@ -252,9 +207,6 @@ return {
         status.component.git_branch { surround = { separator = "none", color = "git_branch_bg" } },
         -- add a component for the current git diff if it exists and use no separator for the sections
         status.component.git_diff { padding = { left = 0 }, surround = { separator = "none", color = "git_branch_bg" } },
-        -- status.component.harpoon_index,
-        -- status.component.harpoonline,
-        -- status.component.venv,
         -- status.component.breadcrumbs {
         --   icon = { hl = true },
         --   prefix = false,
@@ -292,7 +244,7 @@ return {
             hl = { fg = "bg" },
             -- use the right separator and define the background color
             surround = {
-              separator = "right",
+              separator = "tab",
               color = function()
                 return {
                   main = status.hl.mode_bg(),
@@ -307,7 +259,7 @@ return {
             -- function to get the current working directory name
             filename = {
               fname = function(nr) return vim.fn.getcwd(nr) end,
-              padding = { left = 1 },
+              padding = { left = 1, right = 1 },
             },
             -- disable all other elements of the file_info component
             filetype = false,
@@ -317,7 +269,7 @@ return {
             -- use no separator for this part but define a background color
             surround = {
               separator = "none",
-              color = "file_info_bg",
+              -- color = "file_info_bg",
               condition = false,
             },
           },
@@ -335,19 +287,19 @@ return {
             -- use the right separator and define the background color
             -- as well as the color to the left of the separator
             surround = {
-              separator = "right",
-              color = function() return { main = status.hl.mode_bg(), left = "file_info_bg" } end,
+              separator = "tab",
+              color = function() return { main = status.hl.mode_bg(), right = "file_info_bg", left = "file_info_bg" } end,
             },
           },
           -- add a navigation component and just display the percentage of progress in the file
           status.component.nav {
             -- add some padding for the percentage provider
-            percentage = { padding = { right = 1 } },
+            percentage = { padding = { right = 0, left = 0 } },
             -- disable all other providers
             ruler = false,
             scrollbar = false,
             -- use no separator and define the background color
-            surround = { separator = "none", color = "file_info_bg" },
+            surround = { separator = "tab", color = { left = "file_info_bg", main = "file_info_bg" } },
           },
         },
       }

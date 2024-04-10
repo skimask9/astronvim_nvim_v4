@@ -24,6 +24,21 @@ return {
       virtual_text = true,
       underline = true,
     },
+    autocmds = {
+      disable_auto_comment = {
+        {
+          event = "FileType",
+          pattern = "*",
+          callback = function()
+            vim.opt.formatoptions:remove "c"
+            vim.opt.formatoptions:remove "r"
+            vim.opt.formatoptions:remove "o"
+          end,
+          desc = "Disable auto-commenting on new line",
+        },
+      },
+    },
+
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
@@ -73,16 +88,6 @@ return {
         },
 
         -- second key is the lefthand side of the map
-
-        -- navigate buffer tabs with `H` and `L`
-        -- L = {
-        --   function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
-        --   desc = "Next buffer",
-        -- },
-        -- H = {
-        --   function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
-        --   desc = "Previous buffer",
-        -- },
 
         -- mappings seen under group name "Buffer"
         ["<Leader>bD"] = {

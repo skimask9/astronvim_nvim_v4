@@ -68,19 +68,27 @@ return {
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
-            -- disableLanguageServices = false,
+            disableLanguageServices = false,
             analysis = {
               -- ignore = { "*" },
-              -- autoImportCompletions = true,
-              -- autoSearchPaths = true,
-              -- diagnosticMode = "openFilesOnly",
-              -- useLibraryCodeForTypes = true,
+              autoImportCompletions = true,
+              autoSearchPaths = true,
+              diagnosticMode = "openFilesOnly",
+              useLibraryCodeForTypes = true,
               typeCheckingMode = "standard",
             },
           },
         },
       },
-      pyright = {},
+      -- jinja_lsp = {
+      --   filetypes = { "html", "htmldjango", "djlint", "jinja" },
+      --   init_options = {
+      --     templates = "./templates",
+      --     backend = { "./src" },
+      --     lang = "rust",
+      --   },
+      -- },
+      pyright = { enabled = false },
       -- pyright = {
       --   -- Using Ruff's import organizer
       --   -- enabled = false,

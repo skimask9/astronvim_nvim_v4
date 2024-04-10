@@ -9,14 +9,18 @@ return {
   -- == Examples of Adding Plugins ==
 
   "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   opts = { handler_opts = {
-  --     border = "rounded",
-  --   } },
-  --   config = function(_, opts) require("lsp_signature").setup(opts) end,
-  -- },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function(client, bufnr)
+      require("lsp_signature").on_attach({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+          border = "rounded",
+        },
+      }, bufnr)
+    end,
+  },
 
   -- == Examples of Overriding Plugins ==
 

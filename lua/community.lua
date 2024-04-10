@@ -13,7 +13,7 @@ return {
   -- { import = "astrocommunity.colorscheme.neosolarized-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   -- { import = "astrocommunity.colorscheme.everforest" },
-  -- { import = "astrocommunity.colorscheme.nordic-nvim" },
+  { import = "astrocommunity.colorscheme.nordic-nvim" },
   { import = "astrocommunity.colorscheme.kanagawa-nvim", enabled = true },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
@@ -21,10 +21,12 @@ return {
   -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
   -- NOTE: nvim 0.10+
   { import = "astrocommunity.pack.tailwindcss" },
-  -- { import = "astrocommunity.pack.python-ruff" },
+  { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.json" },
+  { import = "astrocommunity.pack.sql" },
+  { import = "astrocommunity.pack.full-dadbod" },
   { import = "astrocommunity.pack.go" },
   -- { import = "astrocommunity.pack.templ" },
   { import = "astrocommunity.pack.markdown" },
@@ -43,6 +45,10 @@ return {
   { import = "astrocommunity.indent.indent-blankline-nvim" },
   { import = "astrocommunity.indent.mini-indentscope" },
   { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
+  { import = "astrocommunity.recipes.neo-tree-dark" },
+  { import = "astrocommunity.lsp.actions-preview-nvim" },
+  -- { import = "astrocommunity.recipes.telescope-nvchad-theme" },
+  { import = "astrocommunity.recipes.vscode-icons" },
 
   -- import/override with your plugins folder
 }
