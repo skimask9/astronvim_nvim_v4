@@ -52,6 +52,9 @@ return {
       htmx = {
         filetypes = { "html", "templ", "htmldjango", "djlint" },
       },
+      cssls = {
+        filetypes = { "htmldjango" },
+      },
       gopls = {
         templateExtensions = { "templ", "tmpl" },
         -- hints = {

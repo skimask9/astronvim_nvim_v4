@@ -23,7 +23,7 @@ return {
         VimIcon = "",
         ScrollText = "",
         -- GitBranch = "",
-        GitBranch = "",
+        GitBranch = " ",
         GitAdd = "",
         GitChange = "",
         GitDelete = "",
@@ -37,9 +37,10 @@ return {
           -- left = { "", "" }, -- separator for the left side of the statusline
           left = { "", " " }, -- separator for the left side of the statusline
           right = { " ", "" }, -- separator for the right side of the statusline
-          left_for_scroll = { "", "" },
-          -- tab = { "", "" },
-          tab = { "", "" },
+          -- left_for_scroll = { "", "" },
+          tab = { "", "" },
+          -- tab = { "", "" },
+          tabs = { "", "" },
           breadcrumbs = "  ",
           path = "  ",
         },
@@ -66,10 +67,6 @@ return {
           hl.nav_fg = hl.nav_icon_bg
           hl.folder_icon_bg = get_hlgroup("Error").fg
           hl.diagnostics_bg = get_hlgroup("Normal").bg
-          hl.diag_ERROR = get_hlgroup("DiagnosticError").fg
-          hl.diag_WARN = get_hlgroup("DiagnosticWarn").fg
-          hl.diag_INFO = get_hlgroup("DiagnosticInfo").fg
-          hl.diag_HINT = get_hlgroup("DiagnosticHint").fg
 
           -- hl.diagnostics_bg = get_hlgroup("String").bg
           return hl
@@ -108,7 +105,8 @@ return {
             -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
             if Harpoonline.is_buffer_harpooned() then
               return {
-                fg = "git_changed",--[[  bg = "git_branch_bg"  ]]
+                fg = "git_added",
+                -- bg = "tabline_bg",
               }
             end
           end,
@@ -135,7 +133,27 @@ return {
       -- opts.winboar = status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } }
 
       opts.winbar = {
+        -- hl = {
+        --   bg = "tabline_bg",
+        -- },
         -- status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } },
+        -- status.component.file_info {
+        --   hl = { fg = "file_info_fg" },
+        --   filename = {
+        --     modify = ":.:",
+        --   },
+        --   filetype = false,
+        --   update = "BufEnter",
+        --   file_icon = { padding = { left = 1 } },
+        --   padding = { right = 1 },
+        --   -- file_modified = true,
+        --   -- file_read_only = true,
+        --   surround = {
+        --     separator = "tabs",
+        --     color = "file_info_bg",
+        --   },
+        -- },
+
         -- status.component.file_info { -- add file_info to breadcrumbs
         --   file_icon = { hl = status.hl.filetype_color, padding = { left = 0 } },
         --   file_modified = false,
@@ -146,7 +164,7 @@ return {
         -- },
         status.component.breadcrumbs {
           icon = { hl = true },
-          hl = status.hl.get_attributes("winbar", true),
+          -- hl = status.hl.get_attributes("winbar", true),
           prefix = true,
           padding = { left = 0 },
         },
@@ -172,7 +190,7 @@ return {
           -- surround the component with a separators
           surround = {
             -- it's a left element, so use the left separator
-            separator = "tab",
+            separator = "tabs",
             -- set the color of the surrounding based on the current mode using astronvim.utils.status module
             color = function() return { main = status.hl.mode_bg(), right = "file_info_bg" } end,
           },
@@ -244,7 +262,7 @@ return {
             hl = { fg = "bg" },
             -- use the right separator and define the background color
             surround = {
-              separator = "tab",
+              separator = "tabs",
               color = function()
                 return {
                   main = status.hl.mode_bg(),
@@ -287,7 +305,7 @@ return {
             -- use the right separator and define the background color
             -- as well as the color to the left of the separator
             surround = {
-              separator = "tab",
+              separator = "tabs",
               color = function() return { main = status.hl.mode_bg(), right = "file_info_bg", left = "file_info_bg" } end,
             },
           },
@@ -299,7 +317,7 @@ return {
             ruler = false,
             scrollbar = false,
             -- use no separator and define the background color
-            surround = { separator = "tab", color = { left = "file_info_bg", main = "file_info_bg" } },
+            surround = { separator = "tabs", color = { left = "file_info_bg", main = "file_info_bg" } },
           },
         },
       }

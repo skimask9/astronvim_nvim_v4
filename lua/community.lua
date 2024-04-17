@@ -45,9 +45,9 @@ return {
   { import = "astrocommunity.indent.indent-blankline-nvim" },
   { import = "astrocommunity.indent.mini-indentscope" },
   { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
-  { import = "astrocommunity.recipes.neo-tree-dark" },
+  -- { import = "astrocommunity.recipes.neo-tree-dark" },
   { import = "astrocommunity.lsp.actions-preview-nvim" },
-  -- { import = "astrocommunity.recipes.telescope-nvchad-theme" },
+  { import = "astrocommunity.recipes.telescope-nvchad-theme" },
   { import = "astrocommunity.recipes.vscode-icons" },
 
   -- import/override with your plugins folder

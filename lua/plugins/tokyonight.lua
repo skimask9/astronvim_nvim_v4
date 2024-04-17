@@ -13,8 +13,8 @@ return {
       functions = { italic = true },
       variables = { bold = true },
       -- Background styles. Can be "dark", "transparent" or "normal"
-      sidebars = "transparent", -- style for sidebars, see below
-      floats = "transparent", -- style for floating windows
+      sidebars = "dark", -- style for sidebars, see below
+      floats = "normal", -- style for floating windows
     },
     sidebars = { "qf", "help" },
     on_colors = function(colors)
@@ -23,6 +23,10 @@ return {
     end,
     on_highlights = function(hl, c)
       local prompt = "#2d3149"
+      hl.WinBar = {
+        bg = c.tabline_bg,
+        fg = c.fg_dark,
+      }
       hl.TelescopeNormal = {
         bg = c.bg_dark,
         fg = c.fg_dark,

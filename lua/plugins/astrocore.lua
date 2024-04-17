@@ -21,8 +21,9 @@ return {
     },
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
+      undercurl = true,
       virtual_text = true,
-      underline = true,
+      -- underline = true,
     },
     autocmds = {
       disable_auto_comment = {
@@ -37,12 +38,27 @@ return {
           desc = "Disable auto-commenting on new line",
         },
       },
+      harpoon_auto_cmd = {
+        cond = function()
+          -- Check if Harpoon is available
+          return pcall(require, "harpoon")
+        end,
+        {
+          event = "VimEnter",
+          desc = "Harpoon list and select",
+          callback = function()
+            -- Delay the execution using a timer
+            vim.defer_fn(function() require("harpoon"):list():select(1) end, 150)
+          end,
+        },
+      },
     },
 
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
+        showtabline = 0, -- disable tabline
         number = true, -- sets vim.opt.number
         spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
@@ -102,7 +118,7 @@ return {
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
         -- quick save
-        -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+        ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
         ["<F1>"] = { ":w|!python3  %<cr>", desc = "Run python file" },
         ["<F3>"] = { ":w|!go run %<cr>", desc = "Run go file" },
         ["<TAB>"] = { "<cmd>:Telescope buffers<cr>", desc = "buffers" },

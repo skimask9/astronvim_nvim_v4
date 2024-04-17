@@ -13,7 +13,8 @@ return {
     -- change colorscheme
     -- colorscheme = "solarized-osaka-night",
     -- colorscheme = "astrodark",
-    colorscheme = "everforest",
+    -- colorscheme = "everforest",
+    colorscheme = "tokyonight-night",
     -- colorscheme = "nordic",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
