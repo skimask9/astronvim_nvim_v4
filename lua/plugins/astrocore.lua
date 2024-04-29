@@ -26,18 +26,18 @@ return {
       -- underline = true,
     },
     autocmds = {
-      disable_auto_comment = {
-        {
-          event = "FileType",
-          pattern = "*",
-          callback = function()
-            vim.opt.formatoptions:remove "c"
-            vim.opt.formatoptions:remove "r"
-            vim.opt.formatoptions:remove "o"
-          end,
-          desc = "Disable auto-commenting on new line",
-        },
-      },
+      -- disable_auto_comment = {
+      --   {
+      --     event = "FileType",
+      --     pattern = "*",
+      --     callback = function()
+      --       vim.opt.formatoptions:remove "c"
+      --       vim.opt.formatoptions:remove "r"
+      --       vim.opt.formatoptions:remove "o"
+      --     end,
+      --     desc = "Disable auto-commenting on new line",
+      --   },
+      -- },
       harpoon_auto_cmd = {
         cond = function()
           -- Check if Harpoon is available
@@ -58,7 +58,7 @@ return {
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
-        showtabline = 0, -- disable tabline
+        -- showtabline = 0, -- disable tabline
         number = true, -- sets vim.opt.number
         spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto

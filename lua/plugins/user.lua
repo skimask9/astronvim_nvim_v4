@@ -21,6 +21,7 @@ return {
       }, bufnr)
     end,
   },
+  { "tweekmonster/django-plus.vim" },
 
   -- == Examples of Overriding Plugins ==
 

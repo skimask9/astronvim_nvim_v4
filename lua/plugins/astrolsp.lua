@@ -28,7 +28,6 @@ return {
         ignore_filetypes = { -- disable format on save for specified filetypes
           -- "python",
           "htmldjango",
-          "djlint",
           "html",
         },
       },
@@ -50,11 +49,18 @@ return {
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
       htmx = {
-        filetypes = { "html", "templ", "htmldjango", "djlint" },
+        filetypes = { "html", "templ", "htmldjango" },
       },
-      cssls = {
-        filetypes = { "htmldjango" },
+      djlint = {
+        filetypes = { "htmldjango", "django" },
       },
+      html = {
+        filetypes = { "htmldjango", "html", "django" },
+      },
+
+      -- cssls = {
+      --   filetypes = { "htmldjango" },
+      -- },
       gopls = {
         templateExtensions = { "templ", "tmpl" },
         -- hints = {
@@ -123,9 +129,12 @@ return {
       tailwindcss = {
         root_dir = function(fname)
           local util = require "lspconfig.util"
-          return util.root_pattern("tailwind.config.js", "tailwind.config.ts", "./theme/static_src/tailwind.config.js")(
-            fname
-          ) or util.root_pattern("postcss.config.js", "postcss.config.ts")(fname) or util.find_package_json_ancestor(
+          return util.root_pattern(
+            "tailwind.config.js",
+            "config/tailwind.config.js",
+            "tailwind.config.ts",
+            "./theme/static_src/tailwind.config.js"
+          )(fname) or util.root_pattern("postcss.config.js", "postcss.config.ts")(fname) or util.find_package_json_ancestor(
             fname
           ) or util.find_node_modules_ancestor(fname) or util.find_git_ancestor(fname)
         end,

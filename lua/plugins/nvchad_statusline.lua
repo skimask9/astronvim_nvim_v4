@@ -116,7 +116,7 @@ return {
       local VenvComponent = status.component.builder {
         {
           condition = function() return vim.bo.filetype == "python" end,
-          { provider = function() return " 🐍" .. actived_venv() end },
+          { provider = function() return "🐍 " .. actived_venv() end },
           on_click = {
             callback = function() vim.cmd.VenvSelect() end,
             name = "heirline_statusline_venv_selector",

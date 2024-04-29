@@ -65,6 +65,16 @@ return {
             {
               type = "python",
               request = "launch",
+              name = "Django SSH",
+              program = vim.fn.getcwd() .. "/manage.py", -- NOTE: Adapt path to manage.py as needed
+              args = { "runserver", "0.0.0.0:3000" },
+              pythonPath = "python",
+              django = true,
+              console = "integratedTerminal",
+            },
+            {
+              type = "python",
+              request = "launch",
               name = "FastAPI",
               program = vim.fn.getcwd() .. "/main.py",
               pythonPath = "python",
