@@ -40,6 +40,7 @@ return {
           -- left_for_scroll = { "", "" },
           tab = { "", "" },
           -- tab = { "", "" },
+          -- tab = { "", "" },
           tabs = { "", "" },
           breadcrumbs = "  ",
           path = "  ",

@@ -9,18 +9,18 @@ return {
   -- == Examples of Adding Plugins ==
 
   "andweeb/presence.nvim",
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function(client, bufnr)
-      require("lsp_signature").on_attach({
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        handler_opts = {
-          border = "rounded",
-        },
-      }, bufnr)
-    end,
-  },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "BufRead",
+  --   config = function(client, bufnr)
+  --     require("lsp_signature").on_attach({
+  --       bind = true, -- This is mandatory, otherwise border config won't get registered.
+  --       handler_opts = {
+  --         border = "rounded",
+  --       },
+  --     }, bufnr)
+  --   end,
+  -- },
   { "tweekmonster/django-plus.vim" },
 
   -- == Examples of Overriding Plugins ==
@@ -37,6 +37,16 @@ return {
         " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
         " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
         " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+      }
+      local get_icon = require("astroui").get_icon
+
+      opts.section.buttons.val = {
+        opts.button("LDR f f", get_icon("Search", 2, true) .. "Find File  "),
+        opts.button("LDR f o", get_icon("DefaultFile", 2, true) .. "Recents  "),
+        opts.button("LDR f w", get_icon("WordFile", 2, true) .. "Find Word  "),
+        opts.button("LDR f '", get_icon("Bookmarks", 2, true) .. "Bookmarks  "),
+        opts.button("LDR S l", get_icon("Refresh", 2, true) .. "Last Session  "),
+        opts.button("LDR n  ", get_icon("FileNew", 2, true) .. "New File  "),
       }
       return opts
     end,

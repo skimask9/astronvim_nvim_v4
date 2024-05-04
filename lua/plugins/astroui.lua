@@ -15,6 +15,7 @@ return {
     -- colorscheme = "astrodark",
     -- colorscheme = "everforest",
     colorscheme = "tokyonight-night",
+    -- colorscheme = "night-owl",
     -- colorscheme = "nordic",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
