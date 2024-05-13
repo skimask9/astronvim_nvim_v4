@@ -38,7 +38,7 @@ return {
           left = { "", " " }, -- separator for the left side of the statusline
           right = { " ", "" }, -- separator for the right side of the statusline
           -- left_for_scroll = { "", "" },
-          tab = { "", "" },
+          -- tab = { "", "" },
           -- tab = { "", "" },
           -- tab = { "", "" },
           tabs = { "", "" },
@@ -127,52 +127,56 @@ return {
           },
         },
       }
+      -- opts.tabline = nil
 
-      -- opts.winbar = nil
+      opts.winbar = nil
 
       -- }
       -- opts.winboar = status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } }
 
-      opts.winbar = {
-        -- hl = {
-        --   bg = "tabline_bg",
-        -- },
-        -- status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } },
-        -- status.component.file_info {
-        --   hl = { fg = "file_info_fg" },
-        --   filename = {
-        --     modify = ":.:",
-        --   },
-        --   filetype = false,
-        --   update = "BufEnter",
-        --   file_icon = { padding = { left = 1 } },
-        --   padding = { right = 1 },
-        --   -- file_modified = true,
-        --   -- file_read_only = true,
-        --   surround = {
-        --     separator = "tabs",
-        --     color = "file_info_bg",
-        --   },
-        -- },
+      -- opts.winbar = {
+      -- hl = {
+      --   bg = "tabline_bg",
+      -- },
+      -- status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } },
+      -- status.component.file_info {
+      --   hl = { fg = "file_info_fg" },
+      --   filename = {
+      --     modify = ":.:",
+      --   },
+      --   filetype = false,
+      --   update = "BufEnter",
+      --   file_icon = { padding = { left = 1 } },
+      --   padding = { right = 1 },
+      --   -- file_modified = true,
+      --   -- file_read_only = true,
+      --   surround = {
+      --     separator = "tabs",
+      --     color = "file_info_bg",
+      --   },
+      -- },
 
-        -- status.component.file_info { -- add file_info to breadcrumbs
-        --   file_icon = { hl = status.hl.filetype_color, padding = { left = 0 } },
-        --   file_modified = false,
-        --   file_read_only = false,
-        --   hl = status.hl.get_attributes("winbar", true),
-        --   surround = false,
-        --   update = "BufEnter",
-        -- },
-        status.component.breadcrumbs {
-          icon = { hl = true },
-          -- hl = status.hl.get_attributes("winbar", true),
-          prefix = true,
-          padding = { left = 0 },
-        },
-        -- status.component.virtual_env(),
-        HarpoonComponent,
-        VenvComponent,
-      }
+      -- status.component.file_info { -- add file_info to breadcrumbs
+      --   file_icon = { hl = status.hl.filetype_color, padding = { left = 0 } },
+      --   file_modified = false,
+      --   file_read_only = false,
+      --   hl = status.hl.get_attributes("winbar", true),
+      --   surround = false,
+      --   update = "BufEnter",
+      -- },
+      --   status.component.breadcrumbs {
+      --     icon = { hl = true },
+      --     hl = {
+      --       bg = "none",
+      --     },
+      --     -- hl = status.hl.get_attributes("winbar", true),
+      --     prefix = true,
+      --     padding = { left = 0 },
+      --   },
+      --   -- status.component.virtual_env(),
+      --   HarpoonComponent,
+      --   VenvComponent,
+      -- }
       opts.statusline = {
         -- default highlight for the entire statusline
         hl = {
@@ -231,6 +235,20 @@ return {
         --   prefix = false,
         --   padding = { left = 0 },
         -- },
+        -- status.component.breadcrumbs {
+        --
+        --   icon = { hl = true },
+        --   hl = {
+        --     bg = "none",
+        --   },
+        --   -- hl = status.hl.get_attributes("winbar", true),
+        --   prefix = true,
+        --   padding = { left = 0 },
+        -- },
+        -- status.component.virtual_env(),
+        HarpoonComponent,
+        VenvComponent,
+
         -- status.component.dap, -- fill the rest of the statusline
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),

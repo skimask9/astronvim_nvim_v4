@@ -15,16 +15,14 @@
           "Django Template"
         ],
         "extensions": [
-          ".html",
-          ".htm"
+          ".html"
         ],
         "configuration": "./django-html.configuration.json"
       },
       {
         "id": "html",
         "extensions": [
-          ".html",
-          ".htm"
+          ".html"
         ]
       }
     ],

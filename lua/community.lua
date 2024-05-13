@@ -17,6 +17,7 @@ return {
   { import = "astrocommunity.colorscheme.night-owl-nvim" },
   { import = "astrocommunity.colorscheme.kanagawa-nvim", enabled = true },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
+  { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
   -- NOTE: nvim 0.10+
   -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },

@@ -38,27 +38,27 @@ return {
       --     desc = "Disable auto-commenting on new line",
       --   },
       -- },
-      harpoon_auto_cmd = {
-        cond = function()
-          -- Check if Harpoon is available
-          return pcall(require, "harpoon")
-        end,
-        {
-          event = "VimEnter",
-          desc = "Harpoon list and select",
-          callback = function()
-            -- Delay the execution using a timer
-            vim.defer_fn(function() require("harpoon"):list():select(1) end, 150)
-          end,
-        },
-      },
+      --   harpoon_auto_cmd = {
+      --     cond = function()
+      --       -- Check if Harpoon is available
+      --       return pcall(require, "harpoon")
+      --     end,
+      --     {
+      --       event = "VimEnter",
+      --       desc = "Harpoon list and select",
+      --       callback = function()
+      --         -- Delay the execution using a timer
+      --         vim.defer_fn(function() require("harpoon"):list():select(1) end, 150)
+      --       end,
+      --     },
+      --   },
     },
 
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
-        -- showtabline = 0, -- disable tabline
+        -- showtabline = 1, -- disable tabline
         number = true, -- sets vim.opt.number
         spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
@@ -80,7 +80,7 @@ return {
         scrolloff = 8,
         clipboard = "unnamedplus",
         sidescrolloff = 8,
-        guicursor = "n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,i-ci-ve:ver50",
+        -- guicursor = "n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,i-ci-ve:ver50",
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -124,6 +124,7 @@ return {
         ["<TAB>"] = { "<cmd>:Telescope buffers<cr>", desc = "buffers" },
         ["<F2>"] = { ":ToggleTerm direction=horizontal<cr>", desc = "ToggleTerm" },
         ["<leader>vs"] = { "<cmd>:VenvSelect<cr>", desc = "Select Venv" },
+        [",m"] = { "<cmd>lua vim.cmd('%s/\\r//g')<cr>", desc = "Remove carriage return" },
         ["<leader>vc"] = { "<cmd>:VenvSelectCached<cr>", desc = "Select Venv Cached" },
         ["<leader>Go"] = { "<cmd>:GitBlameOpenFileURL<cr>", desc = "Open File in Github.com" },
         ["<leader>Gy"] = { "<cmd>:GitBlameCopyFileURL<cr>", desc = "To copy url link github" },

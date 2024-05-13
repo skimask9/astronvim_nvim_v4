@@ -15,6 +15,7 @@ return {
     -- colorscheme = "astrodark",
     -- colorscheme = "everforest",
     colorscheme = "tokyonight-night",
+    -- colorscheme = "kanagawa",
     -- colorscheme = "night-owl",
     -- colorscheme = "nordic",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
@@ -31,21 +32,53 @@ return {
         local bg_alt = get_hlgroup("Visual").bg
         local green = get_hlgroup("String").fg
         local red = get_hlgroup("Error").fg
+        local yellow = get_hlgroup("Folded").fg
         -- return a table of highlights for telescope based on
         -- colors gotten from highlight groups
         return {
-          TelescopeBorder = { fg = bg_alt, bg = bg },
+          -- StatusLine = { bg = "none" },
+          -- TabLine
+          TabLine = { bg = "none" },
+          TabLineSel = { bg = "none" },
+          TabLineFill = { bg = "none" },
+          -- BufferLine
+          BufferLine = { bg = "none" },
+          BufferLineSel = { bg = "none" },
+          BufferLineFill = { bg = "none" },
+          -- WinBar
+          WinBar = { bg = "none" },
+          WinBarNC = { bg = "none" },
+          --Telescope
+          TelescopeBorder = { fg = fg, bg = bg },
           TelescopeNormal = { bg = bg },
           TelescopePreviewBorder = { fg = bg, bg = bg },
           TelescopePreviewNormal = { bg = bg },
-          TelescopePreviewTitle = { fg = bg, bg = green },
-          TelescopePromptBorder = { fg = bg_alt, bg = bg_alt },
-          TelescopePromptNormal = { fg = fg, bg = bg_alt },
-          TelescopePromptPrefix = { fg = red, bg = bg_alt },
+          TelescopePreviewTitle = { fg = bg_alt, bg = green },
+          TelescopePromptBorder = { fg = fg },
+          TelescopePromptNormal = { fg = fg },
+          TelescopePromptPrefix = { fg = red },
           TelescopePromptTitle = { fg = bg, bg = red },
           TelescopeResultsBorder = { fg = bg, bg = bg },
           TelescopeResultsNormal = { bg = bg },
-          TelescopeResultsTitle = { fg = bg, bg = bg },
+          TelescopeResultsTitle = { fg = bg_alt, bg = yellow },
+          --nvchad telescope
+          -- TelescopeBorder = { fg = bg_alt, bg = bg },
+          -- TelescopeNormal = { bg = bg },
+          -- TelescopePreviewBorder = { fg = bg, bg = bg },
+          -- TelescopePreviewNormal = { bg = bg },
+          -- TelescopePreviewTitle = { fg = bg, bg = green },
+          -- TelescopePromptBorder = { fg = bg_alt, bg = bg_alt },
+          -- TelescopePromptNormal = { fg = fg, bg = bg_alt },
+          -- TelescopePromptPrefix = { fg = red, bg = bg_alt },
+          -- TelescopePromptTitle = { fg = bg, bg = red },
+          -- TelescopeResultsBorder = { fg = bg, bg = bg },
+          -- TelescopeResultsNormal = { bg = bg },
+          -- TelescopeResultsTitle = { fg = bg, bg = bg },
+          --Diagnostics
+          -- DiagnosticVirtualTextError = { bg = "none", fg = "#c53b53" },
+          -- DiagnosticVirtualTextWarn = { bg = "none", fg = "##ffc777" },
+          -- DiagnosticVirtualTextInfo = { bg = "none", fg = "#0db9d7" },
+          -- DiagnosticVirtualTextHint = { bg = "none", fg = "#1abc9c" },
         }
       end,
     }, -- Icons can be configured throughout the interface
