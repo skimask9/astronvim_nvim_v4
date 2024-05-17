@@ -4,6 +4,7 @@
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
+-- Function to toggle inlay hints
 
 ---@type LazySpec
 return {
@@ -81,6 +82,8 @@ return {
         clipboard = "unnamedplus",
         sidescrolloff = 8,
         -- guicursor = "n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,i-ci-ve:ver50",
+        -- guicursor = "i:ver65-Cursor",
+        guicursor = "n-c-sm:block-blinkwait1000-blinkon500-blinkoff500,i-ci-ve-v:ver65-Cursor",
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)

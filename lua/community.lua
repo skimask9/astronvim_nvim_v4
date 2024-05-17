@@ -19,8 +19,8 @@ return {
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
+  { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
   -- NOTE: nvim 0.10+
-  -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
   -- NOTE: nvim 0.10+
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.python-ruff" },
@@ -47,6 +47,7 @@ return {
   { import = "astrocommunity.indent.indent-blankline-nvim" },
   { import = "astrocommunity.indent.mini-indentscope" },
   { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
+  -- { import = "astrocommunity.recipes.astrolsp-no-insert-inlay-hints" },
   { import = "astrocommunity.lsp.actions-preview-nvim" },
   { import = "astrocommunity.recipes.vscode-icons" },
 

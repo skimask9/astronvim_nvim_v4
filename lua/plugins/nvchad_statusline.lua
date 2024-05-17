@@ -1,12 +1,12 @@
-local actived_venv = function()
-  local venv_name = require("venv-selector").get_active_venv()
-  if venv_name ~= nil then
-    -- return require("venv-selector").get_active_path()
-    return string.gsub(venv_name, " /.venv/ ", " (venv) ")
-  else
-    return " "
-  end
-end
+-- local actived_venv = function()
+--   local venv_name = require("venv-selector").get_active_venv()
+--   if venv_name ~= nil then
+--     -- return require("venv-selector").get_active_path()
+--     return string.gsub(venv_name, " /.venv/ ", " (venv) ")
+--   else
+--     return " "
+--   end
+-- end
 
 -- local harpoonline = require "harpoonline"
 -- harpoonline.setup {
@@ -55,6 +55,7 @@ return {
           -- TO HIDE BACKGROUND OF GIT
           hl.git_branch_bg = get_hlgroup("Normal").bg
           hl.lsp_fg = comment_fg
+          hl.virtual_env_fg = get_hlgroup("DiagnosticHint").fg
           -- TO HIDE BG OF LSP
           hl.lsp_bg = get_hlgroup("Normal").bg
           hl.git_added = get_hlgroup("String").fg
@@ -106,7 +107,7 @@ return {
             -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
             if Harpoonline.is_buffer_harpooned() then
               return {
-                fg = "git_added",
+                fg = "virtual_env_fg",
                 -- bg = "tabline_bg",
               }
             end
@@ -114,19 +115,19 @@ return {
         },
       }
 
-      local VenvComponent = status.component.builder {
-        {
-          condition = function() return vim.bo.filetype == "python" end,
-          { provider = function() return "🐍 " .. actived_venv() end },
-          on_click = {
-            callback = function() vim.cmd.VenvSelect() end,
-            name = "heirline_statusline_venv_selector",
-          },
-          hl = {
-            fg = "git_branch_fg",
-          },
-        },
-      }
+      -- local VenvComponent = status.component.builder {
+      --   {
+      --     condition = function() return vim.bo.filetype == "python" end,
+      --     { provider = function() return "🐍 " .. actived_venv() end },
+      --     on_click = {
+      --       callback = function() vim.cmd.VenvSelect() end,
+      --       name = "heirline_statusline_venv_selector",
+      --     },
+      --     hl = {
+      --       fg = "git_branch_fg",
+      --     },
+      --   },
+      -- }
       -- opts.tabline = nil
 
       opts.winbar = nil
@@ -230,6 +231,7 @@ return {
         status.component.git_branch { surround = { separator = "none", color = "git_branch_bg" } },
         -- add a component for the current git diff if it exists and use no separator for the sections
         status.component.git_diff { padding = { left = 0 }, surround = { separator = "none", color = "git_branch_bg" } },
+
         -- status.component.breadcrumbs {
         --   icon = { hl = true },
         --   prefix = false,
@@ -247,7 +249,7 @@ return {
         -- },
         -- status.component.virtual_env(),
         HarpoonComponent,
-        VenvComponent,
+        -- VenvComponent,
 
         -- status.component.dap, -- fill the rest of the statusline
         -- the elements after this will appear in the middle of the statusline
@@ -267,6 +269,12 @@ return {
           lsp_progress = false,
           surround = { separator = "none" },
           padding = { right = 1 },
+        },
+        status.component.virtual_env {
+          virtual_env = { icon = { kind = "Environment", padding = { right = 1 } } },
+          padding = { right = 1 },
+          surround = { separator = "none", color = { main = "git_branch_bg" } },
+          hl = { fg = "virtual_env_fg" },
         },
         -- NvChad has some nice icons to go along with information, so we can create a parent component to do this
         -- all of the children of this table will be treated together as a single component

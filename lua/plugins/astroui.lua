@@ -36,6 +36,7 @@ return {
         -- return a table of highlights for telescope based on
         -- colors gotten from highlight groups
         return {
+          LspInlayHint = { bg = "none", fg = "#545c7e" },
           -- StatusLine = { bg = "none" },
           -- TabLine
           TabLine = { bg = "none" },
