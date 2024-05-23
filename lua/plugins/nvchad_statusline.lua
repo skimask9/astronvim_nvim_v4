@@ -40,7 +40,7 @@ return {
           -- left_for_scroll = { "", "" },
           -- tab = { "", "" },
           -- tab = { "", "" },
-          -- tab = { "", "" },
+          tab = { "", "" },
           tabs = { "", "" },
           breadcrumbs = "  ",
           path = "  ",
@@ -271,7 +271,7 @@ return {
           padding = { right = 1 },
         },
         status.component.virtual_env {
-          virtual_env = { icon = { kind = "Environment", padding = { right = 1 } } },
+          virtual_env = { icon = { kind = "Environment", padding = { right = 1 } }, env_names = {} },
           padding = { right = 1 },
           surround = { separator = "none", color = { main = "git_branch_bg" } },
           hl = { fg = "virtual_env_fg" },
