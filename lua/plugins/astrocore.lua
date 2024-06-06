@@ -59,7 +59,7 @@ return {
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
-        showtabline = 1, -- disable tabline
+        -- showtabline = 1, -- disable tabline
         number = true, -- sets vim.opt.number
         spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto

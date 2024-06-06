@@ -90,11 +90,11 @@ return {
         },
       },
       -- jinja_lsp = {
-      --   filetypes = { "html", "htmldjango", "djlint", "jinja" },
+      --   filetypes = { "jinja", "python" },
       --   init_options = {
       --     templates = "./templates",
       --     backend = { "./src" },
-      --     lang = "rust",
+      --     lang = "python",
       --   },
       -- },
       pyright = { enabled = false },
@@ -117,15 +117,15 @@ return {
       --     useLibraryCodeForTypes = true,
       --   },
       -- },
-      ruff_lsp = {
-        -- on_attach = on_attach,
-        on_attach = function(client, bufnr)
-          if client.name == "ruff_lsp" then
-            -- Disable hover in favor of Pyright
-            client.server_capabilities.hoverProvider = false
-          end
-        end,
-      },
+      -- ruff_lsp = {
+      -- on_attach = on_attach,
+      -- on_attach = function(client, bufnr)
+      --   if client.name == "ruff_lsp" then
+      --     -- Disable hover in favor of Pyright
+      --     client.server_capabilities.hoverProvider = false
+      --   end
+      -- end,
+      -- },
       tailwindcss = {
         root_dir = function(fname)
           local util = require "lspconfig.util"
