@@ -20,14 +20,13 @@ return {
   -- { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
   { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
-  -- NOTE: nvim 0.10+
-  -- NOTE: nvim 0.10+
+
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.json" },
-  { import = "astrocommunity.pack.sql" },
+  -- { import = "astrocommunity.pack.sql" },
   { import = "astrocommunity.pack.full-dadbod" },
   { import = "astrocommunity.pack.go" },
   -- { import = "astrocommunity.pack.templ" },
@@ -35,6 +34,7 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.telescope-undo-nvim" },
   { import = "astrocommunity.editing-support.multicursors-nvim" },
+
   -- { import = "astrocommunity.editing-support.treesj" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
   -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },

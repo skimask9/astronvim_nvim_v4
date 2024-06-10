@@ -50,6 +50,18 @@ return {
           inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = true, -- add a border to hover docs and signature help
         },
+        routes = {
+          {
+            filter = {
+              any = {
+
+                { event = "msg_show", kind = "", find = "written" },
+                { event = "notify", find = "No information available" },
+              },
+            },
+            opts = { skip = false },
+          },
+        },
         views = {
           mini = {
             win_options = {
@@ -60,6 +72,13 @@ return {
       })
     end,
   },
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 100,
+    },
+  },
+
   {
     "folke/edgy.nvim",
     optional = true,
