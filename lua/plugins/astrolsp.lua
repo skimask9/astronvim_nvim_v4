@@ -54,9 +54,9 @@ return {
       djlint = {
         filetypes = { "htmldjango", "django" },
       },
-      html = {
-        filetypes = { "htmldjango", "html", "django" },
-      },
+      -- html = {
+      --   filetypes = { "htmldjango", "html", "django" },
+      -- },
 
       -- cssls = {
       --   filetypes = { "htmldjango" },
@@ -82,6 +82,7 @@ return {
               -- ignore = { "*" },
               autoImportCompletions = true,
               autoSearchPaths = true,
+              reportUnusedVariable = false,
               diagnosticMode = "openFilesOnly",
               useLibraryCodeForTypes = true,
               typeCheckingMode = "standard",
@@ -98,6 +99,12 @@ return {
       --   },
       -- },
       pyright = { enabled = false },
+      -- python = {
+      --   analysis = {
+      --     -- Ignore all files for analysis to exclusively use Ruff for linting
+      --     ignore = { "*" },
+      --   },
+      -- },
       -- pyright = {
       --   -- Using Ruff's import organizer
       --   -- enabled = false,

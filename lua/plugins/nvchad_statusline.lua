@@ -129,7 +129,6 @@ return {
       --   },
       -- }
       -- opts.tabline = nil
-
       opts.winbar = nil
 
       -- }

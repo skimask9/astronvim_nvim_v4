@@ -24,10 +24,11 @@ return {
     },
     sidebars = { "qf", "vista_kind", "terminal", "packer" },
     dim_inactive = true,
-    -- on_colors = function(colors)
-    --   colors.hint = colors.orange
-    --   colors.error = "#ff0000"
-    -- end,
+    on_colors = function(colors)
+      -- colors.hint = colors.orange
+      colors.bg = "#16161e"
+      -- colors.error = "#ff0000"
+    end,
     on_highlights = function(hl, c)
       -- local prompt = "#2d3149"
       hl.WinBar = {

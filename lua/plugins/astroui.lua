@@ -14,7 +14,9 @@ return {
     -- colorscheme = "solarized-osaka-night",
     -- colorscheme = "astrodark",
     -- colorscheme = "everforest",
-    colorscheme = "tokyonight-night",
+    -- colorscheme = "tokyonight-night",
+    -- colorscheme = "tokyonight-day",
+    colorscheme = "gruvbox",
     -- colorscheme = "kanagawa",
     -- colorscheme = "night-owl",
     -- colorscheme = "nordic",
@@ -36,6 +38,7 @@ return {
         -- return a table of highlights for telescope based on
         -- colors gotten from highlight groups
         return {
+          -- BackGround = { bg = "#ffffff" },
           LspInlayHint = { bg = "none", fg = "#545c7e" },
           -- StatusLine = { bg = "none" },
           -- TabLine
