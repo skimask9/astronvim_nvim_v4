@@ -29,6 +29,7 @@ return {
         GitDelete = "",
         FolderClosed = "",
         FolderOpened = "",
+        Codeium = "󰭻", -- define a UI icon for Codeium
       },
       -- modify variables used by heirline but not defined in the setup call directly
       status = {
@@ -94,6 +95,7 @@ return {
       Harpoonline.setup {
         on_update = function() vim.cmd.redrawstatus() end,
       }
+
       local HarpoonComponent = status.component.builder {
         {
           provider = function()
@@ -263,6 +265,36 @@ return {
         status.component.fill(),
         -- add a component for the current diagnostics if it exists and use the right separator for the section
         status.component.diagnostics { padding = { right = 1 }, surround = { separator = "none" } },
+        status.component.builder {
+          {
+            provider = function(self) -- define a function that displays the status with an icon with padding
+              return status.utils.stylize(self.codeium_status, {
+                icon = { kind = "Codeium", padding = { right = 1 } }, -- add Codeium icon defined in AstroUI
+                show_empty = true, -- allow empty status
+              })
+            end,
+          },
+          on_click = {
+            callback = function()
+              -- Use pcall to safely call the Codeium chat function
+              local result = pcall(vim.api.nvim_call_function, "codeium#Chat", {})
+              return result
+            end,
+            name = "chat",
+          },
+          surround = {
+            -- surround the component
+            separator = "center",
+            condition = function(self)
+              local codeium_avail, codeium_status = pcall(vim.api.nvim_call_function, "codeium#GetStatusString", {})
+              if codeium_avail then
+                self.codeium_status = vim.trim(codeium_status)
+                if self.codeium_status == "ON" then self.codeium_status = "" end -- don't display the "ON"
+                return self.codeium_status ~= "OFF"
+              end
+            end,
+          },
+        },
         -- add a component to display LSP clients, disable showing LSP progress, and use the right separator
         status.component.lsp {
           lsp_progress = false,
