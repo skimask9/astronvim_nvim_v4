@@ -308,7 +308,7 @@ return {
         },
         status.component.virtual_env {
           virtual_env = { icon = { kind = "Environment" }, env_names = {} },
-          -- padding = { right = 1 },
+          padding = { right = 1 },
           surround = { separator = "none", color = { main = "git_branch_bg" } },
           hl = { fg = "virtual_env_fg" },
         },
