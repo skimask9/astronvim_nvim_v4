@@ -4,7 +4,7 @@ return {
     render = "virtual",
     enable_tailwind = true,
     -- virtual_symbol = "",
-    virtual_symbol = " ",
+    virtual_symbol = "",
     enable_named_colors = true,
   },
 }

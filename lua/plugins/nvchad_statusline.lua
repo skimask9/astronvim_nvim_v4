@@ -263,17 +263,19 @@ return {
         -- fill the rest of the statusline
         -- the elements after this will appear on the right of the statusline
         status.component.fill(),
-        -- add a component for the current diagnostics if it exists and use the right separator for the section
-        status.component.diagnostics { padding = { right = 1 }, surround = { separator = "none" } },
         status.component.builder {
           {
             provider = function(self) -- define a function that displays the status with an icon with padding
               return status.utils.stylize(self.codeium_status, {
-                icon = { kind = "Codeium", padding = { right = 1 } }, -- add Codeium icon defined in AstroUI
+                icon = { kind = "Codeium" }, -- add Codeium icon defined in AstroUI
                 show_empty = true, -- allow empty status
               })
             end,
           },
+          hl = {
+            fg = "virtual_env_fg",
+          },
+
           on_click = {
             callback = function()
               -- Use pcall to safely call the Codeium chat function
@@ -295,6 +297,9 @@ return {
             end,
           },
         },
+
+        -- add a component for the current diagnostics if it exists and use the right separator for the section
+        status.component.diagnostics { padding = { right = 1 }, surround = { separator = "none" } },
         -- add a component to display LSP clients, disable showing LSP progress, and use the right separator
         status.component.lsp {
           lsp_progress = false,
@@ -302,11 +307,12 @@ return {
           padding = { right = 1 },
         },
         status.component.virtual_env {
-          virtual_env = { icon = { kind = "Environment", padding = { right = 1 } }, env_names = {} },
-          padding = { right = 1 },
+          virtual_env = { icon = { kind = "Environment" }, env_names = {} },
+          -- padding = { right = 1 },
           surround = { separator = "none", color = { main = "git_branch_bg" } },
           hl = { fg = "virtual_env_fg" },
         },
+
         -- NvChad has some nice icons to go along with information, so we can create a parent component to do this
         -- all of the children of this table will be treated together as a single component
         {
