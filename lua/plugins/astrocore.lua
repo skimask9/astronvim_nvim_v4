@@ -66,6 +66,7 @@ return {
         spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         linebreak = true, -- linebreak soft wrap at words
+        breakindent = true,
         list = true, -- show whitespace characters
         listchars = {
           tab = "|→",

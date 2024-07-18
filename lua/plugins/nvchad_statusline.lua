@@ -38,6 +38,7 @@ return {
           -- left = { "", "" }, -- separator for the left side of the statusline
           left = { "", " " }, -- separator for the left side of the statusline
           right = { " ", "" }, -- separator for the right side of the statusline
+          center = { "  ", "  " },
           -- left_for_scroll = { "", "" },
           -- tab = { "", "" },
           -- tab = { "", "" },
@@ -229,9 +230,18 @@ return {
           surround = { separator = "left", condition = false },
         },
         -- add a component for the current git branch if it exists and use no separator for the sections
-        status.component.git_branch { surround = { separator = "none", color = "git_branch_bg" } },
+        status.component.git_branch {
+          surround = { separator = "none", color = "git_branch_bg" },
+          git_branch = { icon = { kind = "GitBranch" } },
+        },
         -- add a component for the current git diff if it exists and use no separator for the sections
-        status.component.git_diff { padding = { left = 0 }, surround = { separator = "none", color = "git_branch_bg" } },
+        status.component.git_diff {
+          padding = { left = 0 },
+          surround = { separator = "none", color = "git_branch_bg" },
+          added = { icon = { kind = "GitAdd", padding = { left = 1, right = 2 } } },
+          changed = { icon = { kind = "GitChange", padding = { left = 1, right = 2 } } },
+          removed = { icon = { kind = "GitDelete", padding = { left = 1, right = 2 } } },
+        },
 
         -- status.component.breadcrumbs {
         --   icon = { hl = true },
@@ -267,7 +277,7 @@ return {
           {
             provider = function(self) -- define a function that displays the status with an icon with padding
               return status.utils.stylize(self.codeium_status, {
-                icon = { kind = "Codeium" }, -- add Codeium icon defined in AstroUI
+                icon = { kind = "Codeium", padding = { right = 1 } }, -- add Codeium icon defined in AstroUI
                 show_empty = true, -- allow empty status
               })
             end,
@@ -297,9 +307,18 @@ return {
             end,
           },
         },
+        status.component.cmd_info(),
+        status.component.fill(),
 
         -- add a component for the current diagnostics if it exists and use the right separator for the section
-        status.component.diagnostics { padding = { right = 1 }, surround = { separator = "none" } },
+        status.component.diagnostics {
+          padding = { right = 1 },
+          surround = { separator = "none" },
+          ERROR = { icon = { kind = "DiagnosticError", padding = { left = 1, right = 1 } } },
+          WARN = { icon = { kind = "DiagnosticWarn", padding = { left = 1, right = 1 } } },
+          INFO = { icon = { kind = "DiagnosticInfo", padding = { left = 1, right = 1 } } },
+          HINT = { icon = { kind = "DiagnosticHint", padding = { left = 1, right = 1 } } },
+        },
         -- add a component to display LSP clients, disable showing LSP progress, and use the right separator
         status.component.lsp {
           lsp_progress = false,

@@ -1,6 +1,6 @@
 return {
   "tris203/precognition.nvim",
-  branch = "inlay_hints",
+  enabled = false,
   --event = "VeryLazy",
   config = {
     -- startVisible = true,

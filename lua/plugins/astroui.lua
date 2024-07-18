@@ -11,10 +11,11 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
-    colorscheme = "solarized-osaka-night",
+    -- colorscheme = "solarized-osaka-night",
     -- colorscheme = "astrodark",
     -- colorscheme = "everforest",
     -- colorscheme = "tokyonight-night",
+    colorscheme = "vague",
     -- colorscheme = "tokyonight-day",
     -- colorscheme = "gruvbox",
     -- colorscheme = "kanagawa",

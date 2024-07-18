@@ -13,5 +13,5 @@ return {
       },
     },
   },
-  opts = { use_default_keymaps = false },
+  opts = { use_default_keymaps = false, max_join_length = 180 },
 }

@@ -20,7 +20,7 @@ return {
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   -- { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
-  { import = "astrocommunity.editing-support.conform-nvim" },
+  -- { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
 
   { import = "astrocommunity.pack.tailwindcss" },
