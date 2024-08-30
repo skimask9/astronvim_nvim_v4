@@ -23,7 +23,6 @@ return {
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "prettier",
         "stylua",
         -- add more arguments for adding more null-ls sources
       })
@@ -76,8 +75,12 @@ return {
               type = "python",
               request = "launch",
               name = "FastAPI",
-              program = vim.fn.getcwd() .. "/main.py",
+              module = "fastapi",
               pythonPath = "python",
+              args = {
+                "dev",
+                "main.py",
+              },
             },
             {
               type = "python",
@@ -85,7 +88,7 @@ return {
               name = "FastAPI module",
               module = "uvicorn",
               args = {
-                "app:app",
+                "main:app",
                 "--use-colors",
                 -- "--reload", -- doesn't work
               },

@@ -13,9 +13,10 @@ return {
     -- change colorscheme
     -- colorscheme = "solarized-osaka-night",
     -- colorscheme = "astrodark",
+    colorscheme = "catppuccin-mocha",
     -- colorscheme = "everforest",
     -- colorscheme = "tokyonight-night",
-    colorscheme = "vague",
+    -- colorscheme = "vague",
     -- colorscheme = "tokyonight-day",
     -- colorscheme = "gruvbox",
     -- colorscheme = "kanagawa",
