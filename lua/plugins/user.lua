@@ -21,8 +21,8 @@ return {
   --     }, bufnr)
   --   end,
   -- },
-  { "tweekmonster/django-plus.vim" },
-
+  -- { "tweekmonster/django-plus.vim" },
+  { "tpope/vim-apathy" },
   -- == Examples of Overriding Plugins ==
 
   -- customize alpha options

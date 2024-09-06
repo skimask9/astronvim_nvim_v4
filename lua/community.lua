@@ -23,8 +23,8 @@ return {
   { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
 
-  { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.python-ruff" },
+  { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.yaml" },
@@ -40,17 +40,12 @@ return {
 
   -- { import = "astrocommunity.editing-support.treesj" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
-  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.mini-surround" },
-  { import = "astrocommunity.color.tint-nvim" },
   { import = "astrocommunity.color.nvim-highlight-colors" },
-  -- { import = "astrocommunity.scrolling.nvim-scrollbar" },
-  -- { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.indent.indent-blankline-nvim" },
   { import = "astrocommunity.indent.mini-indentscope" },
   { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
-  -- { import = "astrocommunity.lsp.actions-preview-nvim" },
   { import = "astrocommunity.recipes.vscode-icons" },
 
   -- import/override with your plugins folder

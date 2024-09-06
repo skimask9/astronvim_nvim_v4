@@ -51,11 +51,11 @@ return {
       htmx = {
         filetypes = { "html", "templ", "htmldjango" },
       },
-      djlint = {
-        filetypes = { "htmldjango", "django" },
-      },
+      -- djlint = {
+      --   filetypes = { "htmldjango", "html" },
+      -- },
       -- html = {
-      --   filetypes = { "htmldjango", "html", "django" },
+      --   filetypes = { "htmldjango" },
       -- },
 
       -- cssls = {
@@ -73,83 +73,28 @@ return {
         --   rangeVariableTypes = true,
         -- },
       },
+
       basedpyright = {
-        before_init = function(_, c)
-          if not c.settings then c.settings = {} end
-          if not c.settings.python then c.settings.python = {} end
-          c.settings.python.pythonPath = vim.fn.exepath "python"
-        end,
         settings = {
+          disableOrganizeImports = true,
           basedpyright = {
+
             analysis = {
-              typeCheckingMode = "basic",
-              autoImportCompletions = true,
-              diagnosticSeverityOverrides = {
-                reportUnusedImport = "information",
-                reportUnusedFunction = "information",
-                reportUnusedVariable = "information",
-                reportGeneralTypeIssues = "none",
-                reportOptionalMemberAccess = "none",
-                reportOptionalSubscript = "none",
-                reportPrivateImportUsage = "none",
-              },
+              diagnosticMode = "openFilesOnly",
+              useLibraryCodeForTypes = true,
+              --         -- ignore = { "*" },
+              --         autoImportCompletions = true,
+              autoSearchPaths = true,
+              --         reportUnusedVariable = false,
+              --         diagnosticMode = "openFilesOnly",
+              --         reportMissingTypeStubs = false,
+              --         useLibraryCodeForTypes = true,
+              --         typeCheckingMode = "basic",
             },
           },
         },
       },
 
-      -- basedpyright = {
-      --   settings = {
-      --     basedpyright = {
-      --       disableOrganizeImports = true,
-      --       disableLanguageServices = false,
-      --       analysis = {
-      --         -- ignore = { "*" },
-      --         autoImportCompletions = true,
-      --         autoSearchPaths = true,
-      --         reportUnusedVariable = false,
-      --         diagnosticMode = "openFilesOnly",
-      --         reportMissingTypeStubs = false,
-      --         useLibraryCodeForTypes = true,
-      --         typeCheckingMode = "basic",
-      --       },
-      --     },
-      --   },
-      -- },
-      -- jinja_lsp = {
-      --   filetypes = { "jinja", "python" },
-      --   init_options = {
-      --     templates = "./templates",
-      --     backend = { "./src" },
-      --     lang = "python",
-      --   },
-      -- },
-      pyright = { enabled = false },
-      -- python = {
-      --   analysis = {
-      --     -- Ignore all files for analysis to exclusively use Ruff for linting
-      --     ignore = { "*" },
-      --   },
-      -- },
-      -- pyright = {
-      --   -- Using Ruff's import organizer
-      --   -- enabled = false,
-      --   disableOrganizeImports = true,
-      --   -- settings = {
-      --   --   python = {
-      --   --     analysis = {
-      --   --       typeCheckingMode = "off",
-      --   --     },
-      --   --   },
-      --   -- },
-      -- },
-      -- basedpyright = {
-      --   analysis = {
-      --     autoSearchPaths = true,
-      --     diagnosticMode = "openFilesOnly",
-      --     useLibraryCodeForTypes = true,
-      --   },
-      -- },
       -- ruff_lsp = {
       -- on_attach = on_attach,
       -- on_attach = function(client, bufnr)

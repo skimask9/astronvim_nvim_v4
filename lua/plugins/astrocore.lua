@@ -27,8 +27,20 @@ return {
       -- underline = true,
     },
     autocmds = {
-
-      -- disable_auto_comment = {
+      -- Set filetype to htmldjango if 'manage.py' exists in the current working directory
+      html_filetype_cmd = {
+        cond = function()
+          -- Check if the current working directory has a 'manage.py' file
+          return vim.fn.glob(vim.fn.getcwd() .. "/manage.py") ~= ""
+        end,
+        {
+          event = { "BufRead", "BufNewFile" },
+          pattern = "*.html",
+          callback = function() vim.bo.filetype = "htmldjango" end,
+          desc = "Set filetype to htmldjango for HTML files in Django projects",
+        },
+      },
+      -- e disable_auto_comment = {
       --   {
       --     event = "FileType",
       --     pattern = "*",
@@ -64,6 +76,7 @@ return {
         number = true, -- sets vim.opt.number
         -- background = "light",
         spell = true, -- sets vim.opt.spell
+        path = vim.opt.path + "**",
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         linebreak = true, -- linebreak soft wrap at words
         breakindent = true,
@@ -86,7 +99,7 @@ return {
         sidescrolloff = 8,
         -- guicursor = "n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,i-ci-ve:ver50",
         -- guicursor = "i:ver65-Cursor",
-        guicursor = "n-c-sm:block-blinkwait1000-blinkon500-blinkoff500,i-ci-ve-v:ver65-Cursor",
+        -- guicursor = "n-c-sm:block-blinkwait1000-blinkon500-blinkoff500,i-ci-ve-v:ver65-Cursor",
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -129,9 +142,7 @@ return {
         ["<F3>"] = { ":w|!go run %<cr>", desc = "Run go file" },
         ["<TAB>"] = { "<cmd>:Telescope buffers<cr>", desc = "buffers" },
         ["<F2>"] = { ":ToggleTerm direction=horizontal<cr>", desc = "ToggleTerm" },
-        ["<leader>vs"] = { "<cmd>:VenvSelect<cr>", desc = "Select Venv" },
         [",m"] = { "<cmd>lua vim.cmd('%s/\\r//g')<cr>", desc = "Remove carriage return" },
-        ["<leader>vc"] = { "<cmd>:VenvSelectCached<cr>", desc = "Select Venv Cached" },
         ["<leader>Go"] = { "<cmd>:GitBlameOpenFileURL<cr>", desc = "Open File in Github.com" },
         ["<leader>Gy"] = { "<cmd>:GitBlameCopyFileURL<cr>", desc = "To copy url link github" },
         ["<leader>Gt"] = { "<cmd>:GitBlameToggle<cr>", desc = "To toggle git blame" },

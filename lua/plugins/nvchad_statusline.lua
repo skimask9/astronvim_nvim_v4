@@ -89,7 +89,7 @@ return {
   },
   {
     "rebelot/heirline.nvim",
-    dependencies = { "abeldekat/harpoonline", "linux-cultist/venv-selector.nvim" },
+    dependencies = { "abeldekat/harpoonline" },
     opts = function(_, opts)
       local status = require "astroui.status"
       local Harpoonline = require "harpoonline"

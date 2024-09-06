@@ -1,8 +1,8 @@
 return {
   "tris203/precognition.nvim",
-  enabled = false,
+  -- enabled = false,
   --event = "VeryLazy",
-  config = {
+  opts = {
     -- startVisible = true,
     -- showBlankVirtLine = true,
     -- highlightColor = { link = "Comment" },
