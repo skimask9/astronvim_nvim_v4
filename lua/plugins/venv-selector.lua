@@ -15,11 +15,9 @@ return {
       },
     },
   },
-  opts = {
+  require("venv-selector").setup {
     settings = {
       options = {
-
-        on_venv_activate_callback = nil, -- callback function for after a venv activates
         enable_cached_venvs = true, -- use cached venvs that are activated automatically when a python file is registered with the LSP.
         cached_venv_automatic_activation = true, -- if set to false, the VenvSelectCached command becomes available to manually activate them.
         activate_venv_in_terminal = true, -- activate the selected python interpreter in terminal windows opened from neovim
