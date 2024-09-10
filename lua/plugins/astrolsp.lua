@@ -73,28 +73,43 @@ return {
         --   rangeVariableTypes = true,
         -- },
       },
-
       basedpyright = {
         settings = {
-          disableOrganizeImports = true,
           basedpyright = {
-
             analysis = {
-              diagnosticMode = "openFilesOnly",
-              useLibraryCodeForTypes = true,
-              --         -- ignore = { "*" },
-              --         autoImportCompletions = true,
-              autoSearchPaths = true,
-              --         reportUnusedVariable = false,
-              --         diagnosticMode = "openFilesOnly",
-              --         reportMissingTypeStubs = false,
-              --         useLibraryCodeForTypes = true,
-              --         typeCheckingMode = "basic",
+              disableOrganizeImports = true,
+              typeCheckingMode = "standard",
+              autoImportCompletions = true,
+              diagnosticSeverityOverrides = {
+                reportUnusedImport = false,
+                reportUnusedFunction = "information",
+                reportUnusedVariable = "information",
+                reportGeneralTypeIssues = "none",
+                reportOptionalMemberAccess = "none",
+                reportOptionalSubscript = "none",
+                reportPrivateImportUsage = "none",
+              },
             },
           },
         },
       },
 
+      -- basedpyright = {
+      --   settings = {
+      --
+      --     disableOrganizeImports = true,
+      --
+      --     analysis = {
+      --       diagnosticSeverityOverrides = {
+      --         diagnosticMode = "openFilesOnly",
+      --         useLibraryCodeForTypes = true,
+      --         autoSearchPaths = true,
+      --         reportUnusedImport = "unused",
+      --       },
+      --     },
+      --   },
+      -- },
+      --
       -- ruff_lsp = {
       -- on_attach = on_attach,
       -- on_attach = function(client, bufnr)

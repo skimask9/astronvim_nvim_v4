@@ -22,6 +22,7 @@ return {
   { import = "astrocommunity.editing-support.vim-move" },
   { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
+  { import = "astrocommunity.icon.mini-icons" },
 
   { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.tailwindcss" },
