@@ -15,7 +15,7 @@ return {
     -- colorscheme = "astrodark",
     -- colorscheme = "catppuccin-mocha",
     -- colorscheme = "everforest",
-    colorscheme = "tokyonight-night",
+    colorscheme = "tokyonight",
     -- colorscheme = "vague",
     -- colorscheme = "tokyonight-day",
     -- colorscheme = "gruvbox",
@@ -40,6 +40,8 @@ return {
         -- return a table of highlights for telescope based on
         -- colors gotten from highlight groups
         return {
+          -- CmpNormal = { bg = bg, fg = bg },
+
           -- BackGround = { bg = "#ffffff" },
           LspInlayHint = { bg = "none", fg = "#545c7e" },
           -- StatusLine = { bg = "none" },

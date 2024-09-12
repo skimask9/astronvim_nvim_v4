@@ -35,6 +35,7 @@ return {
   -- { import = "astrocommunity.pack.go" },
   -- { import = "astrocommunity.pack.templ" },
   { import = "astrocommunity.pack.markdown" },
+  { import = "astrocommunity.markdown-and-latex.markview-nvim" },
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.telescope-undo-nvim" },
   { import = "astrocommunity.editing-support.multicursors-nvim" },
