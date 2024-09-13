@@ -13,46 +13,46 @@
 --
 --   on_update = function() vim.cmd.redrawstatus() end,
 -- }
-local NeoCodeium = {
-  static = {
-    symbols = {
-      status = {
-        [0] = "󰚩 ", -- Enabled
-        [1] = "󱚧 ", -- Disabled Globally
-        [2] = "󱙻 ", -- Disabled for Buffer
-        [3] = "󱙺 ", -- Disabled for Buffer filetype
-        [4] = "󱙺 ", -- Disabled for Buffer with enabled function
-        [5] = "󱚠 ", -- Disabled for Buffer encoding
-      },
-      server_status = {
-        [0] = "󰣺 ", -- Connected
-        [1] = "󰣻 ", -- Connecting
-        [2] = "󰣽 ", -- Disconnected
-      },
-    },
-  },
-  update = {
-    "User",
-    pattern = { "NeoCodeiumServer*", "NeoCodeium*{En,Dis}abled" },
-    callback = function() vim.cmd.redrawstatus() end,
-  },
-  on_click = {
-    callback = function()
-      -- Safely execute the NeoCodeium chat command
-      local success, result = pcall(function() vim.cmd "NeoCodeium chat" end)
-      if not success then print("Failed to execute NeoCodeium chat: " .. result) end
-      return success
-    end,
-    name = "chat",
-  },
-  provider = function(self)
-    local symbols = self.symbols
-    local status, server_status = require("neocodeium").get_status()
-    local separator = " | " -- you can customize this separator (space, pipe, etc.)
-    return symbols.status[status] .. separator .. symbols.server_status[server_status]
-  end,
-  hl = { fg = "virtual_env_fg" },
-}
+-- local NeoCodeium = {
+--   static = {
+--     symbols = {
+--       status = {
+--         [0] = "󰚩", -- Enabled
+--         [1] = "󱚧", -- Disabled Globally
+--         [2] = "󱙻", -- Disabled for Buffer
+--         [3] = "󱙺", -- Disabled for Buffer filetype
+--         [4] = "󱙺", -- Disabled for Buffer with enabled function
+--         [5] = "󱚠", -- Disabled for Buffer encoding
+--       },
+--       server_status = {
+--         [0] = "󰣺", -- Connected
+--         [1] = "󰣻", -- Connecting
+--         [2] = "󰣽", -- Disconnected
+--       },
+--     },
+--   },
+--   update = {
+--     "User",
+--     pattern = { "NeoCodeiumServer*", "NeoCodeium*{En,Dis}abled" },
+--     callback = function() vim.cmd.redrawstatus() end,
+--   },
+--   on_click = {
+--     callback = function()
+--       -- Safely execute the NeoCodeium chat command
+--       local success, result = pcall(function() vim.cmd "NeoCodeium chat" end)
+--       if not success then print("Failed to execute NeoCodeium chat: " .. result) end
+--       return success
+--     end,
+--     name = "chat",
+--   },
+--   provider = function(self)
+--     local symbols = self.symbols
+--     local status, server_status = require("neocodeium").get_status()
+--     local separator = " | " -- you can customize this separator (space, pipe, etc.)
+--     return symbols.status[status] .. separator .. symbols.server_status[server_status]
+--   end,
+--   hl = { fg = "virtual_env_fg" },
+-- }
 return {
   {
     "AstroNvim/astroui",
@@ -317,7 +317,7 @@ return {
         -- fill the rest of the statusline
         -- the elements after this will appear on the right of the statusline
         status.component.fill(),
-        NeoCodeium,
+        -- NeoCodeium,
         -- status.component.builder {
         --
         --   {

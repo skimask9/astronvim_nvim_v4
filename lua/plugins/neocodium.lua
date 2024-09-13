@@ -1,6 +1,8 @@
 return {
   "monkoose/neocodeium",
-  event = "VeryLazy",
+  event = "User AstroFile",
+  -- enabled = false,
+  -- enabled = false,
   config = function()
     local neocodeium = require "neocodeium"
     neocodeium.setup()
