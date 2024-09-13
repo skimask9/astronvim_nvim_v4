@@ -1,6 +1,7 @@
 return {
   "Exafunction/codeium.vim",
   event = "User AstroFile",
+  enabled = false,
   config = function()
     vim.keymap.set("i", "<C-g>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
     vim.keymap.set("i", "<c-e>", function() return vim.fn["codeium#CycleCompletions"](1) end, { expr = true })

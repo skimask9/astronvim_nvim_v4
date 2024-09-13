@@ -53,6 +53,7 @@
   "mini.surround": { "branch": "main", "commit": "0e67c4bc147f2a15cee94e7c94dcc0e115b9f55e" },
   "multicursors.nvim": { "branch": "main", "commit": "562809aaf203b4c65482a75199166d360f2b9298" },
   "neo-tree.nvim": { "branch": "main", "commit": "8c75e8a2949cd6cd35525799200a8d34471ee9eb" },
+  "neocodeium": { "branch": "main", "commit": "424351926593477cff2b6bf69a325771714ac80d" },
   "neoconf.nvim": { "branch": "main", "commit": "8ee287dccee562857b0abe9fe3acd6ad147f8a70" },
   "neodev.nvim": { "branch": "main", "commit": "1f4ebcc10852518166ce165e57d425a4265a10d4" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "4b6f0a2c7ad4f2200d59f3d5785aeda96a38e4ff" },
