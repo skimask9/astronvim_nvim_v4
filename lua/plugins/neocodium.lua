@@ -1,6 +1,6 @@
 return {
   "monkoose/neocodeium",
-  event = "User AstroFile",
+  event = "BufEnter",
   -- enabled = false,
   -- enabled = false,
   config = function()

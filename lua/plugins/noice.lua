@@ -57,6 +57,7 @@ return {
 
                 { event = "msg_show", kind = "", find = "written" },
                 { event = "notify", find = "No information available" },
+                { event = "notify", find = "NeoCodeium: server started on port 60837" },
               },
             },
             opts = { skip = false },

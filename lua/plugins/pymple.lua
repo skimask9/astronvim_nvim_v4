@@ -8,6 +8,7 @@ return {
     "stevearc/dressing.nvim",
     "nvim-tree/nvim-web-devicons",
   },
+  -- enabled = false,
   build = ":PympleBuild",
   config = function()
     require("pymple").setup {
