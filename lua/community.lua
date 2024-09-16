@@ -22,12 +22,11 @@ return {
   { import = "astrocommunity.editing-support.vim-move" },
   { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
-  { import = "astrocommunity.icon.mini-icons" },
 
   { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.html-css" },
-  { import = "astrocommunity.pack.docker" },
+  -- { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.json" },
   -- { import = "astrocommunity.pack.sql" },

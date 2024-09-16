@@ -3,18 +3,18 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    transparent = false, -- Enable this to disable setting the background color
+    transparent = true, -- Enable this to disable setting the background color
     terminal_colors = true, -- Configure the colors used when opening a `:terminal`
     styles = {
       -- Style to be applied to different syntax groups
       -- Value is any valid attr-list value for `:help nvim_set_hl`
       -- comments = { italic = true },
       -- keywords = { bold = true },
-      -- functions = { italic = true },
+      functions = { italic = true },
       -- variables = { bold = true },
       comments = { italic = true },
       keywords = { bold = true },
-      functions = {},
+      -- functions = {},
       variables = {},
       -- variables = { italic = true },
 

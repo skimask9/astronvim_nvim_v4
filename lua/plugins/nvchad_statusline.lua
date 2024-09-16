@@ -1,18 +1,3 @@
--- local actived_venv = function()
---   local venv_name = require("venv-selector").get_active_venv()
---   if venv_name ~= nil then
---     -- return require("venv-selector").get_active_path()
---     return string.gsub(venv_name, " /.venv/ ", " (venv) ")
---   else
---     return " "
---   end
--- end
-
--- local harpoonline = require "harpoonline"
--- harpoonline.setup {
---
---   on_update = function() vim.cmd.redrawstatus() end,
--- }
 local NeoCodeium = {
   static = {
     symbols = {
@@ -48,7 +33,7 @@ local NeoCodeium = {
   provider = function(self)
     local symbols = self.symbols
     local status, server_status = require("neocodeium").get_status()
-    local separator = " | " -- you can customize this separator (space, pipe, etc.)
+    local separator = " |" -- you can customize this separator (space, pipe, etc.)
     return symbols.status[status] .. separator .. symbols.server_status[server_status]
   end,
   hl = { fg = "virtual_env_fg" },
@@ -162,21 +147,8 @@ return {
         },
       }
 
-      -- local VenvComponent = status.component.builder {
-      --   {
-      --     condition = function() return vim.bo.filetype == "python" end,
-      --     { provider = function() return "🐍 " .. actived_venv() end },
-      --     on_click = {
-      --       callback = function() vim.cmd.VenvSelect() end,
-      --       name = "heirline_statusline_venv_selector",
-      --     },
-      --     hl = {
-      --       fg = "git_branch_fg",
-      --     },
-      --   },
-      -- }
       -- opts.tabline = nil
-      opts.winbar = nil
+      -- opts.winbar = nil
 
       -- }
       -- opts.winboar = status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } }
@@ -185,45 +157,7 @@ return {
       -- hl = {
       --   bg = "tabline_bg",
       -- },
-      -- status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } },
-      -- status.component.file_info {
-      --   hl = { fg = "file_info_fg" },
-      --   filename = {
-      --     modify = ":.:",
-      --   },
-      --   filetype = false,
-      --   update = "BufEnter",
-      --   file_icon = { padding = { left = 1 } },
-      --   padding = { right = 1 },
-      --   -- file_modified = true,
-      --   -- file_read_only = true,
-      --   surround = {
-      --     separator = "tabs",
-      --     color = "file_info_bg",
-      --   },
-      -- },
 
-      -- status.component.file_info { -- add file_info to breadcrumbs
-      --   file_icon = { hl = status.hl.filetype_color, padding = { left = 0 } },
-      --   file_modified = false,
-      --   file_read_only = false,
-      --   hl = status.hl.get_attributes("winbar", true),
-      --   surround = false,
-      --   update = "BufEnter",
-      -- },
-      --   status.component.breadcrumbs {
-      --     icon = { hl = true },
-      --     hl = {
-      --       bg = "none",
-      --     },
-      --     -- hl = status.hl.get_attributes("winbar", true),
-      --     prefix = true,
-      --     padding = { left = 0 },
-      --   },
-      --   -- status.component.virtual_env(),
-      --   HarpoonComponent,
-      --   VenvComponent,
-      -- }
       opts.statusline = {
         -- default highlight for the entire statusline
         hl = {
@@ -302,11 +236,8 @@ return {
         --   prefix = true,
         --   padding = { left = 0 },
         -- },
-        -- status.component.virtual_env(),
         HarpoonComponent,
-        -- VenvComponent,
 
-        -- status.component.dap, -- fill the rest of the statusline
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),
         -- add a component to display if the LSP is loading, disable showing running client names, and use no separator
