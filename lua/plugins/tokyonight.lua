@@ -3,7 +3,8 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    transparent = true, -- Enable this to disable setting the background color
+    style = "night",
+    -- transparent = true, -- Enable this to disable setting the background color
     terminal_colors = true, -- Configure the colors used when opening a `:terminal`
     styles = {
       -- Style to be applied to different syntax groups
