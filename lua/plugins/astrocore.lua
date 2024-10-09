@@ -28,18 +28,18 @@ return {
     },
     autocmds = {
       -- Set filetype to htmldjango if 'manage.py' exists in the current working directory
-      html_filetype_cmd = {
-        cond = function()
-          -- Check if the current working directory has a 'manage.py' file
-          return vim.fn.glob(vim.fn.getcwd() .. "/manage.py") ~= ""
-        end,
-        {
-          event = { "BufRead", "BufNewFile" },
-          pattern = "*.html",
-          callback = function() vim.bo.filetype = "htmldjango" end,
-          desc = "Set filetype to htmldjango for HTML files in Django projects",
-        },
-      },
+      -- html_filetype_cmd = {
+      --   cond = function()
+      --     -- Check if the current working directory has a 'manage.py' file
+      --     return vim.fn.glob(vim.fn.getcwd() .. "/manage.py") ~= ""
+      --   end,
+      --   {
+      --     event = { "BufRead", "BufNewFile" },
+      --     pattern = "*.html",
+      --     callback = function() vim.bo.filetype = "htmldjango" end,
+      --     desc = "Set filetype to htmldjango for HTML files in Django projects",
+      --   },
+      -- },
       -- e disable_auto_comment = {
       --   {
       --     event = "FileType",

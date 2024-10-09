@@ -12,11 +12,13 @@ return {
   opts = {
     -- change colorscheme
     -- colorscheme = "solarized-osaka-night",
+    -- colorscheme = "default",
     -- colorscheme = "astrodark",
     -- colorscheme = "catppuccin-",
-    -- colorscheme = "vague",
     -- colorscheme = "everforest",
+    -- colorscheme = "poimandres",
     colorscheme = "tokyonight",
+    -- colorscheme = "yorumi",
     -- colorscheme = "tokyonight-day",
     -- colorscheme = "gruvbox",
     -- colorscheme = "kanagawa",
