@@ -118,10 +118,10 @@ return {
     opts = function(_, opts)
       local status = require "astroui.status"
       local Harpoonline = require "harpoonline"
-      local WordCount = status.component.builder {
-        provider = function() return tostring(vim.fn.wordcount().words) .. " words " end,
-      }
-
+      -- local WordCount = status.component.builder {
+      --   provider = function() return tostring(vim.fn.wordcount().words) .. " words " end,
+      -- }
+      --
       Harpoonline.setup {
         on_update = function() vim.cmd.redrawstatus() end,
       }
@@ -308,7 +308,7 @@ return {
           surround = { separator = "none", color = { main = "git_branch_bg" } },
           hl = { fg = "virtual_env_fg" },
         },
-        WordCount,
+        -- WordCount,
         -- NvChad has some nice icons to go along with information, so we can create a parent component to do this
         -- all of the children of this table will be treated together as a single component
         {

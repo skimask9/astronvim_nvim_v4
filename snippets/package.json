@@ -10,27 +10,10 @@
   "contributes": {
     "languages": [
       {
-        "id": "django-html",
-        "aliases": [
-          "Django Template"
-        ],
-        "extensions": [
-          ".html"
-        ],
-        "configuration": "./django-html.configuration.json"
-      },
-      {
         "id": "html",
         "extensions": [
           ".html"
         ]
-      }
-    ],
-    "grammars": [
-      {
-        "language": "html",
-        "scopeName": "text.html.django",
-        "path": "./django-html.json"
       }
     ],
     "snippets": [
@@ -153,10 +136,6 @@
       {
         "language": "python",
         "path": "./templates/imports.json"
-      },
-      {
-        "language": "html",
-        "path": "./templates/html.json"
       },
       {
         "language": "django-html",

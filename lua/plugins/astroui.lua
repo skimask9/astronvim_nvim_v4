@@ -17,9 +17,9 @@ return {
     -- colorscheme = "catppuccin-",
     -- colorscheme = "everforest",
     -- colorscheme = "poimandres",
-    colorscheme = "tokyonight",
-    -- colorscheme = "yorumi",
-    -- colorscheme = "tokyonight-day",
+    -- colorscheme = "tokyonight",
+    -- colorscheme = "nightfly",
+    colorscheme = "tokyonight-day",
     -- colorscheme = "gruvbox",
     -- colorscheme = "kanagawa",
     -- colorscheme = "night-owl",
@@ -46,6 +46,7 @@ return {
 
           -- BackGround = { bg = "#ffffff" },
           LspInlayHint = { bg = "none", fg = "#545c7e" },
+          -- FoldColumn = { bg = "#011627" },
           -- StatusLine = { bg = "none" },
           -- TabLine
           TabLine = { bg = "none" },

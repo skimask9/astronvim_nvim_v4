@@ -11,6 +11,7 @@ vim.filetype.add {
     jinja = "jinja",
     jinja2 = "jinja2",
     j2 = "jinja",
+    html = "htmldjango",
   },
   filename = {
     ["Foofile"] = "fooscript",
