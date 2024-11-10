@@ -216,9 +216,9 @@ return {
         status.component.git_diff {
           padding = { left = 0 },
           surround = { separator = "none", color = "git_branch_bg" },
-          added = { icon = { kind = "GitAdd", padding = { left = 1, right = 2 } } },
-          changed = { icon = { kind = "GitChange", padding = { left = 1, right = 2 } } },
-          removed = { icon = { kind = "GitDelete", padding = { left = 1, right = 2 } } },
+          added = { icon = { kind = "GitAdd", padding = { left = 1, right = 1 } } },
+          changed = { icon = { kind = "GitChange", padding = { left = 1, right = 1 } } },
+          removed = { icon = { kind = "GitDelete", padding = { left = 1, right = 1 } } },
         },
 
         -- status.component.breadcrumbs {

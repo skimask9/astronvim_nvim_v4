@@ -11,12 +11,12 @@ return {
       -- Value is any valid attr-list value for `:help nvim_set_hl`
       -- comments = { italic = true },
       -- keywords = { bold = true },
-      -- functions = { italic = true },
+      functions = { italic = true },
       -- variables = { bold = true },
       -- comments = { italic = true },
       -- keywords = { bold = true },
-      functions = {},
-      variables = {},
+      -- functions = {},
+      -- variables = {},
       -- variables = { italic = true },
 
       -- Background styles. Can be "dark", "transparent" or "normal"

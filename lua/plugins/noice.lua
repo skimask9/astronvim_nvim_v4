@@ -51,6 +51,16 @@ return {
           inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = true, -- add a border to hover docs and signature help
         },
+        lsp = {
+          signature = {
+            opts = {
+              size = {
+                max_height = 10,
+                max_width = 75,
+              },
+            },
+          },
+        },
         routes = {
           {
             filter = {

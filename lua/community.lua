@@ -18,10 +18,8 @@ return {
   -- { import = "astrocommunity.colorscheme.night-owl-nvim" },
   -- { import = "astrocommunity.colorscheme.kanagawa-nvim", enabled = true },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
-  { import = "astrocommunity.completion.blink-cmp" },
   -- { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
-  -- { import = "astrocommunity.editing-support.conform-nvim" },
   -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
 
   { import = "astrocommunity.pack.python-ruff" },

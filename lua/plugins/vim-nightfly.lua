@@ -2,7 +2,10 @@
 local custom_highlight = vim.api.nvim_create_augroup("CustomHighlight", {})
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "nightfly",
-  callback = function() vim.api.nvim_set_hl(0, "FoldColumn", { bg = "#011627" }) end,
+  callback = function()
+    vim.api.nvim_set_hl(0, "FoldColumn", { bg = "#011627" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#011627" })
+  end,
   group = custom_highlight,
 })
 return {
@@ -18,7 +21,7 @@ return {
             nightflyCursorColor = true,
             nightflyUndercurls = true,
             nightflyTransparent = true,
-            nightflyNormalFloat = true,
+            -- nightflyNormalFloat = true,
             nightflyUnderlineMatchParen = true,
             nightflyVirtualTextColor = true,
             nightflyWinSeparator = 2,
