@@ -11,20 +11,13 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
+
     -- colorscheme = "solarized-osaka-night",
-    -- colorscheme = "default",
     -- colorscheme = "astrodark",
-    -- colorscheme = "catppuccin-",
-    -- colorscheme = "everforest",
-    -- colorscheme = "poimandres",
     colorscheme = "tokyonight",
     -- colorscheme = "jellybeans",
     -- colorscheme = "nightfly",
     -- colorscheme = "tokyonight-day",
-    -- colorscheme = "gruvbox",
-    -- colorscheme = "kanagawa",
-    -- colorscheme = "night-owl",
-    -- colorscheme = "nordic",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       -- set highlights for all themes
@@ -38,8 +31,37 @@ return {
         local fg, bg = normal.fg, normal.bg
         local bg_alt = get_hlgroup("Visual").bg
         local green = get_hlgroup("String").fg
-        local red = get_hlgroup("Error").fg
+        --jellybeans
+        local red = get_hlgroup("Error").bg
+        local red_tokyo = get_hlgroup("Error").fg
+        --tokyonight
+        -- local red = get_hlgroup("Error").fg
         local yellow = get_hlgroup("Folded").fg
+        -- Set TelescopePromptTitle based on the active colorscheme
+        local prompt_title_fg, prompt_title_bg
+        if vim.o.background == "dark" then
+          if vim.g.colors_name == "jellybeans" then
+            prompt_title_fg = bg_alt
+            prompt_title_bg = red
+          elseif vim.g.colors_name == "tokyonight-day" then
+            prompt_title_fg = bg_alt
+            prompt_title_bg = red_tokyo
+          else
+            prompt_title_fg = bg_alt
+            prompt_title_bg = red_tokyo
+          end
+        else
+          if vim.g.colors_name == "jellybeans" then
+            prompt_title_fg = bg_alt
+            prompt_title_bg = red
+          elseif vim.g.colors_name == "tokyonight-day" then
+            prompt_title_fg = bg_alt
+            prompt_title_bg = red_tokyo
+          else
+            prompt_title_fg = bg_alt
+            prompt_title_bg = red_tokyo
+          end
+        end
         -- return a table of highlights for telescope based on
         -- colors gotten from highlight groups
         return {
@@ -69,11 +91,12 @@ return {
           TelescopePromptBorder = { fg = fg },
           TelescopePromptNormal = { fg = fg },
           TelescopePromptPrefix = { fg = red },
-          -- comment for JellyBeans theme
-          TelescopePromptTitle = { fg = bg_alt, bg = red },
+          TelescopePromptTitle = { fg = prompt_title_fg, bg = prompt_title_bg },
+          --now
+          -- TelescopePromptTitle = { fg = bg_alt, bg = red },
           -- TelescopeResultsBorder = { fg = bg, bg = bg },
           TelescopeResultsBorder = { fg = fg },
-          TelescopeResultsNormal = { bg = bg },
+          TelescopeResultsNormal = { bg = bg, fg = fg },
           TelescopeResultsTitle = { fg = bg_alt, bg = yellow },
           --nvchad telescope
           -- TelescopeBorder = { fg = bg_alt, bg = bg },
