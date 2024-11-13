@@ -80,7 +80,10 @@ return {
           hl.git_branch_fg = comment_fg
           -- hl.git_branch_bg = get_hlgroup("Visual").bg
           -- TO HIDE BACKGROUND OF GIT
-          hl.git_branch_bg = get_hlgroup("Normal").bg
+          -- hl.git_branch_bg = get_hlgroup("Normal").bg
+          -- WITHOUT FILE INFO
+          hl.git_branch_bg = get_hlgroup("Folded").bg
+          hl.venv_bg = get_hlgroup("Normal").bg
           hl.lsp_fg = comment_fg
           hl.virtual_env_fg = get_hlgroup("DiagnosticHint").fg
           -- TO HIDE BG OF LSP
@@ -88,9 +91,10 @@ return {
           hl.git_added = get_hlgroup("String").fg
           -- hl.git_changed = get_hlgroup("E").fg
           hl.git_removed = get_hlgroup("Error").fg
+          hl.git_diff = get_hlgroup("Folded").bg
           hl.blank_bg = get_hlgroup("Folded").fg
           hl.file_info_bg = get_hlgroup("Folded").bg
-          -- hl.file_info_bg = get_hlgroup("Visual").bg
+          hl.git_diff_bg = get_hlgroup("Visual").bg
           hl.file_info_fg = comment_fg
           hl.nav_icon_bg = get_hlgroup("String").fg
           hl.nav_fg = hl.nav_icon_bg
@@ -117,38 +121,38 @@ return {
     dependencies = { "abeldekat/harpoonline" },
     opts = function(_, opts)
       local status = require "astroui.status"
-      local Harpoonline = require "harpoonline"
+      -- local Harpoonline = require "harpoonline"
       -- local WordCount = status.component.builder {
       --   provider = function() return tostring(vim.fn.wordcount().words) .. " words " end,
       -- }
       --
-      Harpoonline.setup {
-        on_update = function() vim.cmd.redrawstatus() end,
-      }
+      -- Harpoonline.setup {
+      --   on_update = function() vim.cmd.redrawstatus() end,
+      -- }
 
-      local HarpoonComponent = status.component.builder {
-        {
-          provider = function()
-            if Harpoonline.is_buffer_harpooned() then
-              return "  " .. Harpoonline.format() .. " "
-            else
-              return " "
-            end
-          end,
-          hl = function()
-            -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
-            if Harpoonline.is_buffer_harpooned() then
-              return {
-                fg = "virtual_env_fg",
-                -- bg = "tabline_bg",
-              }
-            end
-          end,
-        },
-      }
+      -- local HarpoonComponent = status.component.builder {
+      --   {
+      --     provider = function()
+      --       if Harpoonline.is_buffer_harpooned() then
+      --         return "  " .. Harpoonline.format() .. " "
+      --       else
+      --         return " "
+      --       end
+      --     end,
+      --     hl = function()
+      --       -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
+      --       if Harpoonline.is_buffer_harpooned() then
+      --         return {
+      --           fg = "virtual_env_fg",
+      --           -- bg = "tabline_bg",
+      --         }
+      --       end
+      --     end,
+      --   },
+      -- }
 
-      -- opts.tabline = nil
-      -- opts.winbar = nil
+      opts.tabline = nil
+      opts.winbar = nil
 
       -- }
       -- opts.winboar = status.component.separated_path { path_func = status.provider.filename { modify = ":.:h" } }
@@ -173,13 +177,35 @@ return {
             icon = { kind = "VimIcon", padding = { right = 1, left = 0 } },
             -- padding = { right = 0, left = 0 },
           },
-          -- surround the component with a separators
           surround = {
             -- it's a left element, so use the left separator
             separator = "tabs",
             -- set the color of the surrounding based on the current mode using astronvim.utils.status module
-            color = function() return { main = status.hl.mode_bg(), right = "file_info_bg" } end,
+            color = function()
+              local has_git = vim.fn.system "git rev-parse --is-inside-work-tree 2>/dev/null" == "true\n"
+              if has_git then
+                return {
+                  main = status.hl.mode_bg(),
+                  right = "file_info_bg",
+                }
+              else
+                return {
+                  main = status.hl.mode_bg(),
+                }
+              end
+            end,
           },
+          -- surround the component with a separators
+          -- surround = {
+          --   -- it's a left element, so use the left separator
+          --   separator = "tabs",
+          --   -- set the color of the surrounding based on the current mode using astronvim.utils.status module
+          --   color = function()
+          --     return {
+          --       main = status.hl.mode_bg(),--[[  right = "file_info_bg" ]]
+          --     }
+          --   end,
+          -- },
         },
         -- we want an empty space here so we can use the component builder to make a new section with just an empty string
         -- status.component.builder {
@@ -193,34 +219,92 @@ return {
         -- },
         -- add a section for the currently opened file information
         --    -- add a section for the currently opened file information
-        status.component.file_info {
-          -- enable the file_icon and disable the highlighting based on filetype
-          filename = {--[[  fallback = "Empty"  ]]
-            modify = ":.",
-          },
-          file_icon = { padding = { left = 1 } },
-          -- disable some of the info
-          filetype = false,
-          file_read_only = false,
-          -- add padding
-          padding = { right = 1 },
-          -- define the section separator
-          surround = { separator = "left", condition = false },
-        },
+        -- status.component.file_info {
+        --   -- enable the file_icon and disable the highlighting based on filetype
+        --   filename = {--[[  fallback = "Empty"  ]]
+        --     modify = ":.",
+        --   },
+        --   file_icon = { padding = { left = 1 } },
+        --   -- disable some of the info
+        --   filetype = false,
+        --   file_read_only = false,
+        --   -- add padding
+        --   padding = { right = 1 },
+        --   -- define the section separator
+        --   surround = { separator = "left", condition = false },
+        -- },
         -- add a component for the current git branch if it exists and use no separator for the sections
+        -- status.component.git_branch {
+        --   -- padding = { right = 1 },
+        --   surround = {
+        --     separator = "tabs",
+        --     color = {
+        --       main = "file_info_bg",
+        --       left = "file_info_bg", --[[ right = "git_diff_bg" ]]
+        --     },
+        --   },
+        --   -- surround = { separator = "none", color = "git_branch_bg" },
+        --   git_branch = {
+        --     icon = { kind = "GitBranch" }, --[[ padding = { left = 1 } ]]
+        --   },
+        -- },
         status.component.git_branch {
-          surround = { separator = "none", color = "git_branch_bg" },
-          git_branch = { icon = { kind = "GitBranch" } },
-        },
-        -- add a component for the current git diff if it exists and use no separator for the sections
-        status.component.git_diff {
-          padding = { left = 0 },
-          surround = { separator = "none", color = "git_branch_bg" },
-          added = { icon = { kind = "GitAdd", padding = { left = 1, right = 1 } } },
-          changed = { icon = { kind = "GitChange", padding = { left = 1, right = 1 } } },
-          removed = { icon = { kind = "GitDelete", padding = { left = 1, right = 1 } } },
-        },
+          surround = {
+            separator = "tabs",
+            color = function()
+              -- Get git diff stats
+              local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
+              local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
 
+              -- Base colors
+              local colors = {
+                main = "file_info_bg",
+                left = "file_info_bg",
+              }
+
+              -- Add right color only if there are git changes
+              if has_changes then colors.right = "git_diff_bg" end
+
+              return colors
+            end,
+          },
+          git_branch = {
+            icon = { kind = "GitBranch" },
+          },
+        }, -- add a component for the current git diff if it exists and use no separator for the sections
+        status.component.git_diff {
+          -- padding = { right = 1 },
+          surround = { separator = "left", color = "git_diff_bg" },
+          -- surround = {
+          --   separator = "tabs",
+          --   color = { main = "git_diff", right = "file_info_bg", left = "file_info_bg" },
+          -- },
+          -- surround = { separator = "left", condition = false },
+          -- added = {
+          --   icon = {
+          --     kind = "GitAdd",
+          --     padding = {
+          --       left = 1, --[[ right = 1 ]]
+          --     },
+          --   },
+          -- },
+          -- changed = {
+          --   icon = {
+          --     kind = "GitChange",
+          --     padding = {
+          --       left = 1, --[[ right = 1 ]]
+          --     },
+          --   },
+          -- },
+          -- removed = {
+          --   icon = {
+          --     kind = "GitDelete",
+          --     padding = {
+          --       left = 1, --[[ right = 1  ]]
+          --     },
+          --   },
+          -- },
+        },
         -- status.component.breadcrumbs {
         --   icon = { hl = true },
         --   prefix = false,
@@ -236,7 +320,7 @@ return {
         --   prefix = true,
         --   padding = { left = 0 },
         -- },
-        HarpoonComponent,
+        -- HarpoonComponent,
 
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),
@@ -305,7 +389,7 @@ return {
         status.component.virtual_env {
           virtual_env = { icon = { kind = "Environment" }, env_names = {} },
           padding = { right = 1 },
-          surround = { separator = "none", color = { main = "git_branch_bg" } },
+          surround = { separator = "none", color = { main = "venv_bg" } },
           hl = { fg = "virtual_env_fg" },
         },
         -- WordCount,

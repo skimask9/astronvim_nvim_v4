@@ -72,7 +72,7 @@ return {
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
-        -- showtabline = 1, -- disable tabline
+        showtabline = 1, -- disable tabline
         number = true, -- sets vim.opt.number
         -- background = "light",
         spell = true, -- sets vim.opt.spell
@@ -93,10 +93,13 @@ return {
         wrap = true, -- sets vim.opt.wrap
         colorcolumn = "89",
         cmdheight = 0,
+        pumblend = 0, -- for cmp menu
+        winblend = 0, -- for documentation popup
         rnu = true,
         scrolloff = 10,
         -- clipboard = "unnamedplus",
         sidescrolloff = 8,
+        guicursor = "n-v-c-sm-ve:block,i-ci:ver20,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
         -- guicursor = "n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,i-ci-ve:ver50",
         -- guicursor = "i:ver65-Cursor",
         -- guicursor = "n-c-sm:block-blinkwait1000-blinkon500-blinkoff500,i-ci-ve-v:ver65-Cursor",
