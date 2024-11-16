@@ -47,11 +47,11 @@ return {
       icons = {
         VimIcon = "",
         ScrollText = "",
-        -- GitBranch = "",
-        GitBranch = " ",
-        GitAdd = "",
-        GitChange = "",
-        GitDelete = "",
+        GitBranch = "",
+        -- GitBranch = " ",
+        -- GitAdd = "",
+        -- GitChange = "",
+        -- GitDelete = "",
         FolderClosed = "",
         FolderOpened = "",
         Codeium = "󰭻", -- define a UI icon for Codeium
@@ -90,10 +90,12 @@ return {
           hl.lsp_bg = get_hlgroup("Normal").bg
           hl.git_added = get_hlgroup("String").fg
           -- hl.git_changed = get_hlgroup("E").fg
-          hl.git_removed = get_hlgroup("Error").fg
+          hl.git_removed = get_hlgroup("GitSignsDelete").fg
           hl.git_diff = get_hlgroup("Folded").bg
           hl.blank_bg = get_hlgroup("Folded").fg
           hl.file_info_bg = get_hlgroup("Folded").bg
+          -- for default astro theme
+          -- hl.file_info_bg = get_hlgroup("Folded").fg
           hl.git_diff_bg = get_hlgroup("Visual").bg
           hl.file_info_fg = comment_fg
           hl.nav_icon_bg = get_hlgroup("String").fg
@@ -121,35 +123,35 @@ return {
     dependencies = { "abeldekat/harpoonline" },
     opts = function(_, opts)
       local status = require "astroui.status"
-      -- local Harpoonline = require "harpoonline"
+      local Harpoonline = require "harpoonline"
       -- local WordCount = status.component.builder {
       --   provider = function() return tostring(vim.fn.wordcount().words) .. " words " end,
       -- }
       --
-      -- Harpoonline.setup {
-      --   on_update = function() vim.cmd.redrawstatus() end,
-      -- }
+      Harpoonline.setup {
+        on_update = function() vim.cmd.redrawstatus() end,
+      }
 
-      -- local HarpoonComponent = status.component.builder {
-      --   {
-      --     provider = function()
-      --       if Harpoonline.is_buffer_harpooned() then
-      --         return "  " .. Harpoonline.format() .. " "
-      --       else
-      --         return " "
-      --       end
-      --     end,
-      --     hl = function()
-      --       -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
-      --       if Harpoonline.is_buffer_harpooned() then
-      --         return {
-      --           fg = "virtual_env_fg",
-      --           -- bg = "tabline_bg",
-      --         }
-      --       end
-      --     end,
-      --   },
-      -- }
+      local HarpoonComponent = status.component.builder {
+        {
+          provider = function()
+            if Harpoonline.is_buffer_harpooned() then
+              return "  " .. Harpoonline.format() .. " "
+            else
+              return " "
+            end
+          end,
+          hl = function()
+            -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
+            if Harpoonline.is_buffer_harpooned() then
+              return {
+                fg = "virtual_env_fg",
+                -- bg = "tabline_bg",
+              }
+            end
+          end,
+        },
+      }
 
       opts.tabline = nil
       opts.winbar = nil
@@ -296,14 +298,15 @@ return {
           --     },
           --   },
           -- },
-          -- removed = {
-          --   icon = {
-          --     kind = "GitDelete",
-          --     padding = {
-          --       left = 1, --[[ right = 1  ]]
-          --     },
-          --   },
-          -- },
+          removed = {
+            hl = { fg = "git_removed" },
+            icon = {
+              kind = "GitDelete",
+              padding = {
+                left = 1, --[[ right = 1  ]]
+              },
+            },
+          },
         },
         -- status.component.breadcrumbs {
         --   icon = { hl = true },
@@ -320,7 +323,7 @@ return {
         --   prefix = true,
         --   padding = { left = 0 },
         -- },
-        -- HarpoonComponent,
+        HarpoonComponent,
 
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),

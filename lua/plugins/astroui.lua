@@ -14,7 +14,8 @@ return {
 
     -- colorscheme = "solarized-osaka-night",
     -- colorscheme = "astrodark",
-    colorscheme = "tokyonight",
+    -- colorscheme = "tokyonight",
+    -- colorscheme = "github_",
     -- colorscheme = "jellybeans",
     -- colorscheme = "nightfly",
     -- colorscheme = "tokyonight-day",
@@ -75,6 +76,7 @@ return {
           TabLine = { bg = "none" },
           TabLineSel = { bg = "none" },
           TabLineFill = { bg = "none" },
+          -- NormalFloat = { bg = folded_bg, fg = fg },
           -- BufferLine
           BufferLine = { bg = "none" },
           BufferLineSel = { bg = "none" },

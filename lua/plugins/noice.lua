@@ -55,8 +55,8 @@ return {
           signature = {
             opts = {
               size = {
-                max_height = 10,
-                max_width = 75,
+                max_height = 7,
+                -- max_width = 75,
               },
             },
           },

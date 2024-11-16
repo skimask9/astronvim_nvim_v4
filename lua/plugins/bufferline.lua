@@ -11,7 +11,7 @@ return {
       {
         "<leader>uB",
         function()
-          if vim.opt.showtabline:get() == 2 then
+          if vim.opt.showtabline == 2 then
             vim.opt.showtabline = 0
           else
             vim.opt.showtabline = 2

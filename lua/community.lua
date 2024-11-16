@@ -11,6 +11,7 @@ return {
   { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.colorscheme.neosolarized-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
+  { import = "astrocommunity.colorscheme.github-nvim-theme" },
   { import = "astrocommunity.colorscheme.vim-nightfly-colors" },
   -- { import = "astrocommunity.colorscheme.gruvbox-nvim" },
   -- { import = "astrocommunity.colorscheme.everforest" },
