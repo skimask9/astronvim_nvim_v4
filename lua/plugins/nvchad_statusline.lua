@@ -64,6 +64,7 @@ return {
           left = { "", " " }, -- separator for the left side of the statusline
           right = { " ", "" }, -- separator for the right side of the statusline
           center = { "  ", "  " },
+          left_sp = { "", "" }, -- separator for the left side of the statusline
           -- left_for_scroll = { "", "" },
           -- tab = { "", "" },
           -- tab = { "", "" },
@@ -123,6 +124,7 @@ return {
     dependencies = { "abeldekat/harpoonline" },
     opts = function(_, opts)
       local status = require "astroui.status"
+      local conditions = require "heirline.conditions"
       local Harpoonline = require "harpoonline"
       -- local WordCount = status.component.builder {
       --   provider = function() return tostring(vim.fn.wordcount().words) .. " words " end,
@@ -167,148 +169,104 @@ return {
       opts.statusline = {
         -- default highlight for the entire statusline
         hl = {
-          fg = "fg",--[[  bg = "bg"  ]]
+          fg = "fg",
+
+          -- bg = "bg",
         },
         -- each element following is a component in astroui.status module
 
         -- add the vim mode component
 
+        -- Mode component
+
         status.component.mode {
-          -- enable mode text with padding as well as an icon before it
           mode_text = {
-            icon = { kind = "VimIcon", padding = { right = 1, left = 0 } },
-            -- padding = { right = 0, left = 0 },
+            icon = {
+              kind = "VimIcon",
+              padding = { right = 1, left = 0 },
+            },
           },
           surround = {
-            -- it's a left element, so use the left separator
             separator = "tabs",
-            -- set the color of the surrounding based on the current mode using astronvim.utils.status module
             color = function()
-              local has_git = vim.fn.system "git rev-parse --is-inside-work-tree 2>/dev/null" == "true\n"
-              if has_git then
+              if conditions.is_git_repo() then
                 return {
                   main = status.hl.mode_bg(),
-                  right = "file_info_bg",
+                  -- right = "file_info_bg", -- Only show right separator for Git
                 }
               else
                 return {
                   main = status.hl.mode_bg(),
+                  right = nil,
                 }
               end
             end,
+
+            padding = { left = 0, right = 0 }, -- Control padding explicitly
           },
-          -- surround the component with a separators
-          -- surround = {
-          --   -- it's a left element, so use the left separator
-          --   separator = "tabs",
-          --   -- set the color of the surrounding based on the current mode using astronvim.utils.status module
-          --   color = function()
-          --     return {
-          --       main = status.hl.mode_bg(),--[[  right = "file_info_bg" ]]
-          --     }
-          --   end,
-          -- },
+          hl = function()
+            if vim.o.background == "light" then return { fg = "blank_bg" } end
+            return { fg = "bg" }
+          end,
         },
-        -- we want an empty space here so we can use the component builder to make a new section with just an empty string
+
         -- status.component.builder {
         --   { provider = "" },
         --   -- define the surrounding separator and colors to be used inside of the component
         --   -- and the color to the right of the separated out section
         --   surround = {
-        --     separator = "left",
-        --     color = { main = "blank_bg", right = "file_info_bg" },
+        --     separator = "right",
+        --     color = { main = "file_info_bg" },
         --   },
+        --   padding = { left = 0, right = 0 },
         -- },
-        -- add a section for the currently opened file information
-        --    -- add a section for the currently opened file information
-        -- status.component.file_info {
-        --   -- enable the file_icon and disable the highlighting based on filetype
-        --   filename = {--[[  fallback = "Empty"  ]]
-        --     modify = ":.",
-        --   },
-        --   file_icon = { padding = { left = 1 } },
-        --   -- disable some of the info
-        --   filetype = false,
-        --   file_read_only = false,
-        --   -- add padding
-        --   padding = { right = 1 },
-        --   -- define the section separator
-        --   surround = { separator = "left", condition = false },
-        -- },
-        -- add a component for the current git branch if it exists and use no separator for the sections
-        -- status.component.git_branch {
-        --   -- padding = { right = 1 },
-        --   surround = {
-        --     separator = "tabs",
-        --     color = {
-        --       main = "file_info_bg",
-        --       left = "file_info_bg", --[[ right = "git_diff_bg" ]]
-        --     },
-        --   },
-        --   -- surround = { separator = "none", color = "git_branch_bg" },
-        --   git_branch = {
-        --     icon = { kind = "GitBranch" }, --[[ padding = { left = 1 } ]]
-        --   },
-        -- },
-        status.component.git_branch {
-          surround = {
-            separator = "tabs",
-            color = function()
-              -- Get git diff stats
-              local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-              local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
-
-              -- Base colors
-              local colors = {
-                main = "file_info_bg",
-                left = "file_info_bg",
-              }
-
-              -- Add right color only if there are git changes
-              if has_changes then colors.right = "git_diff_bg" end
-
-              return colors
-            end,
-          },
-          git_branch = {
-            icon = { kind = "GitBranch" },
-          },
-        }, -- add a component for the current git diff if it exists and use no separator for the sections
-        status.component.git_diff {
-          -- padding = { right = 1 },
-          surround = { separator = "left", color = "git_diff_bg" },
-          -- surround = {
-          --   separator = "tabs",
-          --   color = { main = "git_diff", right = "file_info_bg", left = "file_info_bg" },
-          -- },
-          -- surround = { separator = "left", condition = false },
-          -- added = {
-          --   icon = {
-          --     kind = "GitAdd",
-          --     padding = {
-          --       left = 1, --[[ right = 1 ]]
-          --     },
-          --   },
-          -- },
-          -- changed = {
-          --   icon = {
-          --     kind = "GitChange",
-          --     padding = {
-          --       left = 1, --[[ right = 1 ]]
-          --     },
-          --   },
-          -- },
-          removed = {
-            hl = { fg = "git_removed" },
-            icon = {
-              kind = "GitDelete",
-              padding = {
-                left = 1, --[[ right = 1  ]]
+        {
+          condition = conditions.is_git_repo,
+          init = function(self) self.has_git = vim.b.gitsigns_status_dict ~= nil end,
+          {
+            status.component.git_branch {
+              surround = {
+                separator = "tabs",
+                -- separator = "left",
+                color = function()
+                  local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
+                  local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
+                  return {
+                    main = "file_info_bg",
+                    -- left = nil, -- Remove left separator
+                    -- left = "file_info_bg",
+                    right = has_changes and "git_diff_bg" or nil,
+                    -- right = "file_info_bg",
+                  }
+                end,
+                padding = { left = 1, right = 1 }, -- Control padding
+              },
+              git_branch = {
+                icon = {
+                  kind = "GitBranch",
+                  padding = { left = 0, right = 1 }, -- Explicit padding for icon
+                },
               },
             },
           },
-        },
-        -- status.component.breadcrumbs {
+          {
+            condition = function() return vim.b.gitsigns_status_dict ~= nil end,
+            status.component.git_diff {
+              surround = {
+                separator = "left",
+                color = "git_diff_bg",
+                padding = { left = 0, right = 0 }, -- Control padding
+              },
+              removed = {
+                hl = { fg = "git_removed" },
+                icon = {
+                  kind = "GitDelete",
+                  padding = { left = 1, right = 1 }, -- Explicit padding for icon
+                },
+              },
+            },
+          },
+        }, -- status.component.breadcrumbs {
         --   icon = { hl = true },
         --   prefix = false,
         --   padding = { left = 0 },
@@ -406,7 +364,12 @@ return {
             -- add padding after icon
             padding = { right = 1 },
             -- set the foreground color to be used for the icon
-            hl = { fg = "bg" },
+            -- hl = { fg = "blank_bg" },
+            -- hl = { fg = "bg" },
+            hl = function()
+              if vim.o.background == "light" then return { fg = "blank_bg" } end
+              return { fg = "bg" }
+            end,
             -- use the right separator and define the background color
             surround = {
               separator = "tabs",
@@ -448,7 +411,14 @@ return {
             -- add padding after icon
             padding = { right = 1 },
             -- set the icon foreground
-            hl = { fg = "bg" },
+            -- hl = {
+            --   -- fg = "blank_bg",
+            --   fg = "bg",
+            -- },
+            hl = function()
+              if vim.o.background == "light" then return { fg = "blank_bg" } end
+              return { fg = "bg" }
+            end,
             -- use the right separator and define the background color
             -- as well as the color to the left of the separator
             surround = {
@@ -456,6 +426,7 @@ return {
               color = function() return { main = status.hl.mode_bg(), right = "file_info_bg", left = "file_info_bg" } end,
             },
           },
+
           -- add a navigation component and just display the percentage of progress in the file
           status.component.nav {
             -- add some padding for the percentage provider

@@ -14,7 +14,7 @@ return {
 
     -- colorscheme = "solarized-osaka-night",
     -- colorscheme = "astrodark",
-    -- colorscheme = "tokyonight",
+    colorscheme = "tokyonight",
     -- colorscheme = "github_",
     -- colorscheme = "jellybeans",
     -- colorscheme = "nightfly",
