@@ -23,6 +23,9 @@ return {
       sidebars = "transparent", -- style for sidebars, see below
       floats = "transparent", -- style for floating windows
     },
+    plugins = {
+      all = true,
+    },
     sidebars = { "qf", "vista_kind", "terminal", "packer" },
     dim_inactive = true,
     on_colors = function(colors)
@@ -31,7 +34,8 @@ return {
       -- colors.error = "#ff0000"
     end,
     on_highlights = function(hl, c)
-      -- local prompt = "#2d3149"
+      ---@type table<string, boolean|{enabled:boolean}>
+
       hl.WinBar = {
         bg = c.none,
         fg = c.fg_dark,
@@ -51,34 +55,56 @@ return {
       hl.jDiagnosticUnderlineWarn = { undercurl = true, sp = c.warning } -- Used to underline "Warning" diagnostics
       hl.jDiagnosticUnderlineInfo = { undercurl = true, sp = c.info } -- Used to underline "Information" diagnostics
       hl.jDiagnosticUnderlineHint = { undercurl = true, sp = c.hint } -- Used to underline "Hint" diagnostics
+      hl.TelescopeBorder = { fg = c.border_highlight, bg = c.bg_float }
+      hl.TelescopeNormal = { fg = c.fg, bg = c.bg_float }
+      hl.TelescopePromptBorder = { fg = c.orange, bg = c.none }
+      hl.TelescopePromptTitle = { fg = c.bg_dark, bg = c.orange }
+      hl.TelescopePreviewBorder = { fg = c.error, bg = c.none }
+      hl.TelescopeResultsBorder = { fg = c.info, bg = c.none }
+      -- hl.TelescopeResultsComment = { fg = c.dark3 }
 
-      --   hl.TelescopeNormal = {
-      --     bg = c.none,
-      --     fg = c.fg_dark,
-      --   }
-      --   hl.TelescopeBorder = {
-      --     bg = c.none,
-      --     fg = c.fg_dark,
-      --   }
-      --   hl.TelescopePromptNormal = {
-      --     bg = prompt,
-      --   }
-      --   hl.TelescopePromptBorder = {
-      --     bg = prompt,
-      --     fg = prompt,
-      --   }
-      --   hl.TelescopePromptTitle = {
-      --     bg = prompt,
-      --     fg = prompt,
-      --   }
-      --   hl.TelescopePreviewTitle = {
-      --     bg = c.red,
-      --     fg = c.bg_dark,
-      --   }
-      --   hl.TelescopeResultsTitle = {
-      --     bg = c.green,
-      --     fg = c.bg_dark,
-      --   }
+      -- hl.TelescopeNormal = {
+      --   bg = c.bg_dark,
+      --   fg = c.fg_dark,
+      -- }
+      -- hl.TelescopeBorder = {
+      --   bg = c.bg_dark,
+      --   fg = c.bg_dark,
+      -- }
+      -- hl.TelescopePromptNormal = {
+      --   -- bg = c.bg_dark,
+      -- }
+      -- hl.TelescopePromptBorder = {
+      --   fg = c.fg_dark,
+      -- }
+      -- hl.TelescopePromptTitle = {
+      --   bg = c.error,
+      --   fg = c.bg_dark,
+      -- }
+      hl.TelescopePreviewTitle = {
+        bg = c.error,
+        fg = c.bg_dark,
+      }
+      hl.TelescopeResultsTitle = {
+        bg = c.info,
+        fg = c.bg_dark,
+      }
+      -- lang-specific
+      -- python
+      hl["@string.documentation.python"] = {
+        fg = c.comment,
+      }
+      hl["@lsp.typemod.function.defaultLibrary.python"] = {
+        link = "@type.builtin",
+      }
+
+      -- json
+      hl["@property.json"] = {
+        fg = c.blue,
+      }
+      hl["@punctuation.bracket.json"] = {
+        fg = c.comment,
+      }
     end,
   },
 }

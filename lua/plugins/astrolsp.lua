@@ -78,6 +78,7 @@ return {
           basedpyright = {
             analysis = {
               disableOrganizeImports = true,
+              diagnosticMode = "workspace",
               typeCheckingMode = "standard",
               autoImportCompletions = true,
               diagnosticSeverityOverrides = {

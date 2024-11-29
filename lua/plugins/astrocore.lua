@@ -99,10 +99,7 @@ return {
         scrolloff = 10,
         -- clipboard = "unnamedplus",
         sidescrolloff = 8,
-        guicursor = "n-v-c-sm-ve:block,i-ci:ver20,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
-        -- guicursor = "n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,i-ci-ve:ver50",
-        -- guicursor = "i:ver65-Cursor",
-        -- guicursor = "n-c-sm:block-blinkwait1000-blinkon500-blinkoff500,i-ci-ve-v:ver65-Cursor",
+        -- guicursor = "n-v-c-sm-ve:block,i-ci:ver20,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)

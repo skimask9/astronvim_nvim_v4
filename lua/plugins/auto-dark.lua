@@ -7,12 +7,11 @@ return {
       vim.api.nvim_set_option_value("background", "dark", {})
       vim.cmd "colorscheme jellybeans"
       -- vim.cmd "colorscheme tokyonight"
-      -- vim.cmd "colorscheme flexoki-moon"
+      -- vim.cmd "colorscheme flexoki"
     end,
     set_light_mode = function()
       vim.api.nvim_set_option_value("background", "light", {})
       -- vim.cmd "colorscheme tokyonight-day"
-      -- vim.cmd "colorscheme github_light"
       vim.cmd "colorscheme flexoki"
     end,
   },

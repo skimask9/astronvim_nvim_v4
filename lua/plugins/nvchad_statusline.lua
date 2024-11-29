@@ -49,9 +49,9 @@ return {
         ScrollText = "",
         GitBranch = "",
         -- GitBranch = " ",
-        -- GitAdd = "",
+        GitAdd = "",
         -- GitChange = "",
-        -- GitDelete = "",
+        GitDelete = "",
         FolderClosed = "",
         FolderOpened = "",
         Codeium = "󰭻", -- define a UI icon for Codeium
@@ -61,11 +61,9 @@ return {
         -- define the separators between each section
         separators = {
           -- left = { "", "" }, -- separator for the left side of the statusline
-          left = { "", " " }, -- separator for the left side of the statusline
-          right = { " ", "" }, -- separator for the right side of the statusline
+          left = { "", "" }, -- separator for the left side of the statusline
+          right = { "", "" }, -- separator for the right side of the statusline
           center = { "  ", "  " },
-          left_sp = { "", "" }, -- separator for the left side of the statusline
-          -- left_for_scroll = { "", "" },
           -- tab = { "", "" },
           -- tab = { "", "" },
           tab = { "", "" },
@@ -180,30 +178,53 @@ return {
         -- Mode component
 
         status.component.mode {
+
           mode_text = {
             icon = {
               kind = "VimIcon",
               padding = { right = 1, left = 0 },
             },
           },
-          surround = {
-            separator = "tabs",
-            color = function()
-              if conditions.is_git_repo() then
-                return {
-                  main = status.hl.mode_bg(),
-                  -- right = "file_info_bg", -- Only show right separator for Git
-                }
-              else
-                return {
-                  main = status.hl.mode_bg(),
-                  right = nil,
-                }
-              end
-            end,
 
-            padding = { left = 0, right = 0 }, -- Control padding explicitly
+          surround = {
+
+            separator = "tabs",
+            -- separator = "right",
+            color = function()
+              return {
+                main = status.hl.mode_bg(),
+                right = "file_info_bg",
+                -- right = "git_branch_bg",
+              }
+            end,
+            -- color = function()
+            --   local is_git_repo = conditions.is_git_repo()
+            --
+            --   vim.cmd.redrawstatus() -- Force redraw each time
+            --
+            --   return {
+            --     main = status.hl.mode_bg(),
+            --     right = is_git_repo and "file_info_bg" or nil,
+            --   }
+            -- end,
+            -- color = function()
+            --   if conditions.is_git_repo() then
+            --     vim.cmd.redrawstatus()
+            --     return {
+            --       main = status.hl.mode_bg(),
+            --       right = "file_info_bg", -- Only show right separator for Git
+            --     }
+            --   else
+            --     return {
+            --       main = status.hl.mode_bg(),
+            --       right = nil,
+            --     }
+            --   end
+            -- end,
+
+            -- padding = { left = 1, right = 1 }, -- Control padding explicitly
           },
+          -- padding = { left = 0, right = 1 }, -- Control padding explicitly
           hl = function()
             if vim.o.background == "light" then return { fg = "blank_bg" } end
             return { fg = "bg" }
@@ -215,8 +236,14 @@ return {
         --   -- define the surrounding separator and colors to be used inside of the component
         --   -- and the color to the right of the separated out section
         --   surround = {
-        --     separator = "right",
-        --     color = { main = "file_info_bg" },
+        --     separator = "tabs",
+        --     color = function()
+        --       return {
+        --         main = "file_info_bg",
+        --         right = "file_info_bg",
+        --         -- right = "git_branch_bg",
+        --       }
+        --     end,
         --   },
         --   padding = { left = 0, right = 0 },
         -- },
@@ -226,47 +253,62 @@ return {
           {
             status.component.git_branch {
               surround = {
-                separator = "tabs",
-                -- separator = "left",
-                color = function()
-                  local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-                  local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
-                  return {
-                    main = "file_info_bg",
-                    -- left = nil, -- Remove left separator
-                    -- left = "file_info_bg",
-                    right = has_changes and "git_diff_bg" or nil,
-                    -- right = "file_info_bg",
-                  }
-                end,
-                padding = { left = 1, right = 1 }, -- Control padding
+                -- separator = "tabs",
+
+                separator = "left",
+                color = {
+                  main = "file_info_bg",
+                  -- right = "venv_bg",
+                  right = "git_diff_bg",
+                  -- left = "git_diff_bg",
+                },
+                -- color = function()
+                --   local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
+                --   local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
+                --   if has_changes then
+                --     return { main = "file_info_bg", right = "git_diff_bg" }
+                --   else
+                --     return { main = "file_info_bg", right = "git_diff_bg" }
+                --   end
+                -- end,
+                padding = { left = 0, right = 0 }, -- Control padding
               },
+              hl = { bg = "venv_bg" },
+              padding = { left = 0, right = 0 }, -- Control padding
               git_branch = {
                 icon = {
                   kind = "GitBranch",
-                  padding = { left = 0, right = 1 }, -- Explicit padding for icon
-                },
-              },
-            },
-          },
-          {
-            condition = function() return vim.b.gitsigns_status_dict ~= nil end,
-            status.component.git_diff {
-              surround = {
-                separator = "left",
-                color = "git_diff_bg",
-                padding = { left = 0, right = 0 }, -- Control padding
-              },
-              removed = {
-                hl = { fg = "git_removed" },
-                icon = {
-                  kind = "GitDelete",
                   padding = { left = 1, right = 1 }, -- Explicit padding for icon
                 },
               },
             },
           },
-        }, -- status.component.breadcrumbs {
+        },
+        {
+          -- condition = function() return vim.b.gitsigns_status_dict ~= nil end,
+          condition = conditions.is_git_repo,
+          status.component.git_diff {
+            surround = {
+              separator = "left",
+              -- separator = "tabs",
+              -- color = "git_diff_bg",
+              color = {
+                main = "git_diff_bg",
+              },
+
+              padding = { left = 0, right = 0 }, -- Control padding
+            },
+            hl = { bg = "venv_bg" },
+            -- removed = {
+            --   hl = { fg = "git_removed" },
+            --   icon = {
+            --     kind = "GitDelete",
+            --     padding = { left = 1, right = 1 }, -- Explicit padding for icon
+            --   },
+            -- },
+          },
+        },
+        -- status.component.breadcrumbs {
         --   icon = { hl = true },
         --   prefix = false,
         --   padding = { left = 0 },

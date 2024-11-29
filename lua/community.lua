@@ -41,6 +41,7 @@ return {
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
   { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.mini-surround" },
+  { import = "astrocommunity.scrolling/neoscroll-nvim" },
   { import = "astrocommunity.color.nvim-highlight-colors" },
   { import = "astrocommunity.indent.indent-blankline-nvim" },
   { import = "astrocommunity.indent.mini-indentscope" },
