@@ -256,15 +256,24 @@ return {
             --     -- right = "git_branch_bg",
             --   }
             -- end,
+            -- color = function()
+            --   local is_git_repo = vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null"):match "^true" ~= nil
+            --
+            --   return {
+            --     main = status.hl.mode_bg(),
+            --     right = is_git_repo and vim.fn.system "git status --porcelain" ~= "" and "file_info_bg" or nil,
+            --   }
+            -- end,
             color = function()
               local is_git_repo = vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null"):match "^true" ~= nil
-
               return {
                 main = status.hl.mode_bg(),
-                right = is_git_repo and vim.fn.system "git status --porcelain" ~= "" and "file_info_bg" or nil,
+                right = is_git_repo and "file_info_bg", -- Adds right separator for Git repos
+                -- Keeps the existing conditional logic for checking uncommitted changes
               }
             end,
             -- color = function()
+
             --   local is_git_repo = conditions.is_git_repo()
             --
             --   return {
