@@ -45,6 +45,7 @@ return {
       hl.DiagnosticInfo = { fg = c.info, bg = c.none } -- Used as the base highlight group. Other Diagnostic highlights link to this by default
       hl.DiagnosticHint = { fg = c.hint, bg = c.none } -- Used as the base highlight group. Other Diagnostic highlights link to this by default
       hl.DiagnosticUnnecessary = { fg = c.terminal_black } -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+      hl.LspInlayHint = { bg = "none", fg = "#545c7e" } -- Used to hide bg LspInlayHint
       --
       hl.DiagnosticVirtualTextError = { bg = c.none, fg = c.error } -- Used for "Error" diagnostic virtual text
       hl.DiagnosticVirtualTextWarn = { bg = c.none, fg = c.warning } -- Used for "Warning" diagnostic virtual text

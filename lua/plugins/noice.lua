@@ -26,16 +26,16 @@ return {
       end
     end,
   },
-  {
-    "heirline.nvim",
-    optional = true,
-    opts = function(_, opts)
-      local noice_opts = require("astrocore").plugin_opts "noice.nvim"
-      if vim.tbl_get(noice_opts, "lsp", "progress", "enabled") ~= false then -- check if lsp progress is enabled
-        opts.statusline[9] = require("astroui.status").component.lsp { lsp_progress = false }
-      end
-    end,
-  },
+  -- {
+  --   "heirline.nvim",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     local noice_opts = require("astrocore").plugin_opts "noice.nvim"
+  --     if vim.tbl_get(noice_opts, "lsp", "progress", "enabled") ~= false then -- check if lsp progress is enabled
+  --       opts.statusline[9] = require("astroui.status").component.lsp { lsp_progress = false }
+  --     end
+  --   end,
+  -- },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -49,8 +49,11 @@ return {
           command_palette = true, -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
           inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- add a border to hover docs and signature help
+          lsp_doc_border = false, -- add a border to hover docs and signature help
         },
+        -- cmdline = {
+        --   view = "cmdline",
+        -- },
         lsp = {
           signature = {
             opts = {
@@ -68,10 +71,21 @@ return {
 
                 { event = "msg_show", kind = "", find = "written" },
                 { event = "notify", find = "No information available" },
-                { event = "notify", find = "NeoCodeium: server started on port 60837" },
+                { event = "notify", find = "NeoCodeium: server started on port" },
               },
             },
             opts = { skip = false },
+          },
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "%d+L, %d+B" },
+                { find = "; after #%d+" },
+                { find = "; before #%d+" },
+              },
+            },
+            view = "mini",
           },
         },
         views = {
@@ -87,7 +101,7 @@ return {
   {
     "rcarriga/nvim-notify",
     opts = {
-      timeout = 100,
+      timeout = 500,
     },
   },
 

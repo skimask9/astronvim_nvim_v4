@@ -3,15 +3,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("tiny-inline-diagnostic").setup {
-      signs = {
-        left = "",
-        right = "",
-        diag = "●",
-        arrow = "    ",
-        up_arrow = "    ",
-        vertical = " │",
-        vertical_end = " └",
-      },
+      preset = "modern", -- Can be: "modern", "classic", "minimal", "powerline", ghost", "simple", "nonerdfont", "amongus"
       hi = {
         error = "DiagnosticError",
         warn = "DiagnosticWarn",
@@ -20,9 +12,7 @@ return {
         arrow = "NonText",
         background = "CursorLine", -- Can be a highlight or a hexadecimal color (#RRGGBB)
         mixing_color = "None", -- Can be None or a hexadecimal color (#RRGGBB). Used to blend the background color with the diagnostic background color with another color.
-      },
-      blend = {
-        factor = 0.27,
+        -- mixing_color = "#RRGGBB",
       },
       options = {
         -- Show the source of the diagnostic.
@@ -34,14 +24,19 @@ return {
         throttle = 20,
 
         -- The minimum length of the message, otherwise it will be on a new line.
-        softwrap = 15,
+        softwrap = 30,
 
         -- If multiple diagnostics are under the cursor, display all of them.
         multiple_diag_under_cursor = false,
 
         -- Enable diagnostic message on all lines.
-        -- /!\ Still an experimental feature, can be slow on big files.
         multilines = false,
+
+        -- Show all diagnostics on the cursor line.
+        show_all_diags_on_cursorline = false,
+
+        -- Enable diagnostics on Insert mode. You should also se the `throttle` option to 0, as some artefacts may appear.
+        enable_on_insert = false,
 
         overflow = {
           -- Manage the overflow of the message.

@@ -83,6 +83,7 @@ return {
               autoImportCompletions = true,
               diagnosticSeverityOverrides = {
                 reportUnusedImport = false,
+                reportUnannotatedClassAttribute = "none",
                 reportUnusedFunction = "information",
                 reportUnusedVariable = "information",
                 reportGeneralTypeIssues = "none",

@@ -1,6 +1,16 @@
 return {
   "monkoose/neocodeium",
   event = "BufEnter",
+  opts = {
+    filetypes = {
+      TelescopePrompt = false,
+      ["dap-repl"] = false,
+      help = false,
+      -- gitcommit = true,
+      -- gitrebase = true,
+      ["."] = false,
+    },
+  },
   -- enabled = false,
   -- enabled = false,
   config = function()

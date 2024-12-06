@@ -87,7 +87,7 @@ return {
           precedes = "⟨",
           trail = "·",
           nbsp = "␣",
-          eol = "↵",
+          -- eol = "↵",
         },
         showbreak = "↪ ",
         wrap = true, -- sets vim.opt.wrap
@@ -147,19 +147,15 @@ return {
         ["<leader>Gy"] = { "<cmd>:GitBlameCopyFileURL<cr>", desc = "To copy url link github" },
         ["<leader>Gt"] = { "<cmd>:GitBlameToggle<cr>", desc = "To toggle git blame" },
         -- ["<C-x>"] = { "<cmd>:Telescope buffers<cr>" },
-        ["<leader>Fi"] = { "<cmd>:set foldmethod=indent<cr>", desc = "Fold Indent All" },
-        ["<leader>Fm"] = { "<cmd>:set foldmethod=manual<cr>", desc = "Fold Manual" },
-        ["<leader>Fs"] = { "<cmd>:set foldmethod=syntax<cr>", desc = "Fold Syntax (works well with js,html)" },
-        ["<leader>Fv"] = { "<cmd>:mkview<cr>", desc = "To save all folds" },
-        ["<leader>Fl"] = { "<cmd>:load<cr>", desc = "To load all folds" },
         ["<leader>Mt"] = { "<cmd>:GithubPreviewToggle<cr>", desc = "Toggle GithubPreviewToggle" },
         ["<leader>ft"] = { "<cmd>:Telescope tmux windows<cr>", desc = "Tmux switcher" },
         -- tables with the `name` key will be registered with which-key if it's installed
         -- this is useful for naming menus
-        ["<leader>b"] = { name = "Buffers" },
+        -- ["<leader>b"] = { name = "Buffers" },
         ["<leader>v"] = { name = "Venv" },
         ["<leader>G"] = { name = " Git links" },
-        ["<leader>F"] = { name = "Fold" },
+        ["<leader>F"] = { name = " LazyClip" },
+        ["<leader>D"] = { name = " Tasks" },
         ["<leader>M"] = { name = " MarkDown Preview" },
         -- quick save
         ["<c-c>"] = { '"+y', desc = "" },

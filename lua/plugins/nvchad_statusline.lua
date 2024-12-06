@@ -36,7 +36,7 @@ local NeoCodeium = {
     local separator = " |" -- you can customize this separator (space, pipe, etc.)
     return symbols.status[status] .. separator .. symbols.server_status[server_status]
   end,
-  hl = { fg = "virtual_env_fg" },
+  hl = { fg = "harpoon_fg" },
 }
 return {
   {
@@ -50,8 +50,12 @@ return {
         GitBranch = "",
         -- GitBranch = " ",
         GitAdd = "",
+        -- GitAdd = "",
         -- GitChange = "",
+        -- GitChange = "",
+        GitChange = "",
         GitDelete = "",
+        -- GitDelete = "",
         FolderClosed = "",
         FolderOpened = "",
         Codeium = "󰭻", -- define a UI icon for Codeium
@@ -60,7 +64,7 @@ return {
       status = {
         -- define the separators between each section
         separators = {
-          -- left = { "", "" }, -- separator for the left side of the statusline
+          left_test = { "", "" }, -- separator for the left side of the statusline
           left = { "", "" }, -- separator for the left side of the statusline
           right = { "", "" }, -- separator for the right side of the statusline
           center = { "  ", "  " },
@@ -84,7 +88,10 @@ return {
           hl.git_branch_bg = get_hlgroup("Folded").bg
           hl.venv_bg = get_hlgroup("Normal").bg
           hl.lsp_fg = comment_fg
-          hl.virtual_env_fg = get_hlgroup("DiagnosticHint").fg
+          hl.harpoon_fg = get_hlgroup("DiagnosticHint").fg
+          -- green
+          hl.virtual_env_fg = get_hlgroup("String").fg
+          hl.codium_fg = get_hlgroup("GitSignsChange").fg
           -- TO HIDE BG OF LSP
           hl.lsp_bg = get_hlgroup("Normal").bg
           hl.git_added = get_hlgroup("String").fg
@@ -92,6 +99,7 @@ return {
           hl.git_removed = get_hlgroup("GitSignsDelete").fg
           hl.git_diff = get_hlgroup("Folded").bg
           hl.blank_bg = get_hlgroup("Folded").fg
+          hl.none_text = get_hlgroup("NonText").fg
           hl.file_info_bg = get_hlgroup("Folded").bg
           -- for default astro theme
           -- hl.file_info_bg = get_hlgroup("Folded").fg
@@ -101,12 +109,19 @@ return {
           hl.nav_fg = hl.nav_icon_bg
           hl.folder_icon_bg = get_hlgroup("Error").fg
           hl.diagnostics_bg = get_hlgroup("Normal").bg
+          hl.test_fg = get_hlgroup("Normal").fg
 
           -- hl.diagnostics_bg = get_hlgroup("String").bg
           return hl
         end,
         attributes = {
-          mode = { bold = true },
+          -- mode = { bold = true },
+          lsp = { italic = true },
+          buffer_active = { bold = true, italic = true },
+          buffer_picker = { bold = true },
+          macro_recording = { bold = true },
+          git_branch = { italic = true },
+          git_diff = {},
         },
         icon_highlights = {
           file_icon = {
@@ -145,14 +160,57 @@ return {
             -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
             if Harpoonline.is_buffer_harpooned() then
               return {
-                fg = "virtual_env_fg",
+                fg = "harpoon_fg",
                 -- bg = "tabline_bg",
               }
             end
           end,
         },
       }
+      local GitBlameComponent = status.component.builder {
+        {
+          provider = function()
+            local git_blame = require "gitblame"
+            if git_blame.is_blame_text_available() then
+              return "  " .. git_blame.get_current_blame_text() .. " "
+            else
+              return " "
+            end
+          end,
+          hl = function()
+            local git_blame = require "gitblame"
+            if git_blame.is_blame_text_available() then
+              return {
+                fg = "none_text",
+                -- fg = "test_fg",
+              }
+            end
+          end,
+        },
+      }
+      local DoingComponent = status.component.builder {
+        {
+          provider = function()
+            local doing_api = require "doing.api"
+            if doing_api.status() then
+              return "  " .. doing_api.status() .. " "
+            else
+              return " "
+            end
+          end,
+          hl = function()
+            local doing_api = require "doing.api"
+            if doing_api.status() then
+              return {
+                fg = "none_text",
 
+                -- fg = "test_fg",
+                -- bg = "tabline_bg", -- Uncommented for potential future use
+              }
+            end
+          end,
+        },
+      }
       opts.tabline = nil
       opts.winbar = nil
 
@@ -167,7 +225,7 @@ return {
       opts.statusline = {
         -- default highlight for the entire statusline
         hl = {
-          fg = "fg",
+          fg = "blank_bg",
 
           -- bg = "bg",
         },
@@ -185,30 +243,38 @@ return {
               padding = { right = 1, left = 0 },
             },
           },
-
+          --
           surround = {
 
             separator = "tabs",
+            -- separator = "left",
             -- separator = "right",
+            -- color = function()
+            --   return {
+            --     main = status.hl.mode_bg(),
+            --     right = "file_info_bg",
+            --     -- right = "git_branch_bg",
+            --   }
+            -- end,
             color = function()
+              local is_git_repo = vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null"):match "^true" ~= nil
+
               return {
                 main = status.hl.mode_bg(),
-                right = "file_info_bg",
-                -- right = "git_branch_bg",
+                right = is_git_repo and vim.fn.system "git status --porcelain" ~= "" and "file_info_bg" or nil,
               }
             end,
             -- color = function()
             --   local is_git_repo = conditions.is_git_repo()
             --
-            --   vim.cmd.redrawstatus() -- Force redraw each time
-            --
             --   return {
             --     main = status.hl.mode_bg(),
             --     right = is_git_repo and "file_info_bg" or nil,
+            --     tabs = "file_info_bg",
             --   }
             -- end,
             -- color = function()
-            --   if conditions.is_git_repo() then
+            --               if conditions.is_git_repo() then
             --     vim.cmd.redrawstatus()
             --     return {
             --       main = status.hl.mode_bg(),
@@ -230,7 +296,6 @@ return {
             return { fg = "bg" }
           end,
         },
-
         -- status.component.builder {
         --   { provider = "" },
         --   -- define the surrounding separator and colors to be used inside of the component
@@ -250,35 +315,57 @@ return {
         {
           condition = conditions.is_git_repo,
           init = function(self) self.has_git = vim.b.gitsigns_status_dict ~= nil end,
+          status.component.builder {
+            { provider = "" },
+            -- define the surrounding separator and colors to be used inside of the component
+            -- and the color to the right of the separated out section
+            surround = {
+              separator = "left_test",
+              color = {
+                main = "file_info_bg",
+                left = "file_info_bg",
+                right = "file_info_bg",
+              },
+            },
+          },
           {
             status.component.git_branch {
               surround = {
-                -- separator = "tabs",
-
                 separator = "left",
-                color = {
-                  main = "file_info_bg",
-                  -- right = "venv_bg",
-                  right = "git_diff_bg",
-                  -- left = "git_diff_bg",
-                },
-                -- color = function()
-                --   local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
-                --   local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
-                --   if has_changes then
-                --     return { main = "file_info_bg", right = "git_diff_bg" }
-                --   else
-                --     return { main = "file_info_bg", right = "git_diff_bg" }
-                --   end
-                -- end,
+
+                -- separator = "left",
+                -- color = {
+                --   main = "file_info_bg",
+                --   -- right = "venv_bg",
+                --   right = "git_diff_bg",
+                --   -- left = "git_diff_bg",
+                -- },
+                color = function()
+                  local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
+                  local has_changes = stats.added ~= 0 or stats.removed ~= 0 or stats.changed ~= 0
+                  if has_changes then
+                    return {
+                      main = "file_info_bg",
+                      right = "git_diff_bg",
+                      left = "file_info_bg",
+                    }
+                  else
+                    return {
+                      main = "file_info_bg",
+                      -- right = "git_diff_bg",
+                      -- left = "file_info_bg",
+                      -- tabs = "file_info_bg",
+                    }
+                  end
+                end,
                 padding = { left = 0, right = 0 }, -- Control padding
               },
-              hl = { bg = "venv_bg" },
+              -- hl = { bg = "venv_bg" },
               padding = { left = 0, right = 0 }, -- Control padding
               git_branch = {
                 icon = {
                   kind = "GitBranch",
-                  padding = { left = 1, right = 1 }, -- Explicit padding for icon
+                  padding = { left = 0, right = 1 }, -- Explicit padding for icon
                 },
               },
             },
@@ -294,11 +381,11 @@ return {
               -- color = "git_diff_bg",
               color = {
                 main = "git_diff_bg",
+                left = "git_diff_bg",
               },
 
               padding = { left = 0, right = 0 }, -- Control padding
             },
-            hl = { bg = "venv_bg" },
             -- removed = {
             --   hl = { fg = "git_removed" },
             --   icon = {
@@ -324,6 +411,7 @@ return {
         --   padding = { left = 0 },
         -- },
         HarpoonComponent,
+        DoingComponent,
 
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),
@@ -336,6 +424,7 @@ return {
         -- the elements after this will appear on the right of the statusline
         status.component.fill(),
         NeoCodeium,
+        GitBlameComponent,
         -- status.component.builder {
         --
         --   {
