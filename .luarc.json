@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
         "luasnip",
-        "fib"
+        "fib",
+        "sources"
     ]
 }

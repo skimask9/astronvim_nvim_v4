@@ -18,5 +18,8 @@ return {
     -- message_template = "  <author> 󰔠 <date> 󰈚 <summary>  <sha>",
     message_template = "  <author> 󰔠 <date> 󰈚 <summary>",
     message_when_not_committed = "  Not Committed Yet",
+    max_commit_summary_length = 25,
+    -- highlight_group = "Question",
+    -- virtual_text_column = 80,
   },
 }

@@ -9,7 +9,7 @@ return {
       require("luasnip.loaders.from_vscode").lazy_load { paths = { vim.fn.stdpath "config" .. "/snippets" } } -- load snippets paths
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
-      -- luasnip.filetype_extend("htmldjango", { "html" })
+      luasnip.filetype_extend("htmldjango", { "html" })
     end,
   },
 }

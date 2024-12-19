@@ -54,25 +54,26 @@ return {
       -- djlint = {
       --   filetypes = { "htmldjango", "html" },
       -- },
-      -- html = {
-      --   filetypes = { "htmldjango" },
-      -- },
+      html = {
+        filetypes = { "htmldjango" },
+      },
+      htmldjango = { "html" },
 
       -- cssls = {
       --   filetypes = { "htmldjango" },
       -- },
-      gopls = {
-        templateExtensions = { "templ", "tmpl" },
-        -- hints = {
-        --   assignVariableTypes = true,
-        --   compositeLiteralFields = true,
-        --   compositeLiteralTypes = true,
-        --   constantValues = true,
-        --   functionTypeParameters = true,
-        --   parameterNames = true,
-        --   rangeVariableTypes = true,
-        -- },
-      },
+      -- gopls = {
+      --   templateExtensions = { "templ", "tmpl" },
+      -- hints = {
+      --   assignVariableTypes = true,
+      --   compositeLiteralFields = true,
+      --   compositeLiteralTypes = true,
+      --   constantValues = true,
+      --   functionTypeParameters = true,
+      --   parameterNames = true,
+      --   rangeVariableTypes = true,
+      -- },
+      -- },
       basedpyright = {
         settings = {
           basedpyright = {
@@ -96,22 +97,6 @@ return {
         },
       },
 
-      -- basedpyright = {
-      --   settings = {
-      --
-      --     disableOrganizeImports = true,
-      --
-      --     analysis = {
-      --       diagnosticSeverityOverrides = {
-      --         diagnosticMode = "openFilesOnly",
-      --         useLibraryCodeForTypes = true,
-      --         autoSearchPaths = true,
-      --         reportUnusedImport = "unused",
-      --       },
-      --     },
-      --   },
-      -- },
-      --
       -- ruff_lsp = {
       -- on_attach = on_attach,
       -- on_attach = function(client, bufnr)

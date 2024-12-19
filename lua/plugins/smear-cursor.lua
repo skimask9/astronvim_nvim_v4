@@ -24,9 +24,13 @@ return {
     -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
     -- Smears will blend better on all backgrounds.
     legacy_computing_symbols_support = false,
+    -- stiffness = 0.8, -- 0.6      [0, 1]
+    -- trailing_stiffness = 0.6, -- 0.3      [0, 1]
+    -- trailing_exponent = 0, -- 0.1      >= 0
+    -- distance_stop_animating = 0.5, -- 0.1      > 0
+    -- hide_target_hack = false, -- true     boolean
     stiffness = 0.8, -- 0.6      [0, 1]
-    trailing_stiffness = 0.6, -- 0.3      [0, 1]
-    trailing_exponent = 0, -- 0.1      >= 0
+    trailing_stiffness = 0.5, -- 0.3      [0, 1]
     distance_stop_animating = 0.5, -- 0.1      > 0
     hide_target_hack = false, -- true     boolean
   },

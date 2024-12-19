@@ -84,19 +84,20 @@ return {
       },
       hide = {
         cursorline = "focused_win",
-      }, -- highlight = {
-      --
-      --   groups = {
-      --     InclineNormal = {
-      --       default = true,
-      --       group = "NormalFloat",
-      --     },
-      --     InclineNormalNC = {
-      --       default = true,
-      --       group = "NormalFloat",
-      --     },
-      --   },
-      -- },
+      },
+      highlight = {
+
+        groups = {
+          InclineNormal = {
+            default = true,
+            group = "NormalFloat",
+          },
+          InclineNormalNC = {
+            default = true,
+            group = "NormalFloat",
+          },
+        },
+      },
       render = function(props)
         local helpers = require "incline.helpers"
         local filename = shorten_path_styled(vim.api.nvim_buf_get_name(props.buf), {
@@ -120,10 +121,17 @@ return {
             " ",
             filename,
             gui = modified and "bold,italic" or "bold",
-            guibg = vim.o.background == "light" and "#b7b5ac" or "#3b4261",
+            -- guifg = "#888888",
+            guibg = vim.o.background == "light" and "#b7b5ac" or "#384048",
           },
-          { "", guifg = vim.o.background == "light" and "#b7b5ac" or "#3b4261" },
+          {
+            "",
+            guifg = vim.o.background == "light" and "#b7b5ac" or "#384048",
+          },
           -- guibg = "#44406e",
+          -- "#3b4261"
+
+          -- ,
         }
       end,
     }

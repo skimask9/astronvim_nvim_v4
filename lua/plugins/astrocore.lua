@@ -78,6 +78,7 @@ return {
         spell = true, -- sets vim.opt.spell
         path = vim.opt.path + "**",
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
+        mousemoveevent = true,
         linebreak = true, -- linebreak soft wrap at words
         breakindent = true,
         list = true, -- show whitespace characters
@@ -87,7 +88,7 @@ return {
           precedes = "⟨",
           trail = "·",
           nbsp = "␣",
-          -- eol = "↵",
+          eol = "↵",
         },
         showbreak = "↪ ",
         wrap = true, -- sets vim.opt.wrap
@@ -154,7 +155,7 @@ return {
         -- ["<leader>b"] = { name = "Buffers" },
         ["<leader>v"] = { name = "Venv" },
         ["<leader>G"] = { name = " Git links" },
-        ["<leader>F"] = { name = " LazyClip" },
+        ["<leader>T"] = { name = " LazyClip" },
         ["<leader>D"] = { name = " Tasks" },
         ["<leader>M"] = { name = " MarkDown Preview" },
         -- quick save

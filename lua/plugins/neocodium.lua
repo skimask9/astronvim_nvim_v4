@@ -1,5 +1,6 @@
 return {
   "monkoose/neocodeium",
+  enabled = false,
   event = "BufEnter",
   opts = {
     filetypes = {
@@ -10,6 +11,7 @@ return {
       -- gitrebase = true,
       ["."] = false,
     },
+    -- priority = 0,
   },
   -- enabled = false,
   -- enabled = false,

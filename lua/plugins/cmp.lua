@@ -1,7 +1,15 @@
 return { -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
+
   -- override the options table that is used in the `require("cmp").setup()` call
   opts = function(_, opts)
+    -- local cmp = require "cmp"
+    -- opts.sources = cmp.config.sources {
+    --   {
+    --     name = "html-css",
+    --     option = { style_sheets = { "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" } },
+    --   },
+    -- }
     -- local cmp = require "cmp"
     -- vim.o.pumblend = 30
     -- opts parameter is the default options table
@@ -24,7 +32,19 @@ return { -- override nvim-cmp plugin
 
       return vim_item
     end)
-    -- local utils = require "astrocore"
+
+    -- option = {
+    --   enable_on = { "html", "htmldjango" },
+    --   notify = false,
+    --   documentation = { auto_show = true },
+    --   style_sheets = {
+    --     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+    --     "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css",
+    --     "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
+    --   },
+    -- },
+    -- add new source
+    -- -- local utils = require "astrocore"
     -- modify the mapping part of the table
     -- cmp.setup(opts)
     -- cmp.setup.filetype({ "sql" }, {
