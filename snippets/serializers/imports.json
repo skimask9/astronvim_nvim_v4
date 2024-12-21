@@ -1,8 +1,0 @@
-{
-    "rfserializer": {
-        "prefix": "rfserializer",
-        "body": "from rest_framework import serializers",
-        "description": "",
-        "scope": "source.python"
-    }
-}

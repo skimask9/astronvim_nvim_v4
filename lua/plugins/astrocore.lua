@@ -149,7 +149,7 @@ return {
         ["<leader>Gt"] = { "<cmd>:GitBlameToggle<cr>", desc = "To toggle git blame" },
         -- ["<C-x>"] = { "<cmd>:Telescope buffers<cr>" },
         ["<leader>Mt"] = { "<cmd>:GithubPreviewToggle<cr>", desc = "Toggle GithubPreviewToggle" },
-        ["<leader>ft"] = { "<cmd>:Telescope tmux windows<cr>", desc = "Tmux switcher" },
+        ["<leader>fA"] = { "<cmd>:Telescope tmux windows<cr>", desc = "Tmux switcher" },
         -- tables with the `name` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<leader>b"] = { name = "Buffers" },

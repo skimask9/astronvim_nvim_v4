@@ -4,7 +4,7 @@ return {
   priority = 1000,
   opts = {
     style = "night",
-    transparent = true, -- Enable this to disable setting the background color
+    -- transparent = true, -- Enable this to disable setting the background color
     terminal_colors = true, -- Configure the colors used when opening a `:terminal`
     styles = {
       -- Style to be applied to different syntax groups
@@ -20,8 +20,8 @@ return {
       -- variables = { italic = true },
 
       -- Background styles. Can be "dark", "transparent" or "normal"
-      sidebars = "transparent", -- style for sidebars, see below
-      floats = "transparent", -- style for floating windows
+      sidebars = "dark", -- style for sidebars, see below
+      floats = "dark", -- style for floating windows
     },
     plugins = {
       all = true,

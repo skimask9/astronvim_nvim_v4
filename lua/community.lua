@@ -38,6 +38,8 @@ return {
   { import = "astrocommunity.editing-support.multicursors-nvim" },
   { import = "astrocommunity.editing-support.copilotchat-nvim" },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
+  -- { import = "astrocommunity.completion.copilot-lua" },
+  { import = "astrocommunity.completion.blink-cmp" },
 
   -- { import = "astrocommunity.editing-support.treesj" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
