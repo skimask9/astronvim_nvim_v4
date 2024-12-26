@@ -365,7 +365,7 @@ return {
                   else
                     return {
                       main = "file_info_bg",
-                      -- right = "git_diff_bg",
+                      right = "git_diff_bg",
                       -- left = "file_info_bg",
                       -- tabs = "file_info_bg",
                     }
@@ -411,8 +411,8 @@ return {
         --   },
         -- },
         {
-          -- condition = function() return vim.b.gitsigns_status_dict ~= nil end,
-          condition = conditions.is_git_repo,
+          condition = function() return vim.b.gitsigns_status_dict ~= nil end,
+          -- condition = conditions.is_git_repo,
           status.component.git_diff {
 
             surround = {
