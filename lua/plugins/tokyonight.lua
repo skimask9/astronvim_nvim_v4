@@ -62,7 +62,13 @@ return {
       hl.TelescopePromptTitle = { fg = c.bg_dark, bg = c.orange }
       hl.TelescopePreviewBorder = { fg = c.error, bg = c.none }
       hl.TelescopeResultsBorder = { fg = c.info, bg = c.none }
-      -- hl.TelescopeResultsComment = { fg = c.dark3 }
+      hl.TelescopePromptPrefix = { fg = c.orange, bg = c.none }
+      hl.TelescopeMatching = { fg = c.orange, bg = c.none }
+      -- hl.TelescopeSelection = { fg = c.info, bg = c.bg_highlight, bold = true }
+      hl.TelescopeSelection = { fg = c.info, bg = c.none, bold = true }
+      hl.TelescopePromptCounter = { fg = c.terminal.black_bright, bg = c.none }
+      -- hl.TelescopeSelection = { fg = c.orange, bg = c.none, bold = true }
+      hl.TelescopeSelectionCaret = { fg = c.info, bg = c.none }
 
       -- hl.TelescopeNormal = {
       --   bg = c.bg_dark,

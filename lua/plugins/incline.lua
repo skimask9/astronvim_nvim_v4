@@ -122,15 +122,15 @@ return {
             filename,
             gui = modified and "bold,italic" or "bold",
             -- guifg = "#888888",
-            guibg = vim.o.background == "light" and "#b7b5ac" or "#384048",
+            guibg = vim.o.background == "light" and "#b7b5ac" or "#1d3b53",
           },
           {
             "",
-            guifg = vim.o.background == "light" and "#b7b5ac" or "#384048",
+            guifg = vim.o.background == "light" and "#b7b5ac" or "#1d3b53",
           },
           -- guibg = "#44406e",
           -- "#3b4261"
-
+          -- "#384048",
           -- ,
         }
       end,

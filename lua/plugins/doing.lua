@@ -9,6 +9,7 @@ return {
       -- doesn"t display on buffers that match filetype/filename to entries
       -- can be either an array or a function that returns an array
       ignored_buffers = { "NvimTree" },
+      show_remaining = true,
 
       -- if plugin should manage the winbar
       winbar = { enabled = false },
@@ -23,9 +24,11 @@ return {
     -- example on how to change the winbar highlight
     vim.api.nvim_set_hl(0, "WinBar", { link = "Search" })
 
-    local api = require "doing.api"
+    local doing = require "doing"
     --
-    vim.keymap.set("n", "<leader>De", api.edit, { desc = "[E]dit what tasks you`re [D]oing" })
-    vim.keymap.set("n", "<leader>Dn", api.done, { desc = "[D]o[n]e with current task" })
+    vim.keymap.set("n", "<leader>Da", doing.add, { desc = "[D]oing: [A]dd" })
+    vim.keymap.set("n", "<leader>De", doing.edit, { desc = "[D]oing: [E]dit" })
+    vim.keymap.set("n", "<leader>Dn", doing.done, { desc = "[D]oing: Do[n]e" })
+    vim.keymap.set("n", "<leader>Dt", doing.toggle, { desc = "[D]oing: [T]oggle" })
   end,
 }

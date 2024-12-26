@@ -48,6 +48,7 @@ return {
         VimIcon = "",
         ScrollText = "",
         GitBranch = "",
+        GitDiff = "",
         -- GitBranch = " ",
         GitAdd = "",
         -- GitAdd = "",
@@ -192,7 +193,7 @@ return {
       local DoingComponent = status.component.builder {
         {
           provider = function()
-            local doing_api = require "doing.api"
+            local doing_api = require "doing"
             if doing_api.status() then
               return "  " .. doing_api.status() .. " "
             else
@@ -201,7 +202,7 @@ return {
           end,
           update = { "BufEnter", "User", pattern = "TaskModified" },
           hl = function()
-            local doing_api = require "doing.api"
+            local doing_api = require "doing"
             if doing_api.status() then
               return {
                 fg = "none_text",
@@ -342,14 +343,14 @@ return {
           {
             status.component.git_branch {
               surround = {
-                separator = "left",
+                -- separator = "none",
 
-                -- separator = "left",
+                separator = "left",
                 -- color = {
-                --   main = "file_info_bg",
+                -- main = "file_info_bg",
                 --   -- right = "venv_bg",
-                --   right = "git_diff_bg",
-                --   -- left = "git_diff_bg",
+                -- right = "git_diff_bg",
+                -- left = "git_diff_bg",
                 -- },
                 color = function()
                   local stats = vim.b.gitsigns_status_dict or { added = 0, removed = 0, changed = 0 }
@@ -358,6 +359,7 @@ return {
                     return {
                       main = "file_info_bg",
                       right = "git_diff_bg",
+                      -- right = "file_info_bg",
                       left = "file_info_bg",
                     }
                   else
@@ -381,22 +383,54 @@ return {
               },
             },
           },
+          -- status.component.builder {
+          --   { provider = "" },
+          --   -- define the surrounding separator and colors to be used inside of the component
+          --   -- and the color to the right of the separated out section
+          --   surround = {
+          --     separator = "left",
+          --     color = {
+          --       main = "file_info_bg",
+          --       -- left = "file_info_bg",
+          --       -- right = "git_diff_bg",
+          --     },
+          --   },
+          -- },
         },
+        -- status.component.builder {
+        --   { provider = "" },
+        --   -- define the surrounding separator and colors to be used inside of the component
+        --   -- and the color to the right of the separated out section
+        --   surround = {
+        --     separator = "left",
+        --     color = {
+        --       left = "file_info_bg",
+        --       -- right = "git_diff_bg",
+        --       main = "file_info_bg",
+        --     },
+        --   },
+        -- },
         {
           -- condition = function() return vim.b.gitsigns_status_dict ~= nil end,
           condition = conditions.is_git_repo,
           status.component.git_diff {
+
             surround = {
-              separator = "left",
-              -- separator = "tabs",
+              separator = "none",
+              -- separator = "left",
+              padding = { left = 0, right = 0 }, -- Control padding
               -- color = "git_diff_bg",
               color = {
                 main = "git_diff_bg",
-                left = "git_diff_bg",
+                -- main = "file_info_bg",
+                -- left = "git_diff_bg",
+                -- right = "git_diff_bg",
               },
-
-              padding = { left = 0, right = 0 }, -- Control padding
             },
+            padding = { left = 1, right = 0 }, -- Control padding
+            added = { icon = { kind = "GitAdd", padding = { left = 0, right = 1 } } },
+            -- changed = { icon = { kind = "GitChange", padding = { left = 0, right = 1 } } },
+            -- removed = { icon = { kind = "GitDelete", padding = { left = 1, right = 1 } } },
             -- removed = {
             --   hl = { fg = "git_removed" },
             --   icon = {
@@ -405,7 +439,21 @@ return {
             --   },
             -- },
           },
+          status.component.builder {
+            { provider = "" },
+            -- define the surrounding separator and colors to be used inside of the component
+            -- and the color to the right of the separated out section
+            surround = {
+              separator = "left",
+              color = {
+                left = "git_diff_bg",
+                -- right = "git_diff_bg",
+                main = "git_diff_bg",
+              },
+            },
+          },
         },
+
         -- status.component.breadcrumbs {
         --   icon = { hl = true },
         --   prefix = false,

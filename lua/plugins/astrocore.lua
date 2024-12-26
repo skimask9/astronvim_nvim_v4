@@ -27,7 +27,15 @@ return {
       -- underline = true,
     },
     autocmds = {
-      -- Set filetype to htmldjango if 'manage.py' exists in the current working directory
+      -- lock terminal
+      lock_terminal = {
+        {
+          event = "TermOpen",
+          pattern = "*",
+          callback = function() vim.wo.winfixbuf = true end,
+          desc = "Lock terminal buffers to their windows",
+        },
+      }, -- Set filetype to htmldjango if 'manage.py' exists in the current working directory
       -- html_filetype_cmd = {
       --   cond = function()
       --     -- Check if the current working directory has a 'manage.py' file

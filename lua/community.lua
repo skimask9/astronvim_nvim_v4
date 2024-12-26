@@ -13,10 +13,8 @@ return {
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.colorscheme.github-nvim-theme" },
   { import = "astrocommunity.colorscheme.vim-nightfly-colors" },
-  -- { import = "astrocommunity.colorscheme.gruvbox-nvim" },
   -- { import = "astrocommunity.colorscheme.everforest" },
   -- { import = "astrocommunity.colorscheme.nordic-nvim" },
-  -- { import = "astrocommunity.colorscheme.night-owl-nvim" },
   -- { import = "astrocommunity.colorscheme.kanagawa-nvim", enabled = true },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   -- { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
@@ -38,7 +36,6 @@ return {
   { import = "astrocommunity.editing-support.multicursors-nvim" },
   { import = "astrocommunity.editing-support.copilotchat-nvim" },
   { import = "astrocommunity.completion.copilot-lua-cmp" },
-  -- { import = "astrocommunity.completion.copilot-lua" },
   { import = "astrocommunity.completion.blink-cmp" },
 
   -- { import = "astrocommunity.editing-support.treesj" },
