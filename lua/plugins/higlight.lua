@@ -1,6 +1,6 @@
 return {
   "brenoprata10/nvim-highlight-colors",
-  enalble = false,
+  -- enalble = false,
   opts = {
     render = "virtual",
     enable_tailwind = true,

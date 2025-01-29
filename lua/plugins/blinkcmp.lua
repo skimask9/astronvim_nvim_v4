@@ -3,47 +3,88 @@ local function has_words_before()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
-local function get_icon_provider()
-  local _, mini_icons = pcall(require, "mini.icons")
-  if _G.MiniIcons then return function(kind) return mini_icons.get("lsp", kind or "") end end
-  local lspkind_avail, lspkind = pcall(require, "lspkind")
-  if lspkind_avail then return function(kind) return lspkind.symbolic(kind, { mode = "symbol" }) end end
-end
----@type function|false|nil
-local icon_provider = false
+---@type function?, function?
+local icon_provider, hl_provider
 
-local function get_icon(ctx)
-  ctx.kind_hl_group = "BlinkCmpKind" .. ctx.kind
-  if ctx.item.source_name == "LSP" then
-    local item_doc, color_item = ctx.item.documentation, nil
-    if item_doc then
-      local highlight_colors_avail, highlight_colors = pcall(require, "nvim-highlight-colors")
-      color_item = highlight_colors_avail and highlight_colors.format(item_doc, { kind = ctx.kind })
+local function get_kind_icon(CTX)
+  -- Evaluate icon provider
+  if not icon_provider then
+    local base = function(ctx) ctx.kind_icon_highlight = "BlinkCmpKind" .. ctx.kind end
+    local _, mini_icons = pcall(require, "mini.icons")
+    if _G.MiniIcons then
+      icon_provider = function(ctx)
+        base(ctx)
+        if ctx.item.source_name == "LSP" then
+          local icon, hl = mini_icons.get("lsp", ctx.kind or "")
+          if icon then
+            ctx.kind_icon = icon
+            ctx.kind_icon_highlight = hl
+          end
+        elseif ctx.item.source_name == "Path" then
+          ctx.kind_icon, ctx.kind_icon_highlight =
+            mini_icons.get(ctx.kind == "Folder" and "directory" or "file", ctx.label)
+        end
+      end
     end
-    if icon_provider == false then icon_provider = get_icon_provider() end
-    if icon_provider then
-      local icon = icon_provider(ctx.kind)
-      if icon then ctx.kind_icon = icon end
+    if not icon_provider then
+      local lspkind_avail, lspkind = pcall(require, "lspkind")
+      if lspkind_avail then
+        icon_provider = function(ctx)
+          base(ctx)
+          if ctx.item.source_name == "LSP" then
+            local icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
+            if icon then ctx.kind_icon = icon end
+          end
+        end
+      end
     end
-    if color_item and color_item.abbr and color_item.abbr_hl_group then
-      ctx.kind_icon, ctx.kind_hl_group = color_item.abbr, color_item.abbr_hl_group
+    if not icon_provider then icon_provider = function(ctx) base(ctx) end end
+  end
+  -- Evaluate highlight provider
+  if not hl_provider then
+    local highlight_colors_avail, highlight_colors = pcall(require, "nvim-highlight-colors")
+    if highlight_colors_avail then
+      local kinds
+      hl_provider = function(ctx)
+        if not kinds then kinds = require("blink.cmp.types").CompletionItemKind end
+        if ctx.item.kind == kinds.Color then
+          local doc = vim.tbl_get(ctx, "item", "documentation")
+          if doc then
+            local color_item = highlight_colors_avail and highlight_colors.format(doc, { kind = kinds[kinds.Color] })
+            if color_item and color_item.abbr_hl_group then
+              if color_item.abbr then ctx.kind_icon = color_item.abbr end
+              ctx.kind_icon_highlight = color_item.abbr_hl_group
+            end
+          end
+        end
+      end
+    end
+    if not hl_provider then
+      hl_provider = function(ctx)
+        local tailwind_hl = require("blink.cmp.completion.windows.render.tailwind").get_hl(ctx)
+        if tailwind_hl then ctx.kind_icon_highlight = tailwind_hl end
+      end
     end
   end
-  return ctx
+  -- Call resolved providers
+  icon_provider(CTX)
+  hl_provider(CTX)
+  -- Return text and highlight information
+  return { text = CTX.kind_icon .. CTX.icon_gap, highlight = CTX.kind_icon_highlight }
 end
-local copilot = require "copilot.suggestion"
-return {
 
+return {
   "Saghen/blink.cmp",
   event = { "InsertEnter", "CmdlineEnter" },
   version = "0.*",
+  opts_extend = { "sources.default", "sources.cmdline" },
   dependencies = {
     "rafamadriz/friendly-snippets",
-    "zbirenbaum/copilot.lua",
+    "xzbdmw/colorful-menu.nvim",
     "kristijanhusak/vim-dadbod-completion",
-    "giuxtaposition/blink-cmp-copilot",
+    "fang2hou/blink-copilot",
+    -- "giuxtaposition/blink-cmp-copilot",
   },
-  opts_extend = { "sources.default", "sources.cmdline" },
   opts = {
     -- remember to enable your providers here
     sources = {
@@ -56,24 +97,33 @@ return {
         },
         copilot = {
           name = "copilot",
-          module = "blink-cmp-copilot",
+          module = "blink-copilot",
           score_offset = 100,
           async = true,
-          transform_items = function(_, items)
-            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-            local kind_idx = #CompletionItemKind + 1
-            CompletionItemKind[kind_idx] = "Copilot"
-            for _, item in ipairs(items) do
-              item.kind = kind_idx
-            end
-            return items
-          end,
+          opts = {
+            max_completions = 3,
+            max_attempts = 4,
+            kind = "Copilot",
+            -- Local options override global ones
+            -- Final settings: max_completions = 3, max_attempts = 2, kind = "Copilot"
+          },
         },
+        --    copilot = {
+        --   name = "copilot",
+        --   module = "blink-cmp-copilot",
+        --   score_offset = 100,
+        --   async = true,
+        --   transform_items = function(_, items)
+        --     local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+        --     local kind_idx = #CompletionItemKind + 1
+        --     CompletionItemKind[kind_idx] = "Copilot"
+        --     for _, item in ipairs(items) do
+        --       item.kind = kind_idx
+        --     end
+        --     return items
+        --   end,
+        -- },
       },
-      min_keyword_length = function(ctx)
-        if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then return 2 end
-        return 0
-      end,
     },
     keymap = {
       ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -88,57 +138,44 @@ return {
       ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
       ["<Tab>"] = {
+        "select_next",
+        "snippet_forward",
         function(cmp)
-          if cmp.is_visible() then
-            return cmp.select_next()
-          elseif copilot.is_visible() then
-            return copilot.accept()
-          elseif cmp.snippet_active { direction = 1 } then
-            return cmp.snippet_forward()
-          elseif has_words_before() then
-            return cmp.show()
-          end
+          if has_words_before() or vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
         end,
         "fallback",
       },
       ["<S-Tab>"] = {
+        "select_prev",
+        "snippet_backward",
         function(cmp)
-          if cmp.is_visible() then
-            return cmp.select_prev()
-          elseif cmp.snippet_active { direction = -1 } then
-            return cmp.snippet_backward()
-          end
+          if vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
         end,
         "fallback",
       },
     },
     completion = {
+      list = { selection = { preselect = false, auto_insert = true } },
       menu = {
         auto_show = function(ctx)
           return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
         end,
         border = "rounded",
-        -- border = "none",
-        -- border = (vim.o.background == "light") and "rounded" or "none",
         winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
         draw = {
-          --
-          align_to_component = "label", -- or 'none' to disable
-          padding = 1,
-          gap = 1,
-          -- columns = {
-          --   { "label", "label_description", gap = 1 },
-          --   { "kind_icon", "kind", gap = 1 },
-          -- },
-
           columns = { { "kind_icon" }, { "label", "label_description", "kind", gap = 1 } },
+          -- columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
+
+          -- columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
+          treesitter = { "lsp" },
           components = {
+            label = {
+              text = function(ctx) return require("colorful-menu").blink_components_text(ctx) end,
+              highlight = function(ctx) return require("colorful-menu").blink_components_highlight(ctx) end,
+            },
             kind_icon = {
-              text = function(ctx)
-                get_icon(ctx)
-                return ctx.kind_icon .. ctx.icon_gap
-              end,
-              highlight = function(ctx) return get_icon(ctx).kind_hl_group end,
+              text = function(ctx) return get_kind_icon(ctx).text end,
+              highlight = function(ctx) return get_kind_icon(ctx).highlight end,
             },
           },
         },
@@ -148,7 +185,7 @@ return {
       },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 200,
+        auto_show_delay_ms = 0,
         window = {
           border = "rounded",
           winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
@@ -158,11 +195,7 @@ return {
     signature = {
       window = {
         -- border = "rounded",
-        -- border = "none",
         border = (vim.o.background == "light") and "rounded" or "none",
-        min_width = 1,
-        max_width = 100,
-        max_height = 10,
         winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
       },
     },
@@ -174,12 +207,23 @@ return {
     },
   },
   specs = {
+    -- {
+    --   "L3MON4D3/LuaSnip",
+    --   optional = true,
+    --   specs = { { "Saghen/blink.cmp", opts = { snippets = { preset = "luasnip" } } } },
+    -- },
     {
       "AstroNvim/astrolsp",
       optional = true,
       opts = function(_, opts)
-        opts.capabilities =
-          require("astrocore").extend_tbl(opts.capabilities, require("blink.cmp").get_lsp_capabilities())
+        opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities)
+
+        -- disable AstroLSP signature help if `blink.cmp` is providing it
+        local blink_opts = require("astrocore").plugin_opts "blink.cmp"
+        if vim.tbl_get(blink_opts, "signature", "enabled") == true then
+          if not opts.features then opts.features = {} end
+          opts.features.signature_help = false
+        end
       end,
     },
     {
@@ -207,8 +251,5 @@ return {
     -- disable built in completion plugins
     { "hrsh7th/nvim-cmp", enabled = false },
     { "rcarriga/cmp-dap", enabled = false },
-    { "petertriho/cmp-git", enabled = false },
-    { "L3MON4D3/LuaSnip", enabled = false },
-    { "onsails/lspkind.nvim", enabled = false },
   },
 }

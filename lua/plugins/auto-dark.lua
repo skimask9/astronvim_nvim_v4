@@ -6,15 +6,17 @@ return {
     set_dark_mode = function()
       vim.api.nvim_set_option_value("background", "dark", {})
       -- vim.cmd "colorscheme jellybeans"
-      -- vim.cmd "colorscheme astrodark"
       -- vim.cmd "colorscheme tokyonight"
-      vim.cmd "colorscheme nightfly"
-      -- vim.cmd "colorscheme flexoki"
+      vim.cmd "colorscheme catppuccin"
+      -- vim.cmd "colorscheme jb"
+      -- vim.cmd "colorscheme nightfly"
     end,
     set_light_mode = function()
       vim.api.nvim_set_option_value("background", "light", {})
       -- vim.cmd "colorscheme tokyonight-day"
+      -- vim.cmd "colorscheme jb"
       vim.cmd "colorscheme flexoki"
+      -- vim.cmd "colorscheme jellybeans"
     end,
   },
 }

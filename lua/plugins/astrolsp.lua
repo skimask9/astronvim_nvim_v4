@@ -48,17 +48,13 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
-      htmx = {
-        filetypes = { "html", "templ", "htmldjango" },
-      },
-      -- djlint = {
-      --   filetypes = { "htmldjango", "html" },
+      -- htmx = {
+      --   filetypes = { "html", "templ", "htmldjango" },
       -- },
-      html = {
-        filetypes = { "htmldjango" },
-      },
-      htmldjango = { "html" },
-
+      -- html = {
+      -- filetypes = { "htmldjango" },
+      -- },
+      -- htmldjango = { "html" },
       -- cssls = {
       --   filetypes = { "htmldjango" },
       -- },
@@ -79,7 +75,7 @@ return {
           basedpyright = {
             analysis = {
               disableOrganizeImports = true,
-              diagnosticMode = "workspace",
+              -- diagnosticMode = "workspace",
               typeCheckingMode = "standard",
               autoImportCompletions = true,
               diagnosticSeverityOverrides = {
@@ -91,6 +87,8 @@ return {
                 reportOptionalMemberAccess = "none",
                 reportOptionalSubscript = "none",
                 reportPrivateImportUsage = "none",
+                -- reportUnknownArgumentType = false,
+                -- reportUnknownVariableType = false,
               },
             },
           },
@@ -106,23 +104,26 @@ return {
       --   end
       -- end,
       -- },
-      tailwindcss = {
-        root_dir = function(fname)
-          local util = require "lspconfig.util"
-          return util.root_pattern(
-            "tailwind.config.js",
-            "config/tailwind.config.js",
-            "tailwind.config.ts",
-            "./theme/static_src/tailwind.config.js"
-          )(fname) or util.root_pattern("postcss.config.js", "postcss.config.ts")(fname) or util.find_package_json_ancestor(
-            fname
-          ) or util.find_node_modules_ancestor(fname) or util.find_git_ancestor(fname)
-        end,
-        userLanguages = {
-          htmldjango = "html",
-          templ = "html",
-        },
-      },
+      -- tailwindcss = {
+      --   root_dir = function(fname)
+      --     local util = require "lspconfig.util"
+      --     local startpath = fname
+      --     return util.root_pattern(
+      --       "tailwind.config.js",
+      --       "config/tailwind.config.js",
+      --       "tailwind.config.ts",
+      --       "./theme/static_src/tailwind.config.js"
+      --     )(fname) or util.root_pattern("postcss.config.js", "postcss.config.ts")(fname) or vim.fs.dirname(
+      --       vim.fs.find("package.json", { path = startpath, upward = true })[1]
+      --     ) or vim.fs.dirname(vim.fs.find("node_modules", { path = startpath, upward = true })[1]) or vim.fs.dirname(
+      --       vim.fs.find(".git", { path = startpath, upward = true })[1]
+      --     )
+      --   end,
+      --   userLanguages = {
+      --     htmldjango = "html",
+      --     templ = "html",
+      --   },
+      -- },
       -- templ = {
       --   filetypes = { "html" },
       -- },

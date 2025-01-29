@@ -89,13 +89,13 @@ return {
             view = "mini",
           },
         },
-        views = {
-          mini = {
-            win_options = {
-              winblend = 0,
-            },
-          },
-        },
+        -- views = {
+        --   mini = {
+        --     win_options = {
+        --       winblend = 0,
+        --     },
+        --   },
+        -- },
       })
     end,
   },
@@ -103,6 +103,7 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       timeout = 500,
+      background_colour = "#000000", -- for nightfly theme
     },
   },
 

@@ -28,14 +28,23 @@ return {
     },
     autocmds = {
       -- lock terminal
-      lock_terminal = {
-        {
-          event = "TermOpen",
-          pattern = "*",
-          callback = function() vim.wo.winfixbuf = true end,
-          desc = "Lock terminal buffers to their windows",
-        },
-      }, -- Set filetype to htmldjango if 'manage.py' exists in the current working directory
+      -- lock_terminal = {
+      --   {
+      --     event = "TermOpen",
+      --     pattern = "*",
+      --     callback = function() vim.wo.winfixbuf = true end,
+      --     desc = "Lock terminal buffers to their windows",
+      --   },
+      -- },
+      -- htmldjango = {
+      --   {
+      --     event = { "BufRead", "BufNewFile" },
+      --     pattern = "*.html",
+      --     callback = function() vim.bo.filetype = "htmldjango" end,
+      --     desc = "Set filetype to htmldjango",
+      --   },
+      -- },
+      -- Set filetype to htmldjango if 'manage.py' exists in the current working directory
       -- html_filetype_cmd = {
       --   cond = function()
       --     -- Check if the current working directory has a 'manage.py' file
@@ -147,7 +156,7 @@ return {
         ["<Leader>b"] = { desc = "Buffers" },
         -- quick save
         ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
-        ["<F1>"] = { ":w|!python3  %<cr>", desc = "Run python file" },
+        ["<F1>"] = { ":w|!python3 %<CR>", desc = "Run python file" },
         ["<F3>"] = { ":w|!go run %<cr>", desc = "Run go file" },
         ["<TAB>"] = { "<cmd>:Telescope buffers<cr>", desc = "buffers" },
         ["<F2>"] = { ":ToggleTerm direction=horizontal<cr>", desc = "ToggleTerm" },
@@ -187,6 +196,7 @@ return {
         ["<S-Up>"] = { "<cmd>t -1<cr>", desc = "" },
         ["<M-Up>"] = { "<cmd>m-2<cr>", desc = "" },
         ["<C-s>"] = { "<cmd>w<cr>", desc = "" },
+        ["<F1>"] = { "<ESC>:w|!python3  %<CR>", desc = "Run python file" },
       },
       v = {
         ["p"] = { '"_dP', desc = "" },

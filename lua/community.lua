@@ -12,14 +12,14 @@ return {
   -- { import = "astrocommunity.colorscheme.neosolarized-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.colorscheme.github-nvim-theme" },
-  { import = "astrocommunity.colorscheme.vim-nightfly-colors" },
+  -- { import = "astrocommunity.colorscheme.vim-nightfly-colors" },
   -- { import = "astrocommunity.colorscheme.everforest" },
   -- { import = "astrocommunity.colorscheme.nordic-nvim" },
   -- { import = "astrocommunity.colorscheme.kanagawa-nvim", enabled = true },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   -- { import = "astrocommunity.bars-and-lines.bufferline-nvim" },
   { import = "astrocommunity.editing-support.vim-move" },
-  -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
+  { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
 
   { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.tailwindcss" },
@@ -35,9 +35,8 @@ return {
   { import = "astrocommunity.editing-support.telescope-undo-nvim" },
   { import = "astrocommunity.editing-support.multicursors-nvim" },
   { import = "astrocommunity.editing-support.copilotchat-nvim" },
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
+  -- { import = "astrocommunity.completion.copilot-lua-cmp" },
   { import = "astrocommunity.completion.blink-cmp" },
-
   -- { import = "astrocommunity.editing-support.treesj" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
   { import = "astrocommunity.motion.harpoon" },
@@ -47,6 +46,7 @@ return {
   { import = "astrocommunity.indent.mini-indentscope" },
   { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
   { import = "astrocommunity.recipes.vscode-icons" },
+  { import = "astrocommunity.utility.hover-nvim" },
 
   -- import/override with your plugins folder
 }

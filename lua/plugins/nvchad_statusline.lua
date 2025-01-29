@@ -193,19 +193,26 @@ return {
       local DoingComponent = status.component.builder {
         {
           provider = function()
-            local doing_api = require "doing"
-            if doing_api.status() then
-              return "  " .. doing_api.status() .. " "
+            local status_doing = require("doing").status()
+            --   return " " .. status_doing .. " +" .. tostring(require("doing").tasks_left())
+            -- end,
+            if not conditions.width_percent_below(#status_doing, 0.3) then
+              local max_len = vim.api.nvim_win_get_width(0) * 0.3
+              status_doing = status_doing:sub(0, max_len) .. "..."
+            end
+            if status_doing then
+              return " " .. status_doing
             else
               return " "
             end
           end,
-          update = { "BufEnter", "User", pattern = "TaskModified" },
+
           hl = function()
             local doing_api = require "doing"
             if doing_api.status() then
               return {
                 fg = "none_text",
+                italic = true,
 
                 -- fg = "test_fg",
                 -- bg = "tabline_bg", -- Uncommented for potential future use
@@ -213,6 +220,7 @@ return {
             end
           end,
         },
+        update = { "BufEnter", "User", pattern = "TaskModified" },
       }
       opts.tabline = nil
       opts.winbar = nil
@@ -427,8 +435,8 @@ return {
                 -- right = "git_diff_bg",
               },
             },
-            padding = { left = 1, right = 0 }, -- Control padding
-            added = { icon = { kind = "GitAdd", padding = { left = 0, right = 1 } } },
+            padding = { left = 0, right = 0 }, -- Control padding
+            added = { icon = { kind = "GitAdd", padding = { left = 1, right = 1 } } },
             -- changed = { icon = { kind = "GitChange", padding = { left = 0, right = 1 } } },
             -- removed = { icon = { kind = "GitDelete", padding = { left = 1, right = 1 } } },
             -- removed = {
@@ -443,6 +451,7 @@ return {
             { provider = "" },
             -- define the surrounding separator and colors to be used inside of the component
             -- and the color to the right of the separated out section
+            padding = { left = 0, right = 0 },
             surround = {
               separator = "left",
               color = {
@@ -450,6 +459,7 @@ return {
                 -- right = "git_diff_bg",
                 main = "git_diff_bg",
               },
+              padding = { left = 0, right = 0 },
             },
           },
         },
@@ -469,8 +479,7 @@ return {
         --   prefix = true,
         --   padding = { left = 0 },
         -- },
-        HarpoonComponent,
-        DoingComponent,
+        GitBlameComponent,
 
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),
@@ -482,8 +491,9 @@ return {
         -- fill the rest of the statusline
         -- the elements after this will appear on the right of the statusline
         status.component.fill(),
+        HarpoonComponent,
+        DoingComponent,
         -- NeoCodeium,
-        GitBlameComponent,
         -- status.component.builder {
         --
         --   {

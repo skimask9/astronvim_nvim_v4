@@ -23,7 +23,6 @@ return {
       smart_dd = true,
       -- visually_codeblock_shift = true,
       -- move_selected_upndown = true,
-      go_back_normal_in_terminal = true,
       ctrl_backspace_delete = true,
       smart_visual_paste = true,
       dont_suspend_with_cz = true,

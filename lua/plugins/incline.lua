@@ -57,6 +57,41 @@ local function shorten_path_styled(path, opts)
     vim.list_extend(tail_style, { result[2] }),
   }
 end
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    extra_colors = {} -- Removed 'local'
+    if vim.g.colors_name == "catppuccin-frappe" then
+      extra_colors.bg = "#51576d"
+    elseif vim.g.colors_name == "nightfly" then
+      extra_colors.bg = "#1d3b53"
+    elseif vim.g.colors_name == "catppuccin-mocha" then
+      extra_colors.bg = "#45475a"
+    elseif vim.g.colors_name == "flexoki" then
+      extra_colors.bg = "#b7b5ac"
+    else
+      extra_colors.bg = "#3b4261" --tokyonight
+    end
+  end,
+})
+-- local extra_colors = {}
+-- if vim.g.colors_name == "catppuccin-frappe" then
+--   -- local frappe = require("catppuccin.palettes").get_palette "frappe"
+--   extra_colors = {
+--     bg = "#51576d",
+--   }
+-- elseif vim.g.colors_name == "nigtfly" then
+--   extra_colors = {
+--     bg = "#1d3b53",
+--   }
+-- elseif vim.g.colors_name == "flexoki" then
+--   extra_colors = {
+--     bg = "#b7b5ac",
+--   }
+-- else
+--   extra_colors = {
+--     bg = "#3b4261",
+--   }
+-- end
 return {
   "b0o/incline.nvim",
   event = "VeryLazy",
@@ -101,10 +136,12 @@ return {
       render = function(props)
         local helpers = require "incline.helpers"
         local filename = shorten_path_styled(vim.api.nvim_buf_get_name(props.buf), {
+
           short_len = 1,
           tail_count = 2,
           head_max = 4,
         })
+
         local devicons = require "nvim-web-devicons"
         -- local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":~")
         local filename_icon = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":.")
@@ -122,16 +159,18 @@ return {
             filename,
             gui = modified and "bold,italic" or "bold",
             -- guifg = "#888888",
-            guibg = vim.o.background == "light" and "#b7b5ac" or "#1d3b53",
+            -- guibg = vim.o.background == "light" and "#b7b5ac" or "#51576d",
+            guibg = vim.o.background == "light" and extra_colors.bg or extra_colors.bg,
           },
           {
             "",
-            guifg = vim.o.background == "light" and "#b7b5ac" or "#1d3b53",
+            -- guifg = vim.o.background == "light" and "#b7b5ac" or "#51576d",
+            guifg = vim.o.background == "light" and extra_colors.bg or extra_colors.bg,
           },
           -- guibg = "#44406e",
           -- "#3b4261"
           -- "#384048",
-          -- ,
+          -- nigtfly #1d3b53 ,
         }
       end,
     }

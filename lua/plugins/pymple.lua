@@ -1,6 +1,7 @@
 return {
 
   "alexpasmantier/pymple.nvim",
+  -- enabled = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
@@ -8,8 +9,9 @@ return {
     "stevearc/dressing.nvim",
     "nvim-tree/nvim-web-devicons",
   },
-  -- enabled = false,
+  enabled = false,
   build = ":PympleBuild",
+  -- ft = "py",
   config = function()
     require("pymple").setup {
       keymaps = {

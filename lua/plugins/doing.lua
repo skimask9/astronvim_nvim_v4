@@ -1,6 +1,7 @@
 -- example configuration
 return {
   "Hashino/doing.nvim",
+  -- enabled = false,
   config = function()
     require("doing").setup {
       message_timeout = 2000,
@@ -13,6 +14,11 @@ return {
 
       -- if plugin should manage the winbar
       winbar = { enabled = false },
+      edit_win_config = {
+        width = 50,
+        height = 15,
+        border = "rounded",
+      },
 
       store = {
         -- name of tasks file

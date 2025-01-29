@@ -2,9 +2,10 @@ return {
   "folke/tokyonight.nvim",
   lazy = false,
   priority = 1000,
+  -- enabled = false,
   opts = {
     style = "night",
-    -- transparent = true, -- Enable this to disable setting the background color
+    transparent = true, -- Enable this to disable setting the background color
     terminal_colors = true, -- Configure the colors used when opening a `:terminal`
     styles = {
       -- Style to be applied to different syntax groups
@@ -20,8 +21,8 @@ return {
       -- variables = { italic = true },
 
       -- Background styles. Can be "dark", "transparent" or "normal"
-      sidebars = "dark", -- style for sidebars, see below
-      floats = "dark", -- style for floating windows
+      sidebars = "transparent", -- style for sidebars, see below
+      floats = "transparent", -- style for floating windows
     },
     plugins = {
       all = true,
@@ -56,11 +57,13 @@ return {
       hl.jDiagnosticUnderlineWarn = { undercurl = true, sp = c.warning } -- Used to underline "Warning" diagnostics
       hl.jDiagnosticUnderlineInfo = { undercurl = true, sp = c.info } -- Used to underline "Information" diagnostics
       hl.jDiagnosticUnderlineHint = { undercurl = true, sp = c.hint } -- Used to underline "Hint" diagnostics
+      hl.NoiceCmdlinePopupTitleCmdline = { bg = c.orange }
       hl.TelescopeBorder = { fg = c.border_highlight, bg = c.bg_float }
       hl.TelescopeNormal = { fg = c.fg, bg = c.bg_float }
       hl.TelescopePromptBorder = { fg = c.orange, bg = c.none }
       hl.TelescopePromptTitle = { fg = c.bg_dark, bg = c.orange }
-      hl.TelescopePreviewBorder = { fg = c.error, bg = c.none }
+      -- hl.TelescopePreviewBorder = { fg = c.error, bg = c.none }
+      hl.TelescopePreviewBorder = { fg = c.green, bg = c.none }
       hl.TelescopeResultsBorder = { fg = c.info, bg = c.none }
       hl.TelescopePromptPrefix = { fg = c.orange, bg = c.none }
       hl.TelescopeMatching = { fg = c.orange, bg = c.none }
@@ -89,7 +92,7 @@ return {
       --   fg = c.bg_dark,
       -- }
       hl.TelescopePreviewTitle = {
-        bg = c.error,
+        bg = c.green,
         fg = c.bg_dark,
       }
       hl.TelescopeResultsTitle = {
