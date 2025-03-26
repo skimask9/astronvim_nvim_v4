@@ -1,5 +1,6 @@
 return {
   "Abstract-IDE/abstract-autocmds",
+  enabled = true,
   lazy = false,
   config = function()
     require("abstract-autocmds").setup {
@@ -14,16 +15,15 @@ return {
       -- 		timeout = 150,
       -- 	},
       -- },
-      give_border = {
-        enable = true,
-        opts = {
-          pattern = { "null-ls-info", "lspinfo" },
-        },
-      },
+      -- give_border = {
+      --   enable = true,
+      --   opts = {
+      --     pattern = { "null-ls-info", "lspinfo" },
+      --   },
+      -- },
       smart_dd = true,
       -- visually_codeblock_shift = true,
       -- move_selected_upndown = true,
-      ctrl_backspace_delete = true,
       smart_visual_paste = true,
       dont_suspend_with_cz = true,
       smart_save_in_insert_mode = true,

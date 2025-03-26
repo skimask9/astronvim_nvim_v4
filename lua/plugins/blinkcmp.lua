@@ -1,3 +1,12 @@
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BlinkCmpMenuOpen",
+  callback = function() vim.b.copilot_suggestion_hidden = true end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BlinkCmpMenuClose",
+  callback = function() vim.b.copilot_suggestion_hidden = false end,
+})
 local function has_words_before()
   local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
@@ -9,20 +18,18 @@ local icon_provider, hl_provider
 local function get_kind_icon(CTX)
   -- Evaluate icon provider
   if not icon_provider then
-    local base = function(ctx) ctx.kind_icon_highlight = "BlinkCmpKind" .. ctx.kind end
     local _, mini_icons = pcall(require, "mini.icons")
     if _G.MiniIcons then
       icon_provider = function(ctx)
-        base(ctx)
+        local is_specific_color = ctx.kind_hl and ctx.kind_hl:match "^HexColor" ~= nil
         if ctx.item.source_name == "LSP" then
           local icon, hl = mini_icons.get("lsp", ctx.kind or "")
           if icon then
             ctx.kind_icon = icon
-            ctx.kind_icon_highlight = hl
+            if not is_specific_color then ctx.kind_hl = hl end
           end
         elseif ctx.item.source_name == "Path" then
-          ctx.kind_icon, ctx.kind_icon_highlight =
-            mini_icons.get(ctx.kind == "Folder" and "directory" or "file", ctx.label)
+          ctx.kind_icon, ctx.kind_hl = mini_icons.get(ctx.kind == "Folder" and "directory" or "file", ctx.label)
         end
       end
     end
@@ -30,7 +37,6 @@ local function get_kind_icon(CTX)
       local lspkind_avail, lspkind = pcall(require, "lspkind")
       if lspkind_avail then
         icon_provider = function(ctx)
-          base(ctx)
           if ctx.item.source_name == "LSP" then
             local icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
             if icon then ctx.kind_icon = icon end
@@ -38,7 +44,7 @@ local function get_kind_icon(CTX)
         end
       end
     end
-    if not icon_provider then icon_provider = function(ctx) base(ctx) end end
+    if not icon_provider then icon_provider = function() end end
   end
   -- Evaluate highlight provider
   if not hl_provider then
@@ -53,31 +59,26 @@ local function get_kind_icon(CTX)
             local color_item = highlight_colors_avail and highlight_colors.format(doc, { kind = kinds[kinds.Color] })
             if color_item and color_item.abbr_hl_group then
               if color_item.abbr then ctx.kind_icon = color_item.abbr end
-              ctx.kind_icon_highlight = color_item.abbr_hl_group
+              ctx.kind_hl = color_item.abbr_hl_group
             end
           end
         end
       end
     end
-    if not hl_provider then
-      hl_provider = function(ctx)
-        local tailwind_hl = require("blink.cmp.completion.windows.render.tailwind").get_hl(ctx)
-        if tailwind_hl then ctx.kind_icon_highlight = tailwind_hl end
-      end
-    end
+    if not hl_provider then hl_provider = function() end end
   end
   -- Call resolved providers
   icon_provider(CTX)
   hl_provider(CTX)
   -- Return text and highlight information
-  return { text = CTX.kind_icon .. CTX.icon_gap, highlight = CTX.kind_icon_highlight }
+  return { text = CTX.kind_icon .. CTX.icon_gap, highlight = CTX.kind_hl }
 end
 
 return {
   "Saghen/blink.cmp",
   event = { "InsertEnter", "CmdlineEnter" },
-  version = "0.*",
-  opts_extend = { "sources.default", "sources.cmdline" },
+  version = "^1",
+  opts_extend = { "sources.default", "cmdline.sources", "term.sources" },
   dependencies = {
     "rafamadriz/friendly-snippets",
     "xzbdmw/colorful-menu.nvim",
@@ -88,7 +89,14 @@ return {
   opts = {
     -- remember to enable your providers here
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "dadbod", "copilot" },
+      default = {
+        "lsp",
+        "path",
+        "snippets",
+        "buffer",
+        "dadbod",
+        "copilot",
+      },
       providers = {
         dadbod = {
           name = "Dadbod",
@@ -100,13 +108,19 @@ return {
           module = "blink-copilot",
           score_offset = 100,
           async = true,
-          opts = {
-            max_completions = 3,
-            max_attempts = 4,
-            kind = "Copilot",
-            -- Local options override global ones
-            -- Final settings: max_completions = 3, max_attempts = 2, kind = "Copilot"
-          },
+          -- opts = {
+          --   max_completions = 3,
+          --   max_attempts = 4,
+          --   kind_name = "CP",
+          --   kind_icon = " ",
+          --   -- debounce = 750, ---@type integer | false
+          --   auto_refresh = {
+          --     backward = true,
+          --     forward = true,
+          --   },
+          --   -- Local options override global ones
+          --   -- Final settings: max_completions = 3, max_attempts = 2, kind = "Copilot"
+          -- },
         },
         --    copilot = {
         --   name = "copilot",
@@ -126,33 +140,33 @@ return {
       },
     },
     keymap = {
-      ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
-      ["<Up>"] = { "select_prev", "fallback" },
-      ["<Down>"] = { "select_next", "fallback" },
-      ["<C-N>"] = { "select_next", "show" },
-      ["<C-P>"] = { "select_prev", "show" },
-      ["<C-J>"] = { "select_next", "fallback" },
-      ["<C-K>"] = { "select_prev", "fallback" },
-      ["<C-U>"] = { "scroll_documentation_up", "fallback" },
-      ["<C-D>"] = { "scroll_documentation_down", "fallback" },
-      ["<C-e>"] = { "hide", "fallback" },
+      --   ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+      --   ["<Up>"] = { "select_prev", "fallback" },
+      --   ["<Down>"] = { "select_next", "fallback" },
+      --   ["<C-N>"] = { "select_next", "show" },
+      --   ["<C-P>"] = { "select_prev", "show" },
+      --   ["<C-J>"] = { "select_next", "fallback" },
+      --   ["<C-K>"] = { "select_prev", "fallback" },
+      --   ["<C-U>"] = { "scroll_documentation_up", "fallback" },
+      --   ["<C-D>"] = { "scroll_documentation_down", "fallback" },
+      --   ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
-      ["<Tab>"] = {
-        "select_next",
-        "snippet_forward",
-        function(cmp)
-          if has_words_before() or vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
-        end,
-        "fallback",
-      },
-      ["<S-Tab>"] = {
-        "select_prev",
-        "snippet_backward",
-        function(cmp)
-          if vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
-        end,
-        "fallback",
-      },
+      --   ["<Tab>"] = {
+      --     "select_next",
+      --     "snippet_forward",
+      --     function(cmp)
+      --       if has_words_before() or vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
+      --     end,
+      --     "fallback",
+      --   },
+      --   ["<S-Tab>"] = {
+      --     "select_prev",
+      --     "snippet_backward",
+      --     function(cmp)
+      --       if vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
+      --     end,
+      --     "fallback",
+      --   },
     },
     completion = {
       list = { selection = { preselect = false, auto_insert = true } },
@@ -160,13 +174,16 @@ return {
         auto_show = function(ctx)
           return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
         end,
-        border = "rounded",
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+        border = "none",
+        -- winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+        -- winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+        winblend = 25,
         draw = {
-          columns = { { "kind_icon" }, { "label", "label_description", "kind", gap = 1 } },
+          align_to = "label", -- or 'none' to disable, or 'cursor' to align to the cursor
+          -- columns = { { "kind_icon", gap = 1 }, { "label", "label_description", "kind", gap = 1 } },
+          columns = { { "kind_icon", gap = 1 }, { "label", "source_name", "kind", gap = 1 } },
           -- columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
 
-          -- columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
           treesitter = { "lsp" },
           components = {
             label = {
@@ -186,25 +203,36 @@ return {
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 0,
+        treesitter_highlighting = true,
         window = {
-          border = "rounded",
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+          border = "none",
+          -- border = "rounded",
+          winblend = 25,
+          -- winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+          -- winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
         },
       },
     },
     signature = {
+      enabled = true,
+      trigger = {
+        show_on_insert = true,
+      },
       window = {
-        -- border = "rounded",
-        border = (vim.o.background == "light") and "rounded" or "none",
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        -- border = (vim.o.background == "light") and "rounded" or "none",
+        border = "none",
+        show_documentation = true,
+        winblend = 25,
+        -- winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        -- winhighlight = "Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
       },
     },
-    appearance = {
-      -- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
-      kind_icons = {
-        Copilot = "",
-      },
-    },
+    -- appearance = {
+    --   -- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
+    --   kind_icons = {
+    --     Copilot = " ",
+    --   },
+    -- },
   },
   specs = {
     -- {

@@ -16,8 +16,9 @@ return {
     -- colorscheme = "astrodark",
     -- colorscheme = "tokyonight",
     -- colorscheme = "flexoki-dawn",
-    -- colorscheme = "jellybeans",
-    colorscheme = "catppuccin",
+    colorscheme = "jellybeans",
+    -- colorscheme = "vague",
+    -- colorscheme = "catppuccin",
     -- colorscheme = "nightfly",
     -- colorscheme = "tokyonight-day",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes

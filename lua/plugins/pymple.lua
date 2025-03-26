@@ -11,7 +11,7 @@ return {
   },
   enabled = false,
   build = ":PympleBuild",
-  -- ft = "py",
+  ft = "py",
   config = function()
     require("pymple").setup {
       keymaps = {

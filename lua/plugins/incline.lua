@@ -57,22 +57,25 @@ local function shorten_path_styled(path, opts)
     vim.list_extend(tail_style, { result[2] }),
   }
 end
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    extra_colors = {} -- Removed 'local'
-    if vim.g.colors_name == "catppuccin-frappe" then
-      extra_colors.bg = "#51576d"
-    elseif vim.g.colors_name == "nightfly" then
-      extra_colors.bg = "#1d3b53"
-    elseif vim.g.colors_name == "catppuccin-mocha" then
-      extra_colors.bg = "#45475a"
-    elseif vim.g.colors_name == "flexoki" then
-      extra_colors.bg = "#b7b5ac"
-    else
-      extra_colors.bg = "#3b4261" --tokyonight
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   callback = function()
+--     extra_colors = {} -- Removed 'local'
+--     if vim.g.colors_name == "catppuccin-frappe" then
+--       extra_colors.bg = "#51576d"
+--     elseif vim.g.colors_name == "nightfly" then
+--       extra_colors.bg = "#1d3b53"
+--     elseif vim.g.colors_name == "catppuccin-mocha" then
+--       extra_colors.bg = "#45475a"
+--     elseif vim.g.colors_name == "flexoki" then
+--       extra_colors.bg = "#b7b5ac"
+--     elseif vim.g.colors_name == "jellybeans" then
+--       -- extra_colors.bg = "#384048"
+--       extra_colors.bg = "#ffffff"
+--     else
+--       extra_colors.bg = "#3b4261" --tokyonight
+--     end
+--   end,
+-- })
 -- local extra_colors = {}
 -- if vim.g.colors_name == "catppuccin-frappe" then
 --   -- local frappe = require("catppuccin.palettes").get_palette "frappe"
@@ -95,10 +98,29 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 return {
   "b0o/incline.nvim",
   event = "VeryLazy",
+  enabled = true,
   keys = {
     { "<leader>uI", '<Cmd>lua require"incline".toggle()<Cr>', desc = "Incline: Toggle" },
   },
   config = function()
+    extra_colors = {} -- Removed 'local'
+    if vim.g.colors_name == "catppuccin-frappe" then
+      extra_colors.bg = "#51576d"
+    elseif vim.g.colors_name == "nightfly" then
+      extra_colors.bg = "#1d3b53"
+    elseif vim.g.colors_name == "catppuccin-mocha" then
+      extra_colors.bg = "#45475a"
+    elseif vim.g.colors_name == "flexoki" then
+      extra_colors.bg = "#b7b5ac"
+      extra_colors.grapple = "#5e409d"
+    elseif vim.g.colors_name == "jellybeans" then
+      extra_colors.bg = "#384048"
+      extra_colors.grapple = "#d7af87"
+    else
+      extra_colors.bg = "#3b4261" --tokyonight
+      extra_colors.grapple = "#d7af87"
+    end
+
     require("incline").setup {
       debounce_threshold = { rising = 20, falling = 150 },
       window = {
@@ -148,6 +170,13 @@ return {
         if filename_icon == "" then filename_icon = "[No Name]" end
         local ft_icon, ft_color = devicons.get_icon_color(filename_icon)
         local modified = vim.bo[props.buf].modified
+        local grapple_status
+        if props.focused then
+          grapple_status = require("grapple").name_or_index() or ""
+          if grapple_status ~= "" then grapple_status = "󰛢 " .. grapple_status .. " " end
+        else
+          grapple_status = " "
+        end
         return {
           { "", guifg = ft_color },
 
@@ -156,6 +185,12 @@ return {
 
           {
             " ",
+            grapple_status,
+            gui = modified and "bold,italic" or "bold",
+            guifg = extra_colors.grapple,
+            guibg = vim.o.background == "light" and extra_colors.bg or extra_colors.bg,
+          },
+          {
             filename,
             gui = modified and "bold,italic" or "bold",
             -- guifg = "#888888",

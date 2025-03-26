@@ -52,7 +52,7 @@ return {
       --   filetypes = { "html", "templ", "htmldjango" },
       -- },
       -- html = {
-      -- filetypes = { "htmldjango" },
+      --   filetypes = { "html", "tmpl", "htmldjango", "jinja", "jinja2" },
       -- },
       -- htmldjango = { "html" },
       -- cssls = {
@@ -75,11 +75,16 @@ return {
           basedpyright = {
             analysis = {
               disableOrganizeImports = true,
+              typeCheckingMode = "basic",
+              -- typeCheckingMode = "strict",
+              autoImpCortompletions = true,
+              autoSearchPaths = true,
               -- diagnosticMode = "workspace",
-              typeCheckingMode = "standard",
-              autoImportCompletions = true,
+              useLibraryCodeForTypes = true,
+
               diagnosticSeverityOverrides = {
                 reportUnusedImport = false,
+                -- reportUnusedParameter = false,
                 reportUnannotatedClassAttribute = "none",
                 reportUnusedFunction = "information",
                 reportUnusedVariable = "information",
@@ -87,6 +92,7 @@ return {
                 reportOptionalMemberAccess = "none",
                 reportOptionalSubscript = "none",
                 reportPrivateImportUsage = "none",
+                reportAttributeAccessIssue = false, -- it stops all errors with django objects methods, need to be investigate
                 -- reportUnknownArgumentType = false,
                 -- reportUnknownVariableType = false,
               },

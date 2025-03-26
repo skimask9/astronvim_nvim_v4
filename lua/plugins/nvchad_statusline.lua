@@ -136,45 +136,32 @@ return {
   },
   {
     "rebelot/heirline.nvim",
-    dependencies = { "abeldekat/harpoonline" },
+    -- dependencies = { "abeldekat/harpoonline" },
     opts = function(_, opts)
       local status = require "astroui.status"
       local conditions = require "heirline.conditions"
-      local Harpoonline = require "harpoonline"
       -- local WordCount = status.component.builder {
       --   provider = function() return tostring(vim.fn.wordcount().words) .. " words " end,
       -- }
       --
-      Harpoonline.setup {
-        on_update = function() vim.cmd.redrawstatus() end,
-      }
-
-      local HarpoonComponent = status.component.builder {
-        {
-          provider = function()
-            if Harpoonline.is_buffer_harpooned() then
-              return "  " .. Harpoonline.format() .. " "
-            else
-              return " "
-            end
-          end,
-          hl = function()
-            -- if Harpoonline.is_buffer_harpooned() then return { fg = "git_changed" } end
-            if Harpoonline.is_buffer_harpooned() then
-              return {
-                fg = "harpoon_fg",
-                -- bg = "tabline_bg",
-              }
-            end
-          end,
-        },
-      }
+      -- local GrappleComponent = status.component.builder {
+      --   provider = function()
+      --     local available, grapple = pcall(require, "grapple")
+      --     if available then return grapple.statusline() end
+      --   end,
+      --   hl = function()
+      --     return {
+      --       fg = "harpoon_fg",
+      --     }
+      --   end,
+      -- }
       local GitBlameComponent = status.component.builder {
         {
           provider = function()
             local git_blame = require "gitblame"
             if git_blame.is_blame_text_available() then
-              return "  " .. git_blame.get_current_blame_text() .. " "
+              -- return " " .. git_blame.get_current_blame_text() .. " "
+              return " " .. git_blame.get_current_blame_text()
             else
               return " "
             end
@@ -448,6 +435,7 @@ return {
             -- },
           },
           status.component.builder {
+            GitBlameComponent,
             { provider = "" },
             -- define the surrounding separator and colors to be used inside of the component
             -- and the color to the right of the separated out section
@@ -479,7 +467,6 @@ return {
         --   prefix = true,
         --   padding = { left = 0 },
         -- },
-        GitBlameComponent,
 
         -- the elements after this will appear in the middle of the statusline
         -- status.component.fill(),
@@ -491,7 +478,8 @@ return {
         -- fill the rest of the statusline
         -- the elements after this will appear on the right of the statusline
         status.component.fill(),
-        HarpoonComponent,
+        -- HarpoonComponent,
+        -- GrappleComponent,
         DoingComponent,
         -- NeoCodeium,
         -- status.component.builder {

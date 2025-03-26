@@ -1,5 +1,6 @@
 return {
   "Davidyz/inlayhint-filler.nvim",
+  event = "VeryLazy",
   keys = {
     {
       "<Leader>I", -- Use whatever keymap you want.

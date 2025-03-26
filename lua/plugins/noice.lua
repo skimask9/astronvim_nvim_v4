@@ -1,3 +1,4 @@
+-- local jellybeans = require "jellybeans.palette"
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -10,22 +11,22 @@ return {
       end
     end,
   },
-  {
-    "AstroNvim/astrolsp",
-    optional = true,
-    ---@param opts AstroLSPOpts
-    opts = function(_, opts)
-      local noice_opts = require("astrocore").plugin_opts "noice.nvim"
-      -- disable the necessary handlers in AstroLSP
-      if not opts.lsp_handlers then opts.lsp_handlers = {} end
-      if vim.tbl_get(noice_opts, "lsp", "hover", "enabled") ~= false then
-        opts.lsp_handlers["textDocument/hover"] = false
-      end
-      if vim.tbl_get(noice_opts, "lsp", "signature", "enabled") ~= false then
-        opts.lsp_handlers["textDocument/signatureHelp"] = false
-      end
-    end,
-  },
+  -- {
+  --   "AstroNvim/astrolsp",
+  --   optional = true,
+  --   ---@param opts AstroLSPOpts
+  --   opts = function(_, opts)
+  --     local noice_opts = require("astrocore").plugin_opts "noice.nvim"
+  --     -- disable the necessary handlers in AstroLSP
+  --     if not opts.lsp_handlers then opts.lsp_handlers = {} end
+  --     if vim.tbl_get(noice_opts, "lsp", "hover", "enabled") ~= false then
+  --       opts.lsp_handlers["textDocument/hover"] = false
+  --     end
+  --     if vim.tbl_get(noice_opts, "lsp", "signature", "enabled") ~= false then
+  --       opts.lsp_handlers["textDocument/signatureHelp"] = false
+  --     end
+  --   end,
+  -- },
   -- {
   --   "heirline.nvim",
   --   optional = true,
@@ -56,11 +57,38 @@ return {
         -- },
         lsp = {
           signature = {
+            enabled = false,
             opts = {
-              border = "rounded",
+              -- border = "rounded",
+              border = "none",
+              winblend = 25,
               size = {
                 max_height = 7,
                 -- max_width = 75,
+              },
+              -- Add highlight groups
+              hl_group = {
+                signature = "NoiceSignature",
+                parameter = "NoiceSignatureParameter",
+                parameter_active = "@parameter",
+              },
+            },
+          },
+          documentation = {
+            enabled = true,
+            opts = {
+              -- border = "none",
+              border = "rounded",
+              winblend = 25,
+            },
+          },
+          hover = {
+            enabled = true,
+            view = "hover", -- Change to your preferred view
+            opts = {
+              border = {
+                style = "rounded",
+                winblend = 25,
               },
             },
           },
@@ -89,10 +117,30 @@ return {
             view = "mini",
           },
         },
+        views = {
+          hover = {
+            border = { style = "rounded", winblend = 25 },
+            win_options = {
+              winhighlight = {
+                Normal = "BlinkCmpMenu",
+                FloatBorder = "BlinkCmpMenuBorder",
+              },
+            },
+          },
+          --   signature_help = {
+          --     border = { style = "none" },
+          --     win_options = {
+          --       winhighlight = {
+          --         Normal = { bg = jellybeans.grey_three, fg = jellybeans.biloba_flower },
+          --         FloatBorder = { bg = jellybeans.grey_three, fg = jellybeans.grey_three },
+          --       },
+          --     },
+          --   },
+        },
         -- views = {
         --   mini = {
         --     win_options = {
-        --       winblend = 0,
+        --       winblend = 25,
         --     },
         --   },
         -- },

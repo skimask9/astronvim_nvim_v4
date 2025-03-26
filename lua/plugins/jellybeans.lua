@@ -1,27 +1,27 @@
 return {
   "wtfox/jellybeans.nvim",
   priority = 1000,
-  enabled = false,
+  -- enabled = false,
   config = function()
     require("jellybeans").setup {
-      -- Your custom configuration
-      style = "dark",
-      transparent = true, -- If you want transparent background
+      style = "dark", -- "dark" or "light"
+      transparent = false,
       italics = true,
+
+      flat_ui = true,
+
       plugins = {
-        all = true, -- Enable highlighting for all plugins
-        auto = true, -- Auto-detect and apply colors for installed plugins
+        all = false,
+        auto = true, -- will read lazy.nvim and apply the colors for plugins that are installed
       },
-      -- Optional: customize specific highlights
-      on_highlights = function(highlights, colors)
-        -- Example: customize the background color of normal text
-        highlights.Normal = {
-          fg = colors.foreground,
-          bg = colors.background,
-        }
-        -- You can add more custom highlights here
+      on_highlights = function(hl, c)
+        -- Customize Telescope colors
+        hl.NeoTreeFloatBorder = { bg = c.background, fg = c.grey_three }
+        hl.TelescopeBorder = { fg = c.grey_three, bg = c.grey_three }
+        hl.NoiceCmdlinePopupTitleCmdline = { bg = c.biloba_flower, fg = c.background }
+        hl.NoiceCmdlinePopupBorderCmdLine = { bg = c.none, fg = c.biloba_flower }
       end,
     }
-    -- vim.cmd.colorscheme "jellybeans"
+    vim.cmd.colorscheme "jellybeans"
   end,
 }

@@ -105,7 +105,7 @@ return {
           precedes = "⟨",
           trail = "·",
           nbsp = "␣",
-          eol = "↵",
+          -- eol = "↵",
         },
         showbreak = "↪ ",
         wrap = true, -- sets vim.opt.wrap
@@ -115,6 +115,7 @@ return {
         winblend = 0, -- for documentation popup
         rnu = true,
         scrolloff = 10,
+        laststatus = 3,
         -- clipboard = "unnamedplus",
         sidescrolloff = 8,
         -- guicursor = "n-v-c-sm-ve:block,i-ci:ver20,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
